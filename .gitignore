@@ -1,0 +1,6 @@
+node_modules
+ts_out
+.idea
+.vscode
+/VS.lnk
+/private.json

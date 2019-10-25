@@ -1,0 +1,199 @@
+{
+    "expand": "renderedFields,names,schema,operations,editmeta,changelog,versionedRepresentations",
+    "id": "755131",
+    "self": "http://jiraft.moscow.alfaintra.net/rest/api/2/issue/755131",
+    "key": "DATAMAP-1",
+    "fields": {
+        "resolution": null,
+        "lastViewed": "2019-10-23T17:17:55.794+0300",
+        "aggregatetimeoriginalestimate": 432000,
+        "issuelinks": [],
+        "subtasks": [],
+        "issuetype": {
+            "self": "http://jiraft.moscow.alfaintra.net/rest/api/2/issuetype/3",
+            "id": "3",
+            "description": "A task that needs to be done.",
+            "iconUrl": "http://jiraft.moscow.alfaintra.net/secure/viewavatar?size=xsmall&avatarId=13068&avatarType=issuetype",
+            "name": "Task",
+            "subtask": false,
+            "avatarId": 13068
+        },
+        "timetracking": {
+            "originalEstimate": "3w",
+            "remainingEstimate": "2w 4d 7h",
+            "timeSpent": "1h",
+            "originalEstimateSeconds": 432000,
+            "remainingEstimateSeconds": 428400,
+            "timeSpentSeconds": 3600
+        },
+        "environment": null,
+        "timeestimate": 428400,
+        "aggregatetimespent": 3600,
+        "workratio": 0,
+        "labels": [],
+        "reporter": {
+            "self": "http://jiraft.moscow.alfaintra.net/rest/api/2/user?username=U_M12YK",
+            "name": "U_M12YK",
+            "key": "u_m12yk",
+            "emailAddress": "YYaryshev@alfabank.ru",
+            "avatarUrls": {
+                "48x48": "http://jiraft.moscow.alfaintra.net/secure/useravatar?avatarId=10172",
+                "24x24": "http://jiraft.moscow.alfaintra.net/secure/useravatar?size=small&avatarId=10172",
+                "16x16": "http://jiraft.moscow.alfaintra.net/secure/useravatar?size=xsmall&avatarId=10172",
+                "32x32": "http://jiraft.moscow.alfaintra.net/secure/useravatar?size=medium&avatarId=10172"
+            },
+            "displayName": "Ярышев Юрий Александрович",
+            "active": true,
+            "timeZone": "Europe/Moscow"
+        },
+        "watches": {
+            "self": "http://jiraft.moscow.alfaintra.net/rest/api/2/issue/DATAMAP-1/watchers",
+            "watchCount": 1,
+            "isWatching": true
+        },
+        "updated": "2019-10-23T17:17:54.000+0300",
+        "timeoriginalestimate": 432000,
+        "description": null,
+        "fixVersions": [],
+        "priority": {
+            "self": "http://jiraft.moscow.alfaintra.net/rest/api/2/priority/3",
+            "iconUrl": "http://jiraft.moscow.alfaintra.net/images/icons/priorities/medium.svg",
+            "name": "Medium",
+            "id": "3"
+        },
+        "created": "2019-08-23T10:49:05.000+0300",
+        "attachment": [],
+        "assignee": {
+            "self": "http://jiraft.moscow.alfaintra.net/rest/api/2/user?username=U_M12YK",
+            "name": "U_M12YK",
+            "key": "u_m12yk",
+            "emailAddress": "YYaryshev@alfabank.ru",
+            "avatarUrls": {
+                "48x48": "http://jiraft.moscow.alfaintra.net/secure/useravatar?avatarId=10172",
+                "24x24": "http://jiraft.moscow.alfaintra.net/secure/useravatar?size=small&avatarId=10172",
+                "16x16": "http://jiraft.moscow.alfaintra.net/secure/useravatar?size=xsmall&avatarId=10172",
+                "32x32": "http://jiraft.moscow.alfaintra.net/secure/useravatar?size=medium&avatarId=10172"
+            },
+            "displayName": "Ярышев Юрий Александрович",
+            "active": true,
+            "timeZone": "Europe/Moscow"
+        },
+        "votes": {
+            "self": "http://jiraft.moscow.alfaintra.net/rest/api/2/issue/DATAMAP-1/votes",
+            "votes": 0,
+            "hasVoted": false
+        },
+        "worklog": {
+            "startAt": 0,
+            "maxResults": 20,
+            "total": 1,
+            "worklogs": [
+                {
+                    "self": "http://jiraft.moscow.alfaintra.net/rest/api/2/issue/755131/worklog/232013",
+                    "author": {
+                        "self": "http://jiraft.moscow.alfaintra.net/rest/api/2/user?username=U_M12YK",
+                        "name": "U_M12YK",
+                        "key": "u_m12yk",
+                        "emailAddress": "YYaryshev@alfabank.ru",
+                        "avatarUrls": {
+                            "48x48": "http://jiraft.moscow.alfaintra.net/secure/useravatar?avatarId=10172",
+                            "24x24": "http://jiraft.moscow.alfaintra.net/secure/useravatar?size=small&avatarId=10172",
+                            "16x16": "http://jiraft.moscow.alfaintra.net/secure/useravatar?size=xsmall&avatarId=10172",
+                            "32x32": "http://jiraft.moscow.alfaintra.net/secure/useravatar?size=medium&avatarId=10172"
+                        },
+                        "displayName": "Ярышев Юрий Александрович",
+                        "active": true,
+                        "timeZone": "Europe/Moscow"
+                    },
+                    "updateAuthor": {
+                        "self": "http://jiraft.moscow.alfaintra.net/rest/api/2/user?username=U_M12YK",
+                        "name": "U_M12YK",
+                        "key": "u_m12yk",
+                        "emailAddress": "YYaryshev@alfabank.ru",
+                        "avatarUrls": {
+                            "48x48": "http://jiraft.moscow.alfaintra.net/secure/useravatar?avatarId=10172",
+                            "24x24": "http://jiraft.moscow.alfaintra.net/secure/useravatar?size=small&avatarId=10172",
+                            "16x16": "http://jiraft.moscow.alfaintra.net/secure/useravatar?size=xsmall&avatarId=10172",
+                            "32x32": "http://jiraft.moscow.alfaintra.net/secure/useravatar?size=medium&avatarId=10172"
+                        },
+                        "displayName": "Ярышев Юрий Александрович",
+                        "active": true,
+                        "timeZone": "Europe/Moscow"
+                    },
+                    "comment": "test1",
+                    "created": "2019-10-23T17:17:54.000+0300",
+                    "updated": "2019-10-23T17:17:54.000+0300",
+                    "started": "2019-10-23T17:17:00.000+0300",
+                    "timeSpent": "1h",
+                    "timeSpentSeconds": 3600,
+                    "id": "232013",
+                    "issueId": "755131"
+                }
+            ]
+        },
+        "duedate": null,
+        "status": {
+            "self": "http://jiraft.moscow.alfaintra.net/rest/api/2/status/10106",
+            "description": "",
+            "iconUrl": "http://jiraft.moscow.alfaintra.net/images/icons/statuses/open.png",
+            "name": "TO DO",
+            "id": "10106",
+            "statusCategory": {
+                "self": "http://jiraft.moscow.alfaintra.net/rest/api/2/statuscategory/2",
+                "id": 2,
+                "key": "new",
+                "colorName": "blue-gray",
+                "name": "To Do"
+            }
+        },
+        "aggregatetimeestimate": 428400,
+        "creator": {
+            "self": "http://jiraft.moscow.alfaintra.net/rest/api/2/user?username=U_M12YK",
+            "name": "U_M12YK",
+            "key": "u_m12yk",
+            "emailAddress": "YYaryshev@alfabank.ru",
+            "avatarUrls": {
+                "48x48": "http://jiraft.moscow.alfaintra.net/secure/useravatar?avatarId=10172",
+                "24x24": "http://jiraft.moscow.alfaintra.net/secure/useravatar?size=small&avatarId=10172",
+                "16x16": "http://jiraft.moscow.alfaintra.net/secure/useravatar?size=xsmall&avatarId=10172",
+                "32x32": "http://jiraft.moscow.alfaintra.net/secure/useravatar?size=medium&avatarId=10172"
+            },
+            "displayName": "Ярышев Юрий Александрович",
+            "active": true,
+            "timeZone": "Europe/Moscow"
+        },
+        "timespent": 3600,
+        "components": [],
+        "progress": {
+            "progress": 3600,
+            "total": 432000,
+            "percent": 0
+        },
+        "project": {
+            "self": "http://jiraft.moscow.alfaintra.net/rest/api/2/project/27280",
+            "id": "27280",
+            "key": "DATAMAP",
+            "name": "Карта данных",
+            "avatarUrls": {
+                "48x48": "http://jiraft.moscow.alfaintra.net/secure/projectavatar?pid=27280&avatarId=13080",
+                "24x24": "http://jiraft.moscow.alfaintra.net/secure/projectavatar?size=small&pid=27280&avatarId=13080",
+                "16x16": "http://jiraft.moscow.alfaintra.net/secure/projectavatar?size=xsmall&pid=27280&avatarId=13080",
+                "32x32": "http://jiraft.moscow.alfaintra.net/secure/projectavatar?size=medium&pid=27280&avatarId=13080"
+            }
+        },
+        "resolutiondate": null,
+        "summary": "Test",
+        "comment": {
+            "comments": [],
+            "maxResults": 0,
+            "total": 0,
+            "startAt": 0
+        },
+        "versions": [],
+        "aggregateprogress": {
+            "progress": 3600,
+            "total": 432000,
+            "percent": 0
+        }
+    }
+}
