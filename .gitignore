@@ -3,4 +3,5 @@ ts_out
 .idea
 .vscode
 /VS.lnk
-/private.json
+settings.json
+private.json

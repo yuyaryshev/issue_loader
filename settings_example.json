@@ -1,0 +1,27 @@
+{
+    "jira": {
+        "protocol": "http",
+        "port": 80,
+        "host": "jira.moscow.alfaintra.net",
+        "basic_auth": {
+            "username": "U_M00000",
+            "password": "YOUR_PASSWORD_HERE"
+        },
+        "strictSSL": false
+    },
+    "jiradev": {
+        "protocol": "http",
+        "port": 80,
+        "host": "jiraft.moscow.alfaintra.net",
+        "basic_auth": {
+            "username": "U_M00000",
+            "password": "YOUR_PASSWORD_HERE"
+        },
+        "strictSSL": false
+    },
+    "oracle": {
+        "user": "YOUR_LOGIN",
+        "password": "YOUR_PASSWORD_HERE",
+        "connectString": "DWSTPROD_TAF"
+    }
+}

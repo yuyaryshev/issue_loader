@@ -1,0 +1,1084 @@
+[
+    [
+        "jira.serverInfo.getServerInfo",
+        {
+            "baseUrl": "http://jira.moscow.alfaintra.net",
+            "version": "7.12.3",
+            "versionNumbers": [
+                7,
+                12,
+                3
+            ],
+            "deploymentType": "Server",
+            "buildNumber": 712004,
+            "buildDate": "2018-10-12T00:00:00.000+0300",
+            "serverTime": "2019-11-07T18:21:26.246+0300",
+            "scmInfo": "5ef91d760d7124da5ebec5c16a948a4a807698df",
+            "serverTitle": "Alfa-bank Issue Tracker"
+        }
+    ],
+    [
+        "env.jira.search/(Project = DMREPORT)/7000",
+        {
+            "startAt": 0,
+            "maxResults": 1000,
+            "total": 363,
+            "issues": []
+        }
+    ],
+    [
+        "env.jira.search/(Project = DATAMAP)/8000",
+        {
+            "startAt": 0,
+            "maxResults": 1000,
+            "total": 1,
+            "issues": []
+        }
+    ],
+    [
+        "env.jira.search/(Project = ODH)/8000",
+        {
+            "startAt": 0,
+            "maxResults": 1000,
+            "total": 968,
+            "issues": []
+        }
+    ],
+    [
+        "env.jira.search/(Project = DWH4DM)/5000",
+        {
+            "startAt": 0,
+            "maxResults": 1000,
+            "total": 1802,
+            "issues": []
+        }
+    ],
+    [
+        "env.jira.search/(Project = ODH)/2000",
+        {
+            "startAt": 0,
+            "maxResults": 1000,
+            "total": 968,
+            "issues": []
+        }
+    ],
+    [
+        "env.jira.search/(Project = ODH)/1000",
+        {
+            "startAt": 0,
+            "maxResults": 1000,
+            "total": 968,
+            "issues": []
+        }
+    ],
+    [
+        "env.jira.search/(Project = ODH)/9000",
+        {
+            "startAt": 0,
+            "maxResults": 1000,
+            "total": 968,
+            "issues": []
+        }
+    ],
+    [
+        "env.jira.search/(Project = ODH)/7000",
+        {
+            "startAt": 0,
+            "maxResults": 1000,
+            "total": 968,
+            "issues": []
+        }
+    ],
+    [
+        "env.jira.search/(Project = ODH)/3000",
+        {
+            "startAt": 0,
+            "maxResults": 1000,
+            "total": 968,
+            "issues": []
+        }
+    ],
+    [
+        "env.jira.search/(Project = DATAMAP)/9000",
+        {
+            "startAt": 0,
+            "maxResults": 1000,
+            "total": 1,
+            "issues": []
+        }
+    ],
+    [
+        "env.jira.search/(Project = ODH)/4000",
+        {
+            "startAt": 0,
+            "maxResults": 1000,
+            "total": 968,
+            "issues": []
+        }
+    ],
+    [
+        "env.jira.search/(Project = DWH4DM)/9000",
+        {
+            "startAt": 0,
+            "maxResults": 1000,
+            "total": 1802,
+            "issues": []
+        }
+    ],
+    [
+        "env.jira.search/(Project = ODH)/5000",
+        {
+            "startAt": 0,
+            "maxResults": 1000,
+            "total": 968,
+            "issues": []
+        }
+    ],
+    [
+        "env.jira.search/(Project = DMREPORT)/5000",
+        {
+            "startAt": 0,
+            "maxResults": 1000,
+            "total": 363,
+            "issues": []
+        }
+    ],
+    [
+        "env.jira.search/(Project = DATAMAP)/5000",
+        {
+            "startAt": 0,
+            "maxResults": 1000,
+            "total": 1,
+            "issues": []
+        }
+    ],
+    [
+        "env.jira.search/(Project = ODH)/6000",
+        {
+            "startAt": 0,
+            "maxResults": 1000,
+            "total": 968,
+            "issues": []
+        }
+    ],
+    [
+        "env.jira.search/(Project = DATAMAP)/3000",
+        {
+            "startAt": 0,
+            "maxResults": 1000,
+            "total": 1,
+            "issues": []
+        }
+    ],
+    [
+        "env.jira.search/(Project = DWH4DM)/8000",
+        {
+            "startAt": 0,
+            "maxResults": 1000,
+            "total": 1802,
+            "issues": []
+        }
+    ],
+    [
+        "env.jira.search/(Project = DATAMAP)/1000",
+        {
+            "startAt": 0,
+            "maxResults": 1000,
+            "total": 1,
+            "issues": []
+        }
+    ],
+    [
+        "env.jira.search/(Project = DWH4DM)/6000",
+        {
+            "startAt": 0,
+            "maxResults": 1000,
+            "total": 1802,
+            "issues": []
+        }
+    ],
+    [
+        "env.jira.search/(Project = DWH4DM)/7000",
+        {
+            "startAt": 0,
+            "maxResults": 1000,
+            "total": 1802,
+            "issues": []
+        }
+    ],
+    [
+        "env.jira.search/(Project = DATAMAP)/6000",
+        {
+            "startAt": 0,
+            "maxResults": 1000,
+            "total": 1,
+            "issues": []
+        }
+    ],
+    [
+        "env.jira.search/(Project = DWH4DM)/3000",
+        {
+            "startAt": 0,
+            "maxResults": 1000,
+            "total": 1802,
+            "issues": []
+        }
+    ],
+    [
+        "env.jira.search/(Project = DWH4DM)/2000",
+        {
+            "startAt": 0,
+            "maxResults": 1000,
+            "total": 1802,
+            "issues": []
+        }
+    ],
+    [
+        "env.jira.search/(Project = DWH4DM)/4000",
+        {
+            "startAt": 0,
+            "maxResults": 1000,
+            "total": 1802,
+            "issues": []
+        }
+    ],
+    [
+        "env.jira.search/(Project = DMREPORT)/6000",
+        {
+            "startAt": 0,
+            "maxResults": 1000,
+            "total": 363,
+            "issues": []
+        }
+    ],
+    [
+        "env.jira.search/(Project = DMREPORT)/9000",
+        {
+            "startAt": 0,
+            "maxResults": 1000,
+            "total": 363,
+            "issues": []
+        }
+    ],
+    [
+        "env.jira.search/(Project = DMREPORT)/2000",
+        {
+            "startAt": 0,
+            "maxResults": 1000,
+            "total": 363,
+            "issues": []
+        }
+    ],
+    [
+        "env.jira.search/(Project = DMREPORT)/1000",
+        {
+            "startAt": 0,
+            "maxResults": 1000,
+            "total": 363,
+            "issues": []
+        }
+    ],
+    [
+        "env.jira.search/(Project = DMREPORT)/3000",
+        {
+            "startAt": 0,
+            "maxResults": 1000,
+            "total": 363,
+            "issues": []
+        }
+    ],
+    [
+        "env.jira.search/(Project = DATAMAP)/7000",
+        {
+            "startAt": 0,
+            "maxResults": 1000,
+            "total": 1,
+            "issues": []
+        }
+    ],
+    [
+        "env.jira.search/(Project = DMREPORT)/8000",
+        {
+            "startAt": 0,
+            "maxResults": 1000,
+            "total": 363,
+            "issues": []
+        }
+    ],
+    [
+        "env.jira.search/(Project = DMREPORT)/4000",
+        {
+            "startAt": 0,
+            "maxResults": 1000,
+            "total": 363,
+            "issues": []
+        }
+    ],
+    [
+        "env.jira.search/(Project = DATAMAP)/4000",
+        {
+            "startAt": 0,
+            "maxResults": 1000,
+            "total": 1,
+            "issues": []
+        }
+    ],
+    [
+        "env.jira.search/(Project = DATAMAP)/2000",
+        {
+            "startAt": 0,
+            "maxResults": 1000,
+            "total": 1,
+            "issues": []
+        }
+    ],
+    [
+        "env.jira.search/(Project = DATAMAP)/0",
+        {
+            "expand": "names,schema",
+            "startAt": 0,
+            "maxResults": 1000,
+            "total": 1,
+            "issues": [
+                {
+                    "expand": "operations,versionedRepresentations,editmeta,changelog,renderedFields",
+                    "id": "755131",
+                    "self": "http://jira.moscow.alfaintra.net/rest/api/2/issue/755131",
+                    "key": "DATAMAP-1",
+                    "fields": {
+                        "customfield_20783": 0,
+                        "lastViewed": "2019-11-07T15:18:11.487+0300",
+                        "aggregatetimeoriginalestimate": 576000,
+                        "issuelinks": [],
+                        "assignee": {
+                            "self": "http://jira.moscow.alfaintra.net/rest/api/2/user?username=U_M12YK",
+                            "name": "U_M12YK",
+                            "key": "u_m12yk",
+                            "emailAddress": "YYaryshev@alfabank.ru",
+                            "avatarUrls": {
+                                "48x48": "http://jira.moscow.alfaintra.net/secure/useravatar?avatarId=10172",
+                                "24x24": "http://jira.moscow.alfaintra.net/secure/useravatar?size=small&avatarId=10172",
+                                "16x16": "http://jira.moscow.alfaintra.net/secure/useravatar?size=xsmall&avatarId=10172",
+                                "32x32": "http://jira.moscow.alfaintra.net/secure/useravatar?size=medium&avatarId=10172"
+                            },
+                            "displayName": "Ярышев Юрий Александрович",
+                            "active": true,
+                            "timeZone": "Europe/Moscow"
+                        },
+                        "subtasks": [],
+                        "votes": {
+                            "self": "http://jira.moscow.alfaintra.net/rest/api/2/issue/DATAMAP-1/votes",
+                            "votes": 0,
+                            "hasVoted": false
+                        },
+                        "issuetype": {
+                            "self": "http://jira.moscow.alfaintra.net/rest/api/2/issuetype/3",
+                            "id": "3",
+                            "description": "A task that needs to be done.",
+                            "iconUrl": "http://jira.moscow.alfaintra.net/secure/viewavatar?size=xsmall&avatarId=13068&avatarType=issuetype",
+                            "name": "Task",
+                            "subtask": false,
+                            "avatarId": 13068
+                        },
+                        "customfield_25700": {
+                            "self": "http://jira.moscow.alfaintra.net/rest/api/2/customFieldOption/125310",
+                            "value": "Не оставляем",
+                            "id": "125310"
+                        },
+                        "customfield_24975": "http://ppmold/PPM/Pages/Objects/Revenues.aspx?id=6355a3a6-2345-4bea-acbb-7e32d4ed4a67",
+                        "customfield_25701": {
+                            "self": "http://jira.moscow.alfaintra.net/rest/api/2/customFieldOption/125312",
+                            "value": "Не оставляем",
+                            "id": "125312"
+                        },
+                        "customfield_20970": "{summaryBean=com.atlassian.jira.plugin.devstatus.rest.SummaryBean@3104eb29[summary={pullrequest=com.atlassian.jira.plugin.devstatus.rest.SummaryItemBean@61117163[overall=PullRequestOverallBean{stateCount=0, state='OPEN', details=PullRequestOverallDetails{openCount=0, mergedCount=0, declinedCount=0}},byInstanceType={}], build=com.atlassian.jira.plugin.devstatus.rest.SummaryItemBean@4e68e02b[overall=com.atlassian.jira.plugin.devstatus.summary.beans.BuildOverallBean@24180aec[failedBuildCount=0,successfulBuildCount=0,unknownBuildCount=0,count=0,lastUpdated=<null>,lastUpdatedTimestamp=<null>],byInstanceType={}], review=com.atlassian.jira.plugin.devstatus.rest.SummaryItemBean@15c55d0[overall=com.atlassian.jira.plugin.devstatus.summary.beans.ReviewsOverallBean@41926673[stateCount=0,state=<null>,dueDate=<null>,overDue=false,count=0,lastUpdated=<null>,lastUpdatedTimestamp=<null>],byInstanceType={}], deployment-environment=com.atlassian.jira.plugin.devstatus.rest.SummaryItemBean@4872bfd2[overall=com.atlassian.jira.plugin.devstatus.summary.beans.DeploymentOverallBean@2cd9835a[topEnvironments=[],showProjects=false,successfulCount=0,count=0,lastUpdated=<null>,lastUpdatedTimestamp=<null>],byInstanceType={}], repository=com.atlassian.jira.plugin.devstatus.rest.SummaryItemBean@4f48a1c4[overall=com.atlassian.jira.plugin.devstatus.summary.beans.CommitOverallBean@1d3bf7a0[count=0,lastUpdated=<null>,lastUpdatedTimestamp=<null>],byInstanceType={}], branch=com.atlassian.jira.plugin.devstatus.rest.SummaryItemBean@40ea47fa[overall=com.atlassian.jira.plugin.devstatus.summary.beans.BranchOverallBean@20c9cfee[count=0,lastUpdated=<null>,lastUpdatedTimestamp=<null>],byInstanceType={}]},errors=[],configErrors=[]], devSummaryJson={\"cachedValue\":{\"errors\":[],\"configErrors\":[],\"summary\":{\"pullrequest\":{\"overall\":{\"count\":0,\"lastUpdated\":null,\"stateCount\":0,\"state\":\"OPEN\",\"details\":{\"openCount\":0,\"mergedCount\":0,\"declinedCount\":0,\"total\":0},\"open\":true},\"byInstanceType\":{}},\"build\":{\"overall\":{\"count\":0,\"lastUpdated\":null,\"failedBuildCount\":0,\"successfulBuildCount\":0,\"unknownBuildCount\":0},\"byInstanceType\":{}},\"review\":{\"overall\":{\"count\":0,\"lastUpdated\":null,\"stateCount\":0,\"state\":null,\"dueDate\":null,\"overDue\":false,\"completed\":false},\"byInstanceType\":{}},\"deployment-environment\":{\"overall\":{\"count\":0,\"lastUpdated\":null,\"topEnvironments\":[],\"showProjects\":false,\"successfulCount\":0},\"byInstanceType\":{}},\"repository\":{\"overall\":{\"count\":0,\"lastUpdated\":null},\"byInstanceType\":{}},\"branch\":{\"overall\":{\"count\":0,\"lastUpdated\":null},\"byInstanceType\":{}}}},\"isStale\":false}}",
+                        "customfield_25702": {
+                            "self": "http://jira.moscow.alfaintra.net/rest/api/2/customFieldOption/125314",
+                            "value": "Не оставляем",
+                            "id": "125314"
+                        },
+                        "customfield_14170": [
+                            {
+                                "self": "http://jira.moscow.alfaintra.net/rest/api/2/user?username=U_M12YK",
+                                "name": "U_M12YK",
+                                "key": "u_m12yk",
+                                "emailAddress": "YYaryshev@alfabank.ru",
+                                "avatarUrls": {
+                                    "48x48": "http://jira.moscow.alfaintra.net/secure/useravatar?avatarId=10172",
+                                    "24x24": "http://jira.moscow.alfaintra.net/secure/useravatar?size=small&avatarId=10172",
+                                    "16x16": "http://jira.moscow.alfaintra.net/secure/useravatar?size=xsmall&avatarId=10172",
+                                    "32x32": "http://jira.moscow.alfaintra.net/secure/useravatar?size=medium&avatarId=10172"
+                                },
+                                "displayName": "Ярышев Юрий Александрович",
+                                "active": true,
+                                "timeZone": "Europe/Moscow"
+                            }
+                        ],
+                        "customfield_23770": "CommentYya3",
+                        "customfield_24980": "[{\"description\":\"Написан код\",\"checked\":false},{\"description\":\"Пройдено code review\",\"checked\":false},{\"description\":\"Написаны Unit-тесты\",\"checked\":false},{\"description\":\"Написаны интеграционные тесты\",\"checked\":false},{\"description\":\"Протестировано разработчи��ом\",\"checked\":false},{\"description\":\"Раскатана нужная ветка\",\"checked\":false},{\"description\":\"Собрана версия из мастера\",\"checked\":false},{\"description\":\"Нет блокирующих и critical дефектов\",\"checked\":false},{\"description\":\"Смёржено в мастер\",\"checked\":false},{\"description\":\"Собрана сборка из мастера\",\"checked\":false},{\"description\":\"Успешно протестировано по готовой тестовой модели\",\"checked\":false},{\"description\":\"Техническое тестирование пройдено\",\"checked\":false},{\"description\":\"Выполнены все пререквизиты\",\"checked\":false}]",
+                        "customfield_17670": {
+                            "self": "http://jira.moscow.alfaintra.net/rest/api/2/customFieldOption/17546",
+                            "value": "Разное",
+                            "id": "17546"
+                        },
+                        "customfield_24874": {
+                            "self": "http://jira.moscow.alfaintra.net/rest/api/2/customFieldOption/86302",
+                            "value": "Продукт ФЛ/ЮЛ",
+                            "id": "86302"
+                        },
+                        "customfield_25171": "[{\"description\":\"Ответ на вопрос, зачем мы делаем эту задачу\",\"checked\":false},{\"description\":\"Контакты заказчиков и лиц с экспертизой\",\"checked\":false},{\"description\":\"Бизнес-требования\",\"checked\":false},{\"description\":\"Сроки\",\"checked\":false}]",
+                        "customfield_25172": "[{\"description\":\"Макет и текстовки готовы в разных разрешениях\",\"checked\":false},{\"description\":\"В макете дизайн только изменяемой фичи\",\"checked\":false},{\"description\":\"Добавлены экспортируемые картинки\",\"checked\":false},{\"description\":\"Прописан контракт в user-story\",\"checked\":false},{\"description\":\"Зафиксированы бизнес-требования\",\"checked\":false}]",
+                        "customfield_25173": "[{\"description\":\"Написан код\",\"checked\":false},{\"description\":\"Пройдено code review\",\"checked\":false},{\"description\":\"Написаны Unit-тесты\",\"checked\":false},{\"description\":\"Написаны интеграционные тесты\",\"checked\":false},{\"description\":\"Протестировано разработчиком\",\"checked\":false},{\"description\":\"Раскатана нужная ветка\",\"checked\":false},{\"description\":\"Собрана версия из мастера\",\"checked\":false},{\"description\":\"Нет блокирующих и critical дефектов\",\"checked\":false},{\"description\":\"Смёржено в мастер\",\"checked\":false},{\"description\":\"Собрана сборка из мастера\",\"checked\":false},{\"description\":\"Успешно протестировано по готовой тестовой модели\",\"checked\":false},{\"description\":\"Техническое тестирование пройдено\",\"checked\":false},{\"description\":\"Выполнены все пререквизиты\",\"checked\":false}]",
+                        "timeestimate": 576000,
+                        "customfield_19270": {
+                            "self": "http://jira.moscow.alfaintra.net/rest/api/2/customFieldOption/19248",
+                            "value": "9",
+                            "id": "19248"
+                        },
+                        "status": {
+                            "self": "http://jira.moscow.alfaintra.net/rest/api/2/status/10106",
+                            "description": "",
+                            "iconUrl": "http://jira.moscow.alfaintra.net/images/icons/statuses/open.png",
+                            "name": "TO DO",
+                            "id": "10106",
+                            "statusCategory": {
+                                "self": "http://jira.moscow.alfaintra.net/rest/api/2/statuscategory/2",
+                                "id": 2,
+                                "key": "new",
+                                "colorName": "blue-gray",
+                                "name": "To Do"
+                            }
+                        },
+                        "customfield_25071": 76,
+                        "aggregatetimeestimate": 576000,
+                        "creator": {
+                            "self": "http://jira.moscow.alfaintra.net/rest/api/2/user?username=U_M12YK",
+                            "name": "U_M12YK",
+                            "key": "u_m12yk",
+                            "emailAddress": "YYaryshev@alfabank.ru",
+                            "avatarUrls": {
+                                "48x48": "http://jira.moscow.alfaintra.net/secure/useravatar?avatarId=10172",
+                                "24x24": "http://jira.moscow.alfaintra.net/secure/useravatar?size=small&avatarId=10172",
+                                "16x16": "http://jira.moscow.alfaintra.net/secure/useravatar?size=xsmall&avatarId=10172",
+                                "32x32": "http://jira.moscow.alfaintra.net/secure/useravatar?size=medium&avatarId=10172"
+                            },
+                            "displayName": "Ярышев Юрий Александрович",
+                            "active": true,
+                            "timeZone": "Europe/Moscow"
+                        },
+                        "customfield_10791": {
+                            "self": "http://jira.moscow.alfaintra.net/rest/api/2/customFieldOption/10959",
+                            "value": "Отображать",
+                            "id": "10959"
+                        },
+                        "customfield_10792": {
+                            "self": "http://jira.moscow.alfaintra.net/rest/api/2/customFieldOption/10961",
+                            "value": "Обычная задача [жёлтая]",
+                            "id": "10961"
+                        },
+                        "workratio": 0,
+                        "customfield_10775": "2019-08-23",
+                        "customfield_11986": 0,
+                        "customfield_10774": {
+                            "self": "http://jira.moscow.alfaintra.net/rest/api/2/customFieldOption/10843",
+                            "value": "FRONT",
+                            "id": "10843"
+                        },
+                        "customfield_19572": {
+                            "self": "http://jira.moscow.alfaintra.net/rest/api/2/customFieldOption/19547",
+                            "value": "N/A",
+                            "id": "19547"
+                        },
+                        "customfield_10883": "участвует",
+                        "customfield_25570": "755131",
+                        "customfield_25694": {
+                            "self": "http://jira.moscow.alfaintra.net/rest/api/2/customFieldOption/125298",
+                            "value": "Не оставляем",
+                            "id": "125298"
+                        },
+                        "customfield_25213": "S",
+                        "customfield_25697": {
+                            "self": "http://jira.moscow.alfaintra.net/rest/api/2/customFieldOption/125304",
+                            "value": "Не оставляем",
+                            "id": "125304"
+                        },
+                        "customfield_25698": {
+                            "self": "http://jira.moscow.alfaintra.net/rest/api/2/customFieldOption/125306",
+                            "value": "Не оставляем",
+                            "id": "125306"
+                        },
+                        "customfield_25699": {
+                            "self": "http://jira.moscow.alfaintra.net/rest/api/2/customFieldOption/125308",
+                            "value": "Не оставляем",
+                            "id": "125308"
+                        },
+                        "customfield_12483": 1825,
+                        "customfield_14782": 0,
+                        "labels": [
+                            "yyalabel1",
+                            "yyalabel2"
+                        ],
+                        "customfield_25221": 0,
+                        "components": [],
+                        "customfield_25479": [],
+                        "customfield_21177": {
+                            "self": "http://jira.moscow.alfaintra.net/rest/api/2/customFieldOption/52159",
+                            "value": "3",
+                            "id": "52159"
+                        },
+                        "reporter": {
+                            "self": "http://jira.moscow.alfaintra.net/rest/api/2/user?username=U_M12YK",
+                            "name": "U_M12YK",
+                            "key": "u_m12yk",
+                            "emailAddress": "YYaryshev@alfabank.ru",
+                            "avatarUrls": {
+                                "48x48": "http://jira.moscow.alfaintra.net/secure/useravatar?avatarId=10172",
+                                "24x24": "http://jira.moscow.alfaintra.net/secure/useravatar?size=small&avatarId=10172",
+                                "16x16": "http://jira.moscow.alfaintra.net/secure/useravatar?size=xsmall&avatarId=10172",
+                                "32x32": "http://jira.moscow.alfaintra.net/secure/useravatar?size=medium&avatarId=10172"
+                            },
+                            "displayName": "Ярышев Юрий Александрович",
+                            "active": true,
+                            "timeZone": "Europe/Moscow"
+                        },
+                        "customfield_24272": "",
+                        "progress": {
+                            "progress": 0,
+                            "total": 576000,
+                            "percent": 0
+                        },
+                        "customfield_25003": 0,
+                        "project": {
+                            "self": "http://jira.moscow.alfaintra.net/rest/api/2/project/27280",
+                            "id": "27280",
+                            "key": "DATAMAP",
+                            "name": "Карта данных",
+                            "avatarUrls": {
+                                "48x48": "http://jira.moscow.alfaintra.net/secure/projectavatar?pid=27280&avatarId=13080",
+                                "24x24": "http://jira.moscow.alfaintra.net/secure/projectavatar?size=small&pid=27280&avatarId=13080",
+                                "16x16": "http://jira.moscow.alfaintra.net/secure/projectavatar?size=xsmall&pid=27280&avatarId=13080",
+                                "32x32": "http://jira.moscow.alfaintra.net/secure/projectavatar?size=medium&pid=27280&avatarId=13080"
+                            }
+                        },
+                        "customfield_12576": {
+                            "self": "http://jira.moscow.alfaintra.net/rest/api/2/customFieldOption/12650",
+                            "value": "Рубль",
+                            "id": "12650"
+                        },
+                        "customfield_12578": {
+                            "self": "http://jira.moscow.alfaintra.net/rest/api/2/customFieldOption/12652",
+                            "value": "Штат",
+                            "id": "12652"
+                        },
+                        "watches": {
+                            "self": "http://jira.moscow.alfaintra.net/rest/api/2/issue/DATAMAP-1/watchers",
+                            "watchCount": 1,
+                            "isWatching": true
+                        },
+                        "customfield_24170": "0",
+                        "updated": "2019-11-07T12:16:37.000+0300",
+                        "timeoriginalestimate": 576000,
+                        "customfield_11582": "1|i03ttz:",
+                        "description": "new yya desc2",
+                        "customfield_10374": "9223372036854775807",
+                        "customfield_25273": {
+                            "self": "http://jira.moscow.alfaintra.net/rest/api/2/customFieldOption/110574",
+                            "value": "Пересоздать",
+                            "id": "110574"
+                        },
+                        "customfield_25277": {
+                            "self": "http://jira.moscow.alfaintra.net/rest/api/2/customFieldOption/110577",
+                            "value": "N",
+                            "id": "110577"
+                        },
+                        "customfield_25278": {
+                            "self": "http://jira.moscow.alfaintra.net/rest/api/2/customFieldOption/110579",
+                            "value": "По требованиям",
+                            "id": "110579"
+                        },
+                        "summary": "Test",
+                        "customfield_25282": {
+                            "self": "http://jira.moscow.alfaintra.net/rest/api/2/customFieldOption/110581",
+                            "value": "Не оставляем",
+                            "id": "110581"
+                        },
+                        "customfield_25288": "",
+                        "customfield_25724": {
+                            "self": "http://jira.moscow.alfaintra.net/rest/api/2/customFieldOption/125418",
+                            "value": "Не оставляем",
+                            "id": "125418"
+                        },
+                        "customfield_25725": {
+                            "self": "http://jira.moscow.alfaintra.net/rest/api/2/customFieldOption/125420",
+                            "value": "Не оставляем",
+                            "id": "125420"
+                        },
+                        "customfield_25726": {
+                            "self": "http://jira.moscow.alfaintra.net/rest/api/2/customFieldOption/125422",
+                            "value": "Не оставляем",
+                            "id": "125422"
+                        },
+                        "customfield_25727": {
+                            "self": "http://jira.moscow.alfaintra.net/rest/api/2/customFieldOption/125424",
+                            "value": "Не оставляем",
+                            "id": "125424"
+                        },
+                        "customfield_25729": {
+                            "self": "http://jira.moscow.alfaintra.net/rest/api/2/customFieldOption/125428",
+                            "value": "Не оставляем",
+                            "id": "125428"
+                        },
+                        "fixVersions": [],
+                        "customfield_24882": {
+                            "self": "http://jira.moscow.alfaintra.net/rest/api/2/customFieldOption/88408",
+                            "value": "Нет",
+                            "id": "88408"
+                        },
+                        "customfield_25730": {
+                            "self": "http://jira.moscow.alfaintra.net/rest/api/2/customFieldOption/125430",
+                            "value": "Не оставляем",
+                            "id": "125430"
+                        },
+                        "customfield_25731": {
+                            "self": "http://jira.moscow.alfaintra.net/rest/api/2/customFieldOption/125432",
+                            "value": "Не оставляем",
+                            "id": "125432"
+                        },
+                        "customfield_25732": {
+                            "self": "http://jira.moscow.alfaintra.net/rest/api/2/customFieldOption/125434",
+                            "value": "Не оставляем",
+                            "id": "125434"
+                        },
+                        "customfield_25733": {
+                            "self": "http://jira.moscow.alfaintra.net/rest/api/2/customFieldOption/125436",
+                            "value": "Не оставляем",
+                            "id": "125436"
+                        },
+                        "customfield_25734": {
+                            "self": "http://jira.moscow.alfaintra.net/rest/api/2/customFieldOption/125438",
+                            "value": "Не оставляем",
+                            "id": "125438"
+                        },
+                        "customfield_25736": {
+                            "self": "http://jira.moscow.alfaintra.net/rest/api/2/customFieldOption/125440",
+                            "value": "medium(2-недели)",
+                            "id": "125440"
+                        },
+                        "priority": {
+                            "self": "http://jira.moscow.alfaintra.net/rest/api/2/priority/3",
+                            "iconUrl": "http://jira.moscow.alfaintra.net/images/icons/priorities/medium.svg",
+                            "name": "Medium",
+                            "id": "3"
+                        },
+                        "versions": [],
+                        "aggregateprogress": {
+                            "progress": 0,
+                            "total": 576000,
+                            "percent": 0
+                        },
+                        "created": "2019-08-23T10:49:05.000+0300",
+                        "customfield_24571": {
+                            "self": "http://jira.moscow.alfaintra.net/rest/api/2/customFieldOption/78043",
+                            "value": "Не определено",
+                            "id": "78043"
+                        },
+                        "customfield_24572": {
+                            "self": "http://jira.moscow.alfaintra.net/rest/api/2/customFieldOption/78046",
+                            "value": "Не определено",
+                            "id": "78046"
+                        },
+                        "customfield_24573": {
+                            "self": "http://jira.moscow.alfaintra.net/rest/api/2/customFieldOption/78047",
+                            "value": "Нет",
+                            "id": "78047"
+                        },
+                        "customfield_25674": {
+                            "self": "http://jira.moscow.alfaintra.net/rest/api/2/customFieldOption/123045",
+                            "value": "Не оставляем",
+                            "id": "123045"
+                        },
+                        "customfield_25675": {
+                            "self": "http://jira.moscow.alfaintra.net/rest/api/2/customFieldOption/123047",
+                            "value": "Не оставляем",
+                            "id": "123047"
+                        },
+                        "customfield_25676": {
+                            "self": "http://jira.moscow.alfaintra.net/rest/api/2/customFieldOption/123049",
+                            "value": "Не оставляем",
+                            "id": "123049"
+                        },
+                        "customfield_25677": {
+                            "self": "http://jira.moscow.alfaintra.net/rest/api/2/customFieldOption/123051",
+                            "value": "Не оставляем",
+                            "id": "123051"
+                        },
+                        "customfield_25678": {
+                            "self": "http://jira.moscow.alfaintra.net/rest/api/2/customFieldOption/123054",
+                            "value": "Не оставляем",
+                            "id": "123054"
+                        },
+                        "customfield_25679": {
+                            "self": "http://jira.moscow.alfaintra.net/rest/api/2/customFieldOption/123056",
+                            "value": "Не оставляем",
+                            "id": "123056"
+                        },
+                        "customfield_13470": [
+                            "Не_нарушен"
+                        ],
+                        "customfield_25680": {
+                            "self": "http://jira.moscow.alfaintra.net/rest/api/2/customFieldOption/123058",
+                            "value": "Не оставляем",
+                            "id": "123058"
+                        },
+                        "customfield_25681": {
+                            "self": "http://jira.moscow.alfaintra.net/rest/api/2/customFieldOption/123060",
+                            "value": "Не оставляем",
+                            "id": "123060"
+                        },
+                        "customfield_25682": {
+                            "self": "http://jira.moscow.alfaintra.net/rest/api/2/customFieldOption/123062",
+                            "value": "Не оставляем",
+                            "id": "123062"
+                        },
+                        "customfield_25683": {
+                            "self": "http://jira.moscow.alfaintra.net/rest/api/2/customFieldOption/123064",
+                            "value": "Не оставляем",
+                            "id": "123064"
+                        },
+                        "customfield_25684": {
+                            "self": "http://jira.moscow.alfaintra.net/rest/api/2/customFieldOption/123066",
+                            "value": "Не оставляем",
+                            "id": "123066"
+                        },
+                        "customfield_25685": {
+                            "self": "http://jira.moscow.alfaintra.net/rest/api/2/customFieldOption/123068",
+                            "value": "Не оставляем",
+                            "id": "123068"
+                        }
+                    },
+                    "changelog": {
+                        "startAt": 0,
+                        "maxResults": 10,
+                        "total": 10,
+                        "histories": [
+                            {
+                                "id": "6865306",
+                                "author": {
+                                    "self": "http://jira.moscow.alfaintra.net/rest/api/2/user?username=U_M12YK",
+                                    "name": "U_M12YK",
+                                    "key": "u_m12yk",
+                                    "emailAddress": "YYaryshev@alfabank.ru",
+                                    "avatarUrls": {
+                                        "48x48": "http://jira.moscow.alfaintra.net/secure/useravatar?avatarId=10172",
+                                        "24x24": "http://jira.moscow.alfaintra.net/secure/useravatar?size=small&avatarId=10172",
+                                        "16x16": "http://jira.moscow.alfaintra.net/secure/useravatar?size=xsmall&avatarId=10172",
+                                        "32x32": "http://jira.moscow.alfaintra.net/secure/useravatar?size=medium&avatarId=10172"
+                                    },
+                                    "displayName": "Ярышев Юрий Александрович",
+                                    "active": true,
+                                    "timeZone": "Europe/Moscow"
+                                },
+                                "created": "2019-10-23T15:20:13.000+0300",
+                                "items": [
+                                    {
+                                        "field": "status",
+                                        "fieldtype": "jira",
+                                        "from": "10106",
+                                        "fromString": "TO DO",
+                                        "to": "3",
+                                        "toString": "In Progress"
+                                    }
+                                ]
+                            },
+                            {
+                                "id": "6865307",
+                                "author": {
+                                    "self": "http://jira.moscow.alfaintra.net/rest/api/2/user?username=U_M12YK",
+                                    "name": "U_M12YK",
+                                    "key": "u_m12yk",
+                                    "emailAddress": "YYaryshev@alfabank.ru",
+                                    "avatarUrls": {
+                                        "48x48": "http://jira.moscow.alfaintra.net/secure/useravatar?avatarId=10172",
+                                        "24x24": "http://jira.moscow.alfaintra.net/secure/useravatar?size=small&avatarId=10172",
+                                        "16x16": "http://jira.moscow.alfaintra.net/secure/useravatar?size=xsmall&avatarId=10172",
+                                        "32x32": "http://jira.moscow.alfaintra.net/secure/useravatar?size=medium&avatarId=10172"
+                                    },
+                                    "displayName": "Ярышев Юрий Александрович",
+                                    "active": true,
+                                    "timeZone": "Europe/Moscow"
+                                },
+                                "created": "2019-10-23T15:20:38.000+0300",
+                                "items": [
+                                    {
+                                        "field": "status",
+                                        "fieldtype": "jira",
+                                        "from": "3",
+                                        "fromString": "In Progress",
+                                        "to": "10106",
+                                        "toString": "TO DO"
+                                    }
+                                ]
+                            },
+                            {
+                                "id": "6865308",
+                                "author": {
+                                    "self": "http://jira.moscow.alfaintra.net/rest/api/2/user?username=U_M12YK",
+                                    "name": "U_M12YK",
+                                    "key": "u_m12yk",
+                                    "emailAddress": "YYaryshev@alfabank.ru",
+                                    "avatarUrls": {
+                                        "48x48": "http://jira.moscow.alfaintra.net/secure/useravatar?avatarId=10172",
+                                        "24x24": "http://jira.moscow.alfaintra.net/secure/useravatar?size=small&avatarId=10172",
+                                        "16x16": "http://jira.moscow.alfaintra.net/secure/useravatar?size=xsmall&avatarId=10172",
+                                        "32x32": "http://jira.moscow.alfaintra.net/secure/useravatar?size=medium&avatarId=10172"
+                                    },
+                                    "displayName": "Ярышев Юрий Александрович",
+                                    "active": true,
+                                    "timeZone": "Europe/Moscow"
+                                },
+                                "created": "2019-10-23T15:20:45.000+0300",
+                                "items": [
+                                    {
+                                        "field": "status",
+                                        "fieldtype": "jira",
+                                        "from": "10106",
+                                        "fromString": "TO DO",
+                                        "to": "3",
+                                        "toString": "In Progress"
+                                    }
+                                ]
+                            },
+                            {
+                                "id": "6865309",
+                                "author": {
+                                    "self": "http://jira.moscow.alfaintra.net/rest/api/2/user?username=U_M12YK",
+                                    "name": "U_M12YK",
+                                    "key": "u_m12yk",
+                                    "emailAddress": "YYaryshev@alfabank.ru",
+                                    "avatarUrls": {
+                                        "48x48": "http://jira.moscow.alfaintra.net/secure/useravatar?avatarId=10172",
+                                        "24x24": "http://jira.moscow.alfaintra.net/secure/useravatar?size=small&avatarId=10172",
+                                        "16x16": "http://jira.moscow.alfaintra.net/secure/useravatar?size=xsmall&avatarId=10172",
+                                        "32x32": "http://jira.moscow.alfaintra.net/secure/useravatar?size=medium&avatarId=10172"
+                                    },
+                                    "displayName": "Ярышев Юрий Александрович",
+                                    "active": true,
+                                    "timeZone": "Europe/Moscow"
+                                },
+                                "created": "2019-10-23T15:20:54.000+0300",
+                                "items": [
+                                    {
+                                        "field": "status",
+                                        "fieldtype": "jira",
+                                        "from": "3",
+                                        "fromString": "In Progress",
+                                        "to": "10106",
+                                        "toString": "TO DO"
+                                    }
+                                ]
+                            },
+                            {
+                                "id": "6865312",
+                                "author": {
+                                    "self": "http://jira.moscow.alfaintra.net/rest/api/2/user?username=U_M12YK",
+                                    "name": "U_M12YK",
+                                    "key": "u_m12yk",
+                                    "emailAddress": "YYaryshev@alfabank.ru",
+                                    "avatarUrls": {
+                                        "48x48": "http://jira.moscow.alfaintra.net/secure/useravatar?avatarId=10172",
+                                        "24x24": "http://jira.moscow.alfaintra.net/secure/useravatar?size=small&avatarId=10172",
+                                        "16x16": "http://jira.moscow.alfaintra.net/secure/useravatar?size=xsmall&avatarId=10172",
+                                        "32x32": "http://jira.moscow.alfaintra.net/secure/useravatar?size=medium&avatarId=10172"
+                                    },
+                                    "displayName": "Ярышев Юрий Александрович",
+                                    "active": true,
+                                    "timeZone": "Europe/Moscow"
+                                },
+                                "created": "2019-10-23T15:21:09.000+0300",
+                                "items": [
+                                    {
+                                        "field": "timeoriginalestimate",
+                                        "fieldtype": "jira",
+                                        "to": "432000",
+                                        "toString": "432000"
+                                    },
+                                    {
+                                        "field": "timeestimate",
+                                        "fieldtype": "jira",
+                                        "to": "432000",
+                                        "toString": "432000"
+                                    }
+                                ]
+                            },
+                            {
+                                "id": "6952800",
+                                "author": {
+                                    "self": "http://jira.moscow.alfaintra.net/rest/api/2/user?username=U_M12YK",
+                                    "name": "U_M12YK",
+                                    "key": "u_m12yk",
+                                    "emailAddress": "YYaryshev@alfabank.ru",
+                                    "avatarUrls": {
+                                        "48x48": "http://jira.moscow.alfaintra.net/secure/useravatar?avatarId=10172",
+                                        "24x24": "http://jira.moscow.alfaintra.net/secure/useravatar?size=small&avatarId=10172",
+                                        "16x16": "http://jira.moscow.alfaintra.net/secure/useravatar?size=xsmall&avatarId=10172",
+                                        "32x32": "http://jira.moscow.alfaintra.net/secure/useravatar?size=medium&avatarId=10172"
+                                    },
+                                    "displayName": "Ярышев Юрий Александрович",
+                                    "active": true,
+                                    "timeZone": "Europe/Moscow"
+                                },
+                                "created": "2019-11-05T12:44:51.000+0300",
+                                "items": [
+                                    {
+                                        "field": "description",
+                                        "fieldtype": "jira",
+                                        "toString": "dfdfdf"
+                                    }
+                                ]
+                            },
+                            {
+                                "id": "6974230",
+                                "author": {
+                                    "self": "http://jira.moscow.alfaintra.net/rest/api/2/user?username=U_M12YK",
+                                    "name": "U_M12YK",
+                                    "key": "u_m12yk",
+                                    "emailAddress": "YYaryshev@alfabank.ru",
+                                    "avatarUrls": {
+                                        "48x48": "http://jira.moscow.alfaintra.net/secure/useravatar?avatarId=10172",
+                                        "24x24": "http://jira.moscow.alfaintra.net/secure/useravatar?size=small&avatarId=10172",
+                                        "16x16": "http://jira.moscow.alfaintra.net/secure/useravatar?size=xsmall&avatarId=10172",
+                                        "32x32": "http://jira.moscow.alfaintra.net/secure/useravatar?size=medium&avatarId=10172"
+                                    },
+                                    "displayName": "Ярышев Юрий Александрович",
+                                    "active": true,
+                                    "timeZone": "Europe/Moscow"
+                                },
+                                "created": "2019-11-07T12:13:29.000+0300",
+                                "items": [
+                                    {
+                                        "field": "status",
+                                        "fieldtype": "jira",
+                                        "from": "10106",
+                                        "fromString": "TO DO",
+                                        "to": "3",
+                                        "toString": "In Progress"
+                                    }
+                                ]
+                            },
+                            {
+                                "id": "6974231",
+                                "author": {
+                                    "self": "http://jira.moscow.alfaintra.net/rest/api/2/user?username=U_M12YK",
+                                    "name": "U_M12YK",
+                                    "key": "u_m12yk",
+                                    "emailAddress": "YYaryshev@alfabank.ru",
+                                    "avatarUrls": {
+                                        "48x48": "http://jira.moscow.alfaintra.net/secure/useravatar?avatarId=10172",
+                                        "24x24": "http://jira.moscow.alfaintra.net/secure/useravatar?size=small&avatarId=10172",
+                                        "16x16": "http://jira.moscow.alfaintra.net/secure/useravatar?size=xsmall&avatarId=10172",
+                                        "32x32": "http://jira.moscow.alfaintra.net/secure/useravatar?size=medium&avatarId=10172"
+                                    },
+                                    "displayName": "Ярышев Юрий Александрович",
+                                    "active": true,
+                                    "timeZone": "Europe/Moscow"
+                                },
+                                "created": "2019-11-07T12:13:32.000+0300",
+                                "items": [
+                                    {
+                                        "field": "status",
+                                        "fieldtype": "jira",
+                                        "from": "3",
+                                        "fromString": "In Progress",
+                                        "to": "10106",
+                                        "toString": "TO DO"
+                                    }
+                                ]
+                            },
+                            {
+                                "id": "6974250",
+                                "author": {
+                                    "self": "http://jira.moscow.alfaintra.net/rest/api/2/user?username=U_M12YK",
+                                    "name": "U_M12YK",
+                                    "key": "u_m12yk",
+                                    "emailAddress": "YYaryshev@alfabank.ru",
+                                    "avatarUrls": {
+                                        "48x48": "http://jira.moscow.alfaintra.net/secure/useravatar?avatarId=10172",
+                                        "24x24": "http://jira.moscow.alfaintra.net/secure/useravatar?size=small&avatarId=10172",
+                                        "16x16": "http://jira.moscow.alfaintra.net/secure/useravatar?size=xsmall&avatarId=10172",
+                                        "32x32": "http://jira.moscow.alfaintra.net/secure/useravatar?size=medium&avatarId=10172"
+                                    },
+                                    "displayName": "Ярышев Юрий Александрович",
+                                    "active": true,
+                                    "timeZone": "Europe/Moscow"
+                                },
+                                "created": "2019-11-07T12:16:18.000+0300",
+                                "items": [
+                                    {
+                                        "field": "description",
+                                        "fieldtype": "jira",
+                                        "fromString": "dfdfdf",
+                                        "toString": "new yya desc1"
+                                    },
+                                    {
+                                        "field": "labels",
+                                        "fieldtype": "jira",
+                                        "toString": "yyalabel1"
+                                    }
+                                ]
+                            },
+                            {
+                                "id": "6974256",
+                                "author": {
+                                    "self": "http://jira.moscow.alfaintra.net/rest/api/2/user?username=U_M12YK",
+                                    "name": "U_M12YK",
+                                    "key": "u_m12yk",
+                                    "emailAddress": "YYaryshev@alfabank.ru",
+                                    "avatarUrls": {
+                                        "48x48": "http://jira.moscow.alfaintra.net/secure/useravatar?avatarId=10172",
+                                        "24x24": "http://jira.moscow.alfaintra.net/secure/useravatar?size=small&avatarId=10172",
+                                        "16x16": "http://jira.moscow.alfaintra.net/secure/useravatar?size=xsmall&avatarId=10172",
+                                        "32x32": "http://jira.moscow.alfaintra.net/secure/useravatar?size=medium&avatarId=10172"
+                                    },
+                                    "displayName": "Ярышев Юрий Александрович",
+                                    "active": true,
+                                    "timeZone": "Europe/Moscow"
+                                },
+                                "created": "2019-11-07T12:16:37.000+0300",
+                                "items": [
+                                    {
+                                        "field": "description",
+                                        "fieldtype": "jira",
+                                        "fromString": "new yya desc1",
+                                        "toString": "new yya desc2"
+                                    },
+                                    {
+                                        "field": "labels",
+                                        "fieldtype": "jira",
+                                        "fromString": "yyalabel1",
+                                        "toString": "yyalabel1 yyalabel2"
+                                    },
+                                    {
+                                        "field": "timeoriginalestimate",
+                                        "fieldtype": "jira",
+                                        "from": "432000",
+                                        "fromString": "432000",
+                                        "to": "576000",
+                                        "toString": "576000"
+                                    },
+                                    {
+                                        "field": "timeestimate",
+                                        "fieldtype": "jira",
+                                        "from": "432000",
+                                        "fromString": "432000",
+                                        "to": "576000",
+                                        "toString": "576000"
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                }
+            ]
+        }
+    ]
+]

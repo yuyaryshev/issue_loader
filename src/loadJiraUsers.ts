@@ -1,13 +1,12 @@
-import {jiraGetAllFieldMetas} from "./jiraGetAllFieldMetas";
+import {jiraGetAllFieldMetas} from "./dbdJiraField";
 import JiraClient from 'jira-connector';
 import {Connection} from 'oracledb';
-import { settings } from "./settings";
 
 // Загружает поля из jira и обновляет их в Oracle в таблице jira_fields
 export const loadJiraUsers = async (jira: JiraClient, db: Connection) => {
 //  const jiraFieldMetas = Object.values(await jiraGetAllFieldMetas(jira));
 
-  // TODO load loadJiraUsers - not implemented
+  // TODO_NEXT load loadJiraUsers - not implemented
   throw new Error(`ERROR - loadJiraUsers - not implemented`);
 
   // await db.executeMany(

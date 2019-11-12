@@ -1,33 +1,16 @@
-import {jiraGetAllFieldMetas} from "./jiraGetAllFieldMetas";
-import JiraClient from 'jira-connector';
-import {Connection} from 'oracledb';
-import { settings } from "./settings";
+import { jiraGetAllFieldMetas } from "./dbdJiraField";
+import { Connection } from "oracledb";
+import { Env } from "./startEnv";
+import { yconsole } from "./consoleMsg";
 
 // Загружает поля из jira и обновляет их в Oracle в таблице jira_fields
-export const loadJiraFields = async (jira: JiraClient, db: Connection) => {
-  const jiraFieldMetas = Object.values(await jiraGetAllFieldMetas(jira));
+export const loadJiraFields = async function (env: Env, db: Connection) {
+    const jiraFieldMetas = Object.values(await jiraGetAllFieldMetas(env));
 
-  // TODO load jira.customFieldOption; - получить опции полей
+    // TODO_NEXT load jira.customFieldOption; - получить опции полей
+    await env.dbdDJiraField.insertMany(db, jiraFieldMetas);
+    await env.dbdDJiraField.executeMerge!(db);
+    await db.commit();
 
-  await db.executeMany(
-    `insert into ${settings.tables.jira_fields_changes}(
-            is_custom,
-            id,
-            name,
-            custom_id,
-            java_type,
-            type    
-    ) values(
-    ?,?,?,?,?,?
-    )`,
-    jiraFieldMetas.map(f => ([
-      f.is_custom,
-      f.id,
-      f.name,
-      f.custom_id,
-      f.java_type,
-      f.type
-    ])));
-
-  await db.execute(`exec handle_jira_fields_changes()`);
+    yconsole.log(`T9923`, `loadJiraFields - finished`);
 };

@@ -6,7 +6,7 @@
     "fields": {
         "resolution": null,
         "customfield_16170": null,
-        "lastViewed": "2019-10-23T17:17:55.794+0300",
+        "lastViewed": "2019-11-07T12:45:55.403+0300",
         "customfield_18580": null,
         "customfield_19670": null,
         "customfield_18581": null,
@@ -32,10 +32,10 @@
             "avatarId": 13068
         },
         "customfield_19880": null,
-        "customfield_15271": null,
         "customfield_19871": null,
-        "customfield_15272": null,
+        "customfield_15271": null,
         "customfield_19872": null,
+        "customfield_15272": null,
         "customfield_19873": null,
         "customfield_19874": null,
         "customfield_15270": null,
@@ -54,17 +54,16 @@
             "value": "Не оставляем",
             "id": "125312"
         },
+        "customfield_18771": null,
+        "customfield_14171": null,
         "customfield_25702": {
             "self": "http://jiraft.moscow.alfaintra.net/rest/api/2/customFieldOption/125314",
             "value": "Не оставляем",
             "id": "125314"
         },
-        "customfield_14171": null,
-        "customfield_18771": null,
         "customfield_14172": null,
         "customfield_25703": null,
         "customfield_25704": null,
-        "customfield_25705": null,
         "customfield_14170": [
             {
                 "self": "http://jiraft.moscow.alfaintra.net/rest/api/2/user?username=U_M12YK",
@@ -82,23 +81,24 @@
                 "timeZone": "Europe/Moscow"
             }
         ],
+        "customfield_25705": null,
         "customfield_14175": null,
         "customfield_25706": null,
         "customfield_25707": null,
-        "customfield_25708": null,
         "customfield_14173": null,
+        "customfield_25708": null,
         "customfield_14174": null,
         "customfield_25709": null,
         "customfield_18776": null,
         "timetracking": {
             "originalEstimate": "3w",
-            "remainingEstimate": "2w 4d 7h",
-            "timeSpent": "1h",
+            "remainingEstimate": "3w 2d",
+            "timeSpent": "2d",
             "originalEstimateSeconds": 432000,
-            "remainingEstimateSeconds": 428400,
-            "timeSpentSeconds": 3600
+            "remainingEstimateSeconds": 489600,
+            "timeSpentSeconds": 57600
         },
-        "customfield_23770": null,
+        "customfield_23770": "yya {color:#FF0000}desc2{color}",
         "customfield_25710": null,
         "customfield_25711": null,
         "customfield_25712": null,
@@ -117,7 +117,6 @@
         "customfield_25718": null,
         "customfield_25719": null,
         "environment": null,
-        "customfield_24871": null,
         "customfield_24873": null,
         "customfield_24874": {
             "self": "http://jiraft.moscow.alfaintra.net/rest/api/2/customFieldOption/86302",
@@ -127,17 +126,18 @@
         "customfield_24875": null,
         "customfield_24876": null,
         "customfield_20274": null,
+        "customfield_13980": null,
         "customfield_10471": null,
         "customfield_10472": null,
         "customfield_13982": null,
-        "customfield_13981": null,
         "customfield_10473": null,
+        "customfield_13981": null,
         "customfield_13983": null,
         "customfield_26380": null,
         "customfield_13976": null,
         "customfield_26382": null,
-        "customfield_26381": null,
         "customfield_13978": null,
+        "customfield_26381": null,
         "customfield_26384": null,
         "customfield_26383": null,
         "customfield_26386": null,
@@ -154,11 +154,10 @@
         "customfield_26393": null,
         "customfield_26392": null,
         "customfield_26395": null,
-        "timeestimate": 428400,
+        "timeestimate": 489600,
         "customfield_26394": null,
         "customfield_26397": null,
         "customfield_26396": null,
-        "customfield_26399": null,
         "customfield_19270": {
             "self": "http://jiraft.moscow.alfaintra.net/rest/api/2/customFieldOption/19248",
             "value": "9",
@@ -167,10 +166,10 @@
         "customfield_26398": null,
         "customfield_12870": null,
         "customfield_10212": null,
-        "customfield_25070": null,
         "customfield_13713": null,
-        "customfield_25071": 61,
+        "customfield_25070": null,
         "customfield_13712": null,
+        "customfield_25071": 76,
         "customfield_13715": null,
         "customfield_13714": null,
         "customfield_18171": null,
@@ -187,24 +186,31 @@
         "customfield_11770": null,
         "customfield_13711": null,
         "customfield_13710": null,
+        "customfield_13702": null,
         "customfield_26171": null,
+        "customfield_13701": null,
         "customfield_26170": null,
+        "customfield_13704": null,
         "customfield_26173": null,
         "customfield_26172": null,
+        "customfield_13706": null,
         "customfield_26175": null,
+        "customfield_13705": null,
         "customfield_26174": null,
         "customfield_13708": null,
         "customfield_26177": null,
+        "customfield_13707": null,
         "customfield_26176": null,
         "customfield_26179": null,
-        "customfield_26178": null,
         "customfield_13709": null,
+        "customfield_26178": null,
         "customfield_17072": null,
         "customfield_17070": null,
         "customfield_20471": null,
         "customfield_20472": null,
         "customfield_20470": null,
-        "aggregatetimespent": 3600,
+        "aggregatetimespent": 57600,
+        "customfield_13700": null,
         "customfield_26180": null,
         "customfield_26182": null,
         "customfield_26181": null,
@@ -214,8 +220,7 @@
         "customfield_26185": null,
         "customfield_26188": null,
         "customfield_26187": null,
-        "customfield_26189": null,
-        "workratio": 0,
+        "workratio": 13,
         "customfield_19471": null,
         "customfield_11991": null,
         "customfield_11990": null,
@@ -224,17 +229,16 @@
         "customfield_26191": null,
         "customfield_11994": null,
         "customfield_26190": null,
-        "customfield_26193": null,
         "customfield_11986": 0,
-        "customfield_26192": null,
+        "customfield_26193": null,
         "customfield_11985": null,
+        "customfield_26192": null,
         "customfield_11988": null,
         "customfield_26195": null,
         "customfield_11987": null,
         "customfield_26194": null,
-        "customfield_26197": null,
-        "customfield_26196": null,
         "customfield_11989": null,
+        "customfield_26196": null,
         "customfield_22871": null,
         "customfield_11980": null,
         "customfield_11982": null,
@@ -242,21 +246,16 @@
         "customfield_11984": null,
         "customfield_11983": null,
         "customfield_10886": null,
-        "customfield_10888": null,
         "customfield_11976": null,
+        "customfield_10888": null,
         "customfield_11979": null,
         "customfield_11970": null,
-        "customfield_11973": null,
         "customfield_10883": "участвует",
+        "customfield_11973": null,
         "customfield_11972": null,
         "customfield_20679": null,
         "customfield_20678": null,
         "customfield_22176": null,
-        "customfield_25693": {
-            "self": "http://jiraft.moscow.alfaintra.net/rest/api/2/customFieldOption/125296",
-            "value": "Не оставляем",
-            "id": "125296"
-        },
         "customfield_25694": {
             "self": "http://jiraft.moscow.alfaintra.net/rest/api/2/customFieldOption/125298",
             "value": "Не оставляем",
@@ -291,27 +290,31 @@
         "customfield_21077": null,
         "customfield_14781": null,
         "customfield_21075": null,
-        "customfield_11272": null,
         "customfield_21074": null,
+        "customfield_11272": null,
         "customfield_15873": null,
         "customfield_14784": null,
         "customfield_11273": null,
-        "customfield_14785": null,
         "customfield_13693": null,
+        "customfield_14785": null,
         "customfield_14782": 0,
         "customfield_15871": null,
         "customfield_15872": null,
+        "customfield_13698": null,
         "customfield_15878": null,
+        "labels": [
+            "yyalabel2",
+            "yyalabel3",
+            "yyalabel4"
+        ],
+        "customfield_13699": null,
         "customfield_15876": null,
-        "labels": [],
         "customfield_24370": null,
         "customfield_24371": null,
         "customfield_24372": null,
-        "customfield_24374": null,
         "customfield_25221": 0,
+        "customfield_24374": null,
         "customfield_24375": null,
-        "customfield_24376": null,
-        "customfield_24377": null,
         "customfield_24379": null,
         "customfield_25229": null,
         "customfield_14770": null,
@@ -321,13 +324,12 @@
         "customfield_14772": null,
         "customfield_14775": null,
         "customfield_14776": null,
-        "customfield_24380": null,
         "customfield_24381": null,
         "customfield_25470": null,
         "customfield_25471": null,
         "customfield_25472": null,
-        "customfield_25473": null,
         "customfield_25231": null,
+        "customfield_25473": null,
         "customfield_25232": null,
         "customfield_25474": null,
         "customfield_25233": null,
@@ -356,14 +358,19 @@
             "timeZone": "Europe/Moscow"
         },
         "customfield_26571": null,
-        "customfield_26570": null,
         "customfield_25240": null,
+        "customfield_26570": null,
         "customfield_25241": null,
+        "customfield_26573": null,
         "customfield_25242": null,
         "customfield_25000": null,
+        "customfield_26572": null,
         "customfield_25001": null,
+        "customfield_26575": null,
         "customfield_25002": null,
+        "customfield_26574": null,
         "customfield_25003": 0,
+        "customfield_26577": null,
         "customfield_25004": null,
         "customfield_25006": null,
         "customfield_25007": null,
@@ -395,7 +402,7 @@
         "customfield_21274": null,
         "customfield_24170": "0",
         "customfield_24171": null,
-        "updated": "2019-10-23T17:17:54.000+0300",
+        "updated": "2019-11-07T12:45:54.000+0300",
         "customfield_23205": null,
         "customfield_23204": null,
         "customfield_23203": null,
@@ -403,10 +410,10 @@
         "customfield_23201": null,
         "customfield_23200": null,
         "timeoriginalestimate": 432000,
-        "customfield_10371": null,
         "customfield_14971": null,
-        "description": null,
+        "customfield_10371": null,
         "customfield_10372": null,
+        "description": "dfdfdf",
         "customfield_10374": "9223372036854775807",
         "customfield_10375": null,
         "customfield_10376": null,
@@ -446,21 +453,18 @@
             "id": "110581"
         },
         "customfield_26370": null,
-        "customfield_25283": null,
         "customfield_26373": null,
         "customfield_25284": null,
         "customfield_26372": null,
         "customfield_26375": null,
         "customfield_26374": null,
         "customfield_26377": null,
-        "customfield_25287": null,
-        "customfield_26376": null,
         "customfield_25288": "",
-        "customfield_25289": null,
+        "customfield_26376": null,
         "customfield_26379": null,
         "customfield_26378": null,
-        "customfield_24998": null,
         "customfield_16570": null,
+        "customfield_24998": null,
         "customfield_24999": null,
         "customfield_16572": null,
         "customfield_16571": null,
@@ -468,37 +472,28 @@
         "customfield_15470": null,
         "customfield_15472": null,
         "priority": {
-            "self": "http://jiraft.moscow.alfaintra.net/rest/api/2/priority/3",
-            "iconUrl": "http://jiraft.moscow.alfaintra.net/images/icons/priorities/medium.svg",
-            "name": "Medium",
-            "id": "3"
+            "self": "http://jiraft.moscow.alfaintra.net/rest/api/2/priority/4",
+            "iconUrl": "http://jiraft.moscow.alfaintra.net/images/icons/priorities/low.svg",
+            "name": "Low",
+            "id": "4"
         },
         "customfield_24770": null,
         "customfield_24771": null,
         "customfield_24772": null,
         "customfield_24773": null,
         "customfield_24774": null,
-        "customfield_24775": null,
-        "customfield_24776": null,
-        "customfield_24777": null,
         "customfield_24778": null,
-        "customfield_18970": null,
         "customfield_14370": null,
         "customfield_24779": null,
+        "customfield_18970": null,
         "customfield_25870": null,
         "customfield_25873": null,
         "customfield_25874": null,
         "customfield_16780": null,
-        "customfield_23071": null,
-        "customfield_23070": {
-            "self": "http://jiraft.moscow.alfaintra.net/rest/api/2/customFieldOption/61741",
-            "value": "S.WCS0FT2",
-            "id": "61741"
-        },
         "customfield_16779": null,
         "customfield_23470": null,
         "customfield_23471": null,
-        "customfield_15671": null,
+        "customfield_15671": -5,
         "created": "2019-08-23T10:49:05.000+0300",
         "customfield_24570": null,
         "customfield_24571": {
@@ -603,17 +598,15 @@
         "customfield_25203": null,
         "customfield_25687": null,
         "customfield_25688": null,
-        "customfield_25204": null,
         "customfield_25205": null,
         "customfield_18474": null,
-        "customfield_21880": null,
         "customfield_18471": null,
         "customfield_20783": 0,
         "customfield_20784": null,
         "customfield_15195": null,
         "customfield_20781": null,
-        "customfield_17370": null,
         "customfield_20782": null,
+        "customfield_17370": null,
         "customfield_20778": null,
         "customfield_20779": null,
         "assignee": {
@@ -640,7 +633,6 @@
         "customfield_15180": null,
         "customfield_15176": null,
         "customfield_15177": null,
-        "customfield_15174": null,
         "votes": {
             "self": "http://jiraft.moscow.alfaintra.net/rest/api/2/issue/DATAMAP-1/votes",
             "votes": 0,
@@ -649,10 +641,10 @@
         "worklog": {
             "startAt": 0,
             "maxResults": 20,
-            "total": 1,
+            "total": 3,
             "worklogs": [
                 {
-                    "self": "http://jiraft.moscow.alfaintra.net/rest/api/2/issue/755131/worklog/232013",
+                    "self": "http://jiraft.moscow.alfaintra.net/rest/api/2/issue/755131/worklog/235113",
                     "author": {
                         "self": "http://jiraft.moscow.alfaintra.net/rest/api/2/user?username=U_M12YK",
                         "name": "U_M12YK",
@@ -683,13 +675,95 @@
                         "active": true,
                         "timeZone": "Europe/Moscow"
                     },
-                    "comment": "test1",
-                    "created": "2019-10-23T17:17:54.000+0300",
-                    "updated": "2019-10-23T17:17:54.000+0300",
-                    "started": "2019-10-23T17:17:00.000+0300",
-                    "timeSpent": "1h",
-                    "timeSpentSeconds": 3600,
-                    "id": "232013",
+                    "comment": "yya time spent 1",
+                    "created": "2019-11-07T12:40:10.000+0300",
+                    "updated": "2019-11-07T12:40:10.000+0300",
+                    "started": "2019-11-05T12:39:00.000+0300",
+                    "timeSpent": "3h",
+                    "timeSpentSeconds": 10800,
+                    "id": "235113",
+                    "issueId": "755131"
+                },
+                {
+                    "self": "http://jiraft.moscow.alfaintra.net/rest/api/2/issue/755131/worklog/235114",
+                    "author": {
+                        "self": "http://jiraft.moscow.alfaintra.net/rest/api/2/user?username=U_M12YK",
+                        "name": "U_M12YK",
+                        "key": "u_m12yk",
+                        "emailAddress": "YYaryshev@alfabank.ru",
+                        "avatarUrls": {
+                            "48x48": "http://jiraft.moscow.alfaintra.net/secure/useravatar?avatarId=10172",
+                            "24x24": "http://jiraft.moscow.alfaintra.net/secure/useravatar?size=small&avatarId=10172",
+                            "16x16": "http://jiraft.moscow.alfaintra.net/secure/useravatar?size=xsmall&avatarId=10172",
+                            "32x32": "http://jiraft.moscow.alfaintra.net/secure/useravatar?size=medium&avatarId=10172"
+                        },
+                        "displayName": "Ярышев Юрий Александрович",
+                        "active": true,
+                        "timeZone": "Europe/Moscow"
+                    },
+                    "updateAuthor": {
+                        "self": "http://jiraft.moscow.alfaintra.net/rest/api/2/user?username=U_M12YK",
+                        "name": "U_M12YK",
+                        "key": "u_m12yk",
+                        "emailAddress": "YYaryshev@alfabank.ru",
+                        "avatarUrls": {
+                            "48x48": "http://jiraft.moscow.alfaintra.net/secure/useravatar?avatarId=10172",
+                            "24x24": "http://jiraft.moscow.alfaintra.net/secure/useravatar?size=small&avatarId=10172",
+                            "16x16": "http://jiraft.moscow.alfaintra.net/secure/useravatar?size=xsmall&avatarId=10172",
+                            "32x32": "http://jiraft.moscow.alfaintra.net/secure/useravatar?size=medium&avatarId=10172"
+                        },
+                        "displayName": "Ярышев Юрий Александрович",
+                        "active": true,
+                        "timeZone": "Europe/Moscow"
+                    },
+                    "comment": "yya time spent 2",
+                    "created": "2019-11-07T12:40:25.000+0300",
+                    "updated": "2019-11-07T12:40:25.000+0300",
+                    "started": "2019-11-06T12:40:00.000+0300",
+                    "timeSpent": "1d",
+                    "timeSpentSeconds": 28800,
+                    "id": "235114",
+                    "issueId": "755131"
+                },
+                {
+                    "self": "http://jiraft.moscow.alfaintra.net/rest/api/2/issue/755131/worklog/235115",
+                    "author": {
+                        "self": "http://jiraft.moscow.alfaintra.net/rest/api/2/user?username=U_M12YK",
+                        "name": "U_M12YK",
+                        "key": "u_m12yk",
+                        "emailAddress": "YYaryshev@alfabank.ru",
+                        "avatarUrls": {
+                            "48x48": "http://jiraft.moscow.alfaintra.net/secure/useravatar?avatarId=10172",
+                            "24x24": "http://jiraft.moscow.alfaintra.net/secure/useravatar?size=small&avatarId=10172",
+                            "16x16": "http://jiraft.moscow.alfaintra.net/secure/useravatar?size=xsmall&avatarId=10172",
+                            "32x32": "http://jiraft.moscow.alfaintra.net/secure/useravatar?size=medium&avatarId=10172"
+                        },
+                        "displayName": "Ярышев Юрий Александрович",
+                        "active": true,
+                        "timeZone": "Europe/Moscow"
+                    },
+                    "updateAuthor": {
+                        "self": "http://jiraft.moscow.alfaintra.net/rest/api/2/user?username=U_M12YK",
+                        "name": "U_M12YK",
+                        "key": "u_m12yk",
+                        "emailAddress": "YYaryshev@alfabank.ru",
+                        "avatarUrls": {
+                            "48x48": "http://jiraft.moscow.alfaintra.net/secure/useravatar?avatarId=10172",
+                            "24x24": "http://jiraft.moscow.alfaintra.net/secure/useravatar?size=small&avatarId=10172",
+                            "16x16": "http://jiraft.moscow.alfaintra.net/secure/useravatar?size=xsmall&avatarId=10172",
+                            "32x32": "http://jiraft.moscow.alfaintra.net/secure/useravatar?size=medium&avatarId=10172"
+                        },
+                        "displayName": "Ярышев Юрий Александрович",
+                        "active": true,
+                        "timeZone": "Europe/Moscow"
+                    },
+                    "comment": "yya time spent 3",
+                    "created": "2019-11-07T12:40:41.000+0300",
+                    "updated": "2019-11-07T12:40:41.000+0300",
+                    "started": "2019-11-07T12:40:00.000+0300",
+                    "timeSpent": "5h",
+                    "timeSpentSeconds": 18000,
+                    "id": "235115",
                     "issueId": "755131"
                 }
             ]
@@ -705,9 +779,9 @@
         "customfield_17576": null,
         "customfield_24970": null,
         "customfield_24975": "http://ppmold/PPM/Pages/Objects/Revenues.aspx?id=6355a3a6-2345-4bea-acbb-7e32d4ed4a67",
-        "customfield_16471": null,
+        "customfield_20970": "{summaryBean=com.atlassian.jira.plugin.devstatus.rest.SummaryBean@58324874[summary={pullrequest=com.atlassian.jira.plugin.devstatus.rest.SummaryItemBean@5695b520[overall=PullRequestOverallBean{stateCount=0, state='OPEN', details=PullRequestOverallDetails{openCount=0, mergedCount=0, declinedCount=0}},byInstanceType={}], build=com.atlassian.jira.plugin.devstatus.rest.SummaryItemBean@2f825ca9[overall=com.atlassian.jira.plugin.devstatus.summary.beans.BuildOverallBean@5445c0cc[failedBuildCount=0,successfulBuildCount=0,unknownBuildCount=0,count=0,lastUpdated=<null>,lastUpdatedTimestamp=<null>],byInstanceType={}], review=com.atlassian.jira.plugin.devstatus.rest.SummaryItemBean@5182c3dd[overall=com.atlassian.jira.plugin.devstatus.summary.beans.ReviewsOverallBean@7a5ce526[stateCount=0,state=<null>,dueDate=<null>,overDue=false,count=0,lastUpdated=<null>,lastUpdatedTimestamp=<null>],byInstanceType={}], deployment-environment=com.atlassian.jira.plugin.devstatus.rest.SummaryItemBean@478689d0[overall=com.atlassian.jira.plugin.devstatus.summary.beans.DeploymentOverallBean@3dbf624c[topEnvironments=[],showProjects=false,successfulCount=0,count=0,lastUpdated=<null>,lastUpdatedTimestamp=<null>],byInstanceType={}], repository=com.atlassian.jira.plugin.devstatus.rest.SummaryItemBean@7a64d20d[overall=com.atlassian.jira.plugin.devstatus.summary.beans.CommitOverallBean@670c7db2[count=0,lastUpdated=<null>,lastUpdatedTimestamp=<null>],byInstanceType={}], branch=com.atlassian.jira.plugin.devstatus.rest.SummaryItemBean@14b7b08a[overall=com.atlassian.jira.plugin.devstatus.summary.beans.BranchOverallBean@52dc1d52[count=0,lastUpdated=<null>,lastUpdatedTimestamp=<null>],byInstanceType={}]},errors=[],configErrors=[]], devSummaryJson={\"cachedValue\":{\"errors\":[],\"configErrors\":[],\"summary\":{\"pullrequest\":{\"overall\":{\"count\":0,\"lastUpdated\":null,\"stateCount\":0,\"state\":\"OPEN\",\"details\":{\"openCount\":0,\"mergedCount\":0,\"declinedCount\":0,\"total\":0},\"open\":true},\"byInstanceType\":{}},\"build\":{\"overall\":{\"count\":0,\"lastUpdated\":null,\"failedBuildCount\":0,\"successfulBuildCount\":0,\"unknownBuildCount\":0},\"byInstanceType\":{}},\"review\":{\"overall\":{\"count\":0,\"lastUpdated\":null,\"stateCount\":0,\"state\":null,\"dueDate\":null,\"overDue\":false,\"completed\":false},\"byInstanceType\":{}},\"deployment-environment\":{\"overall\":{\"count\":0,\"lastUpdated\":null,\"topEnvironments\":[],\"showProjects\":false,\"successfulCount\":0},\"byInstanceType\":{}},\"repository\":{\"overall\":{\"count\":0,\"lastUpdated\":null},\"byInstanceType\":{}},\"branch\":{\"overall\":{\"count\":0,\"lastUpdated\":null},\"byInstanceType\":{}}}},\"isStale\":false}}",
         "customfield_24976": null,
-        "customfield_20970": "{summaryBean=com.atlassian.jira.plugin.devstatus.rest.SummaryBean@2814bb7e[summary={pullrequest=com.atlassian.jira.plugin.devstatus.rest.SummaryItemBean@63d98f1e[overall=PullRequestOverallBean{stateCount=0, state='OPEN', details=PullRequestOverallDetails{openCount=0, mergedCount=0, declinedCount=0}},byInstanceType={}], build=com.atlassian.jira.plugin.devstatus.rest.SummaryItemBean@50be726a[overall=com.atlassian.jira.plugin.devstatus.summary.beans.BuildOverallBean@7fb0b61c[failedBuildCount=0,successfulBuildCount=0,unknownBuildCount=0,count=0,lastUpdated=<null>,lastUpdatedTimestamp=<null>],byInstanceType={}], review=com.atlassian.jira.plugin.devstatus.rest.SummaryItemBean@21e996c5[overall=com.atlassian.jira.plugin.devstatus.summary.beans.ReviewsOverallBean@1bc0fc65[stateCount=0,state=<null>,dueDate=<null>,overDue=false,count=0,lastUpdated=<null>,lastUpdatedTimestamp=<null>],byInstanceType={}], deployment-environment=com.atlassian.jira.plugin.devstatus.rest.SummaryItemBean@38cee055[overall=com.atlassian.jira.plugin.devstatus.summary.beans.DeploymentOverallBean@4234a106[topEnvironments=[],showProjects=false,successfulCount=0,count=0,lastUpdated=<null>,lastUpdatedTimestamp=<null>],byInstanceType={}], repository=com.atlassian.jira.plugin.devstatus.rest.SummaryItemBean@2f86483b[overall=com.atlassian.jira.plugin.devstatus.summary.beans.CommitOverallBean@3339aa7a[count=0,lastUpdated=<null>,lastUpdatedTimestamp=<null>],byInstanceType={}], branch=com.atlassian.jira.plugin.devstatus.rest.SummaryItemBean@7c3a2800[overall=com.atlassian.jira.plugin.devstatus.summary.beans.BranchOverallBean@1be19a10[count=0,lastUpdated=<null>,lastUpdatedTimestamp=<null>],byInstanceType={}]},errors=[],configErrors=[]], devSummaryJson={\"cachedValue\":{\"errors\":[],\"configErrors\":[],\"summary\":{\"pullrequest\":{\"overall\":{\"count\":0,\"lastUpdated\":null,\"stateCount\":0,\"state\":\"OPEN\",\"details\":{\"openCount\":0,\"mergedCount\":0,\"declinedCount\":0,\"total\":0},\"open\":true},\"byInstanceType\":{}},\"build\":{\"overall\":{\"count\":0,\"lastUpdated\":null,\"failedBuildCount\":0,\"successfulBuildCount\":0,\"unknownBuildCount\":0},\"byInstanceType\":{}},\"review\":{\"overall\":{\"count\":0,\"lastUpdated\":null,\"stateCount\":0,\"state\":null,\"dueDate\":null,\"overDue\":false,\"completed\":false},\"byInstanceType\":{}},\"deployment-environment\":{\"overall\":{\"count\":0,\"lastUpdated\":null,\"topEnvironments\":[],\"showProjects\":false,\"successfulCount\":0},\"byInstanceType\":{}},\"repository\":{\"overall\":{\"count\":0,\"lastUpdated\":null},\"byInstanceType\":{}},\"branch\":{\"overall\":{\"count\":0,\"lastUpdated\":null},\"byInstanceType\":{}}}},\"isStale\":false}}",
+        "customfield_16471": null,
         "customfield_16470": null,
         "customfield_24977": null,
         "customfield_24978": null,
@@ -720,8 +794,7 @@
         "customfield_24985": null,
         "customfield_24986": null,
         "customfield_24989": null,
-        "customfield_19972": null,
-        "duedate": null,
+        "duedate": "2019-11-13",
         "customfield_24990": null,
         "customfield_24991": null,
         "customfield_24992": null,
@@ -730,8 +803,8 @@
         "customfield_24995": null,
         "customfield_24996": null,
         "customfield_24997": null,
-        "customfield_11682": null,
         "customfield_12771": null,
+        "customfield_11682": null,
         "customfield_11687": null,
         "customfield_11686": null,
         "customfield_25171": "[{\"description\":\"Ответ на вопрос, зачем мы делаем эту задачу\",\"checked\":false},{\"description\":\"Контакты заказчиков и лиц с экспертизой\",\"checked\":false},{\"description\":\"Бизнес-требования\",\"checked\":false},{\"description\":\"Сроки\",\"checked\":false}]",
@@ -746,25 +819,25 @@
         "customfield_21471": null,
         "customfield_21470": null,
         "customfield_11676": null,
-        "customfield_26270": null,
         "customfield_25180": null,
+        "customfield_26270": null,
         "customfield_25181": null,
-        "customfield_26272": null,
         "customfield_25182": null,
-        "customfield_26271": null,
+        "customfield_26272": null,
         "customfield_25183": null,
-        "customfield_26274": null,
+        "customfield_26271": null,
         "customfield_25184": null,
-        "customfield_26273": null,
+        "customfield_26274": null,
         "customfield_25185": null,
-        "customfield_26276": null,
+        "customfield_26273": null,
         "customfield_25186": null,
-        "customfield_26275": null,
+        "customfield_26276": null,
         "customfield_25187": null,
-        "customfield_26278": null,
+        "customfield_26275": null,
         "customfield_25188": null,
-        "customfield_26277": null,
+        "customfield_26278": null,
         "customfield_25189": null,
+        "customfield_26277": null,
         "customfield_26279": null,
         "status": {
             "self": "http://jiraft.moscow.alfaintra.net/rest/api/2/status/10106",
@@ -782,23 +855,25 @@
         },
         "customfield_10570": null,
         "customfield_25190": null,
-        "customfield_26281": null,
         "customfield_25191": null,
-        "customfield_26280": null,
+        "customfield_26281": null,
         "customfield_25192": null,
-        "customfield_26283": null,
+        "customfield_26280": null,
         "customfield_25193": null,
-        "customfield_26282": null,
+        "customfield_26283": null,
         "customfield_25194": null,
-        "customfield_26285": null,
+        "customfield_26282": null,
         "customfield_25195": null,
-        "aggregatetimeestimate": 428400,
+        "customfield_26285": null,
+        "aggregatetimeestimate": 489600,
         "customfield_25196": null,
         "customfield_26284": null,
         "customfield_25197": null,
         "customfield_26287": null,
         "customfield_25198": null,
         "customfield_26286": null,
+        "customfield_26289": null,
+        "customfield_26288": null,
         "creator": {
             "self": "http://jiraft.moscow.alfaintra.net/rest/api/2/user?username=U_M12YK",
             "name": "U_M12YK",
@@ -819,38 +894,44 @@
         "customfield_11891": null,
         "customfield_11887": null,
         "customfield_10797": null,
+        "customfield_26292": null,
         "customfield_11886": null,
+        "customfield_26291": null,
         "customfield_11888": null,
+        "customfield_26293": null,
+        "customfield_26296": null,
+        "customfield_26295": null,
+        "customfield_26297": null,
         "customfield_19371": null,
         "customfield_18276": null,
         "customfield_18277": null,
         "customfield_18278": null,
-        "timespent": 3600,
+        "timespent": 57600,
         "customfield_10790": null,
+        "customfield_12970": null,
+        "customfield_11881": null,
         "customfield_10791": {
             "self": "http://jiraft.moscow.alfaintra.net/rest/api/2/customFieldOption/10959",
             "value": "Отображать",
             "id": "10959"
         },
-        "customfield_11881": null,
-        "customfield_12970": null,
-        "customfield_11880": null,
         "customfield_10792": {
             "self": "http://jiraft.moscow.alfaintra.net/rest/api/2/customFieldOption/10961",
             "value": "Обычная задача [жёлтая]",
             "id": "10961"
         },
+        "customfield_11880": null,
         "customfield_11883": null,
         "customfield_11882": null,
-        "customfield_13821": null,
-        "customfield_11885": null,
         "customfield_10795": null,
-        "customfield_10796": null,
+        "customfield_11885": null,
+        "customfield_13821": null,
         "customfield_13820": null,
-        "customfield_13814": null,
+        "customfield_10796": null,
         "customfield_10788": null,
-        "customfield_13813": null,
+        "customfield_13814": null,
         "customfield_11877": null,
+        "customfield_13813": null,
         "customfield_13815": null,
         "customfield_21679": null,
         "customfield_21678": null,
@@ -870,6 +951,7 @@
         "customfield_17170": null,
         "customfield_16075": null,
         "customfield_16077": null,
+        "customfield_16076": null,
         "customfield_10770": null,
         "customfield_10771": null,
         "customfield_10772": null,
@@ -896,13 +978,12 @@
         "customfield_25570": "755131",
         "customfield_25573": null,
         "customfield_25575": null,
-        "customfield_25576": null,
         "customfield_25577": null,
         "customfield_25578": null,
         "customfield_25579": null,
         "customfield_13570": null,
         "customfield_12484": null,
-        "customfield_12483": 1470,
+        "customfield_12483": 1825,
         "customfield_13577": null,
         "customfield_13579": null,
         "customfield_13578": null,
@@ -938,9 +1019,9 @@
         "customfield_24272": "",
         "customfield_19093": null,
         "progress": {
-            "progress": 3600,
-            "total": 432000,
-            "percent": 0
+            "progress": 57600,
+            "total": 547200,
+            "percent": 10
         },
         "customfield_14872": null,
         "project": {
@@ -963,8 +1044,8 @@
         "customfield_25378": null,
         "customfield_25379": null,
         "customfield_11590": null,
-        "customfield_13771": null,
         "customfield_10261": null,
+        "customfield_13771": null,
         "customfield_13770": null,
         "customfield_13775": null,
         "customfield_13774": null,
@@ -976,16 +1057,18 @@
         "customfield_26473": null,
         "customfield_26476": null,
         "customfield_26475": null,
-        "customfield_26478": null,
         "customfield_26477": null,
-        "customfield_26479": null,
         "customfield_11582": "1|i03ttz:",
         "customfield_21380": null,
         "customfield_11583": null,
         "customfield_11585": null,
         "customfield_11579": null,
         "customfield_26481": null,
-        "customfield_26480": null,
+        "customfield_26483": null,
+        "customfield_26482": null,
+        "customfield_26485": null,
+        "customfield_26484": null,
+        "customfield_26486": null,
         "customfield_21378": null,
         "summary": "Test",
         "customfield_21377": null,
@@ -1007,42 +1090,186 @@
         "customfield_24071": null,
         "customfield_24076": null,
         "comment": {
-            "comments": [],
-            "maxResults": 0,
-            "total": 0,
+            "comments": [
+                {
+                    "self": "http://jiraft.moscow.alfaintra.net/rest/api/2/issue/755131/comment/1129770",
+                    "id": "1129770",
+                    "author": {
+                        "self": "http://jiraft.moscow.alfaintra.net/rest/api/2/user?username=U_M12YK",
+                        "name": "U_M12YK",
+                        "key": "u_m12yk",
+                        "emailAddress": "YYaryshev@alfabank.ru",
+                        "avatarUrls": {
+                            "48x48": "http://jiraft.moscow.alfaintra.net/secure/useravatar?avatarId=10172",
+                            "24x24": "http://jiraft.moscow.alfaintra.net/secure/useravatar?size=small&avatarId=10172",
+                            "16x16": "http://jiraft.moscow.alfaintra.net/secure/useravatar?size=xsmall&avatarId=10172",
+                            "32x32": "http://jiraft.moscow.alfaintra.net/secure/useravatar?size=medium&avatarId=10172"
+                        },
+                        "displayName": "Ярышев Юрий Александрович",
+                        "active": true,
+                        "timeZone": "Europe/Moscow"
+                    },
+                    "body": "CommentYya1",
+                    "updateAuthor": {
+                        "self": "http://jiraft.moscow.alfaintra.net/rest/api/2/user?username=U_M12YK",
+                        "name": "U_M12YK",
+                        "key": "u_m12yk",
+                        "emailAddress": "YYaryshev@alfabank.ru",
+                        "avatarUrls": {
+                            "48x48": "http://jiraft.moscow.alfaintra.net/secure/useravatar?avatarId=10172",
+                            "24x24": "http://jiraft.moscow.alfaintra.net/secure/useravatar?size=small&avatarId=10172",
+                            "16x16": "http://jiraft.moscow.alfaintra.net/secure/useravatar?size=xsmall&avatarId=10172",
+                            "32x32": "http://jiraft.moscow.alfaintra.net/secure/useravatar?size=medium&avatarId=10172"
+                        },
+                        "displayName": "Ярышев Юрий Александрович",
+                        "active": true,
+                        "timeZone": "Europe/Moscow"
+                    },
+                    "created": "2019-11-07T12:12:50.000+0300",
+                    "updated": "2019-11-07T12:12:50.000+0300"
+                },
+                {
+                    "self": "http://jiraft.moscow.alfaintra.net/rest/api/2/issue/755131/comment/1129771",
+                    "id": "1129771",
+                    "author": {
+                        "self": "http://jiraft.moscow.alfaintra.net/rest/api/2/user?username=U_M12YK",
+                        "name": "U_M12YK",
+                        "key": "u_m12yk",
+                        "emailAddress": "YYaryshev@alfabank.ru",
+                        "avatarUrls": {
+                            "48x48": "http://jiraft.moscow.alfaintra.net/secure/useravatar?avatarId=10172",
+                            "24x24": "http://jiraft.moscow.alfaintra.net/secure/useravatar?size=small&avatarId=10172",
+                            "16x16": "http://jiraft.moscow.alfaintra.net/secure/useravatar?size=xsmall&avatarId=10172",
+                            "32x32": "http://jiraft.moscow.alfaintra.net/secure/useravatar?size=medium&avatarId=10172"
+                        },
+                        "displayName": "Ярышев Юрий Александрович",
+                        "active": true,
+                        "timeZone": "Europe/Moscow"
+                    },
+                    "body": "CommentYya2 {color:#FF0000}dfbgcxbxc{color}",
+                    "updateAuthor": {
+                        "self": "http://jiraft.moscow.alfaintra.net/rest/api/2/user?username=U_M12YK",
+                        "name": "U_M12YK",
+                        "key": "u_m12yk",
+                        "emailAddress": "YYaryshev@alfabank.ru",
+                        "avatarUrls": {
+                            "48x48": "http://jiraft.moscow.alfaintra.net/secure/useravatar?avatarId=10172",
+                            "24x24": "http://jiraft.moscow.alfaintra.net/secure/useravatar?size=small&avatarId=10172",
+                            "16x16": "http://jiraft.moscow.alfaintra.net/secure/useravatar?size=xsmall&avatarId=10172",
+                            "32x32": "http://jiraft.moscow.alfaintra.net/secure/useravatar?size=medium&avatarId=10172"
+                        },
+                        "displayName": "Ярышев Юрий Александрович",
+                        "active": true,
+                        "timeZone": "Europe/Moscow"
+                    },
+                    "created": "2019-11-07T12:43:47.000+0300",
+                    "updated": "2019-11-07T12:43:47.000+0300"
+                },
+                {
+                    "self": "http://jiraft.moscow.alfaintra.net/rest/api/2/issue/755131/comment/1129772",
+                    "id": "1129772",
+                    "author": {
+                        "self": "http://jiraft.moscow.alfaintra.net/rest/api/2/user?username=U_M12YK",
+                        "name": "U_M12YK",
+                        "key": "u_m12yk",
+                        "emailAddress": "YYaryshev@alfabank.ru",
+                        "avatarUrls": {
+                            "48x48": "http://jiraft.moscow.alfaintra.net/secure/useravatar?avatarId=10172",
+                            "24x24": "http://jiraft.moscow.alfaintra.net/secure/useravatar?size=small&avatarId=10172",
+                            "16x16": "http://jiraft.moscow.alfaintra.net/secure/useravatar?size=xsmall&avatarId=10172",
+                            "32x32": "http://jiraft.moscow.alfaintra.net/secure/useravatar?size=medium&avatarId=10172"
+                        },
+                        "displayName": "Ярышев Юрий Александрович",
+                        "active": true,
+                        "timeZone": "Europe/Moscow"
+                    },
+                    "body": "CommentYYa3 +{color:#FF0000}Русский{color}+",
+                    "updateAuthor": {
+                        "self": "http://jiraft.moscow.alfaintra.net/rest/api/2/user?username=U_M12YK",
+                        "name": "U_M12YK",
+                        "key": "u_m12yk",
+                        "emailAddress": "YYaryshev@alfabank.ru",
+                        "avatarUrls": {
+                            "48x48": "http://jiraft.moscow.alfaintra.net/secure/useravatar?avatarId=10172",
+                            "24x24": "http://jiraft.moscow.alfaintra.net/secure/useravatar?size=small&avatarId=10172",
+                            "16x16": "http://jiraft.moscow.alfaintra.net/secure/useravatar?size=xsmall&avatarId=10172",
+                            "32x32": "http://jiraft.moscow.alfaintra.net/secure/useravatar?size=medium&avatarId=10172"
+                        },
+                        "displayName": "Ярышев Юрий Александрович",
+                        "active": true,
+                        "timeZone": "Europe/Moscow"
+                    },
+                    "created": "2019-11-07T12:44:04.000+0300",
+                    "updated": "2019-11-07T12:44:04.000+0300"
+                },
+                {
+                    "self": "http://jiraft.moscow.alfaintra.net/rest/api/2/issue/755131/comment/1129773",
+                    "id": "1129773",
+                    "author": {
+                        "self": "http://jiraft.moscow.alfaintra.net/rest/api/2/user?username=U_M12YK",
+                        "name": "U_M12YK",
+                        "key": "u_m12yk",
+                        "emailAddress": "YYaryshev@alfabank.ru",
+                        "avatarUrls": {
+                            "48x48": "http://jiraft.moscow.alfaintra.net/secure/useravatar?avatarId=10172",
+                            "24x24": "http://jiraft.moscow.alfaintra.net/secure/useravatar?size=small&avatarId=10172",
+                            "16x16": "http://jiraft.moscow.alfaintra.net/secure/useravatar?size=xsmall&avatarId=10172",
+                            "32x32": "http://jiraft.moscow.alfaintra.net/secure/useravatar?size=medium&avatarId=10172"
+                        },
+                        "displayName": "Ярышев Юрий Александрович",
+                        "active": true,
+                        "timeZone": "Europe/Moscow"
+                    },
+                    "body": "yya {color:#FF0000}desc2{color}",
+                    "updateAuthor": {
+                        "self": "http://jiraft.moscow.alfaintra.net/rest/api/2/user?username=U_M12YK",
+                        "name": "U_M12YK",
+                        "key": "u_m12yk",
+                        "emailAddress": "YYaryshev@alfabank.ru",
+                        "avatarUrls": {
+                            "48x48": "http://jiraft.moscow.alfaintra.net/secure/useravatar?avatarId=10172",
+                            "24x24": "http://jiraft.moscow.alfaintra.net/secure/useravatar?size=small&avatarId=10172",
+                            "16x16": "http://jiraft.moscow.alfaintra.net/secure/useravatar?size=xsmall&avatarId=10172",
+                            "32x32": "http://jiraft.moscow.alfaintra.net/secure/useravatar?size=medium&avatarId=10172"
+                        },
+                        "displayName": "Ярышев Юрий Александрович",
+                        "active": true,
+                        "timeZone": "Europe/Moscow"
+                    },
+                    "created": "2019-11-07T12:45:36.000+0300",
+                    "updated": "2019-11-07T12:45:36.000+0300"
+                }
+            ],
+            "maxResults": 4,
+            "total": 4,
             "startAt": 0
         },
+        "customfield_14270": null,
+        "customfield_18870": null,
+        "customfield_24877": null,
         "customfield_25724": {
             "self": "http://jiraft.moscow.alfaintra.net/rest/api/2/customFieldOption/125418",
             "value": "Не оставляем",
             "id": "125418"
         },
-        "customfield_24877": null,
-        "customfield_18870": null,
-        "customfield_14270": null,
-        "customfield_24878": null,
         "customfield_18871": null,
+        "customfield_24878": null,
         "customfield_25725": {
             "self": "http://jiraft.moscow.alfaintra.net/rest/api/2/customFieldOption/125420",
             "value": "Не оставляем",
             "id": "125420"
         },
+        "customfield_18872": null,
         "customfield_25726": {
             "self": "http://jiraft.moscow.alfaintra.net/rest/api/2/customFieldOption/125422",
             "value": "Не оставляем",
             "id": "125422"
         },
-        "customfield_18872": null,
+        "customfield_18873": null,
         "customfield_25727": {
             "self": "http://jiraft.moscow.alfaintra.net/rest/api/2/customFieldOption/125424",
             "value": "Не оставляем",
             "id": "125424"
-        },
-        "customfield_18873": null,
-        "customfield_25728": {
-            "self": "http://jiraft.moscow.alfaintra.net/rest/api/2/customFieldOption/125426",
-            "value": "Не оставляем",
-            "id": "125426"
         },
         "customfield_25729": {
             "self": "http://jiraft.moscow.alfaintra.net/rest/api/2/customFieldOption/125428",
@@ -1109,16 +1336,16 @@
         "customfield_17990": null,
         "customfield_23197": null,
         "customfield_23196": null,
-        "customfield_15577": null,
         "customfield_23195": null,
-        "customfield_15574": null,
+        "customfield_15577": null,
         "customfield_23194": null,
+        "customfield_15574": null,
         "customfield_23193": null,
         "customfield_15575": null,
         "aggregateprogress": {
-            "progress": 3600,
-            "total": 432000,
-            "percent": 0
+            "progress": 57600,
+            "total": 547200,
+            "percent": 10
         },
         "customfield_23192": null,
         "customfield_23191": null,
@@ -1130,41 +1357,39 @@
         "customfield_13380": null,
         "customfield_23189": null,
         "customfield_23188": null,
-        "customfield_23187": null,
         "customfield_14470": null,
+        "customfield_23187": null,
         "customfield_23186": null,
         "customfield_23185": null,
         "customfield_23184": null,
         "customfield_23183": null,
         "customfield_23182": null,
         "customfield_23181": null,
-        "customfield_17989": null,
         "customfield_22091": null,
         "customfield_23180": null,
-        "customfield_25770": "[{\"description\":\"Windows    Google Chrome\",\"checked\":false},{\"description\":\"Windows    Яндекс.Браузер\",\"checked\":false},{\"description\":\"Windows    MSIE\",\"checked\":false},{\"description\":\"Windows    Opera\",\"checked\":false},{\"description\":\"Windows    Firefox\",\"checked\":false},{\"description\":\"Windows    Edge\",\"checked\":false},{\"description\":\"Mac OS    Safari\",\"checked\":false},{\"description\":\"Mac OS    Google Chrome\",\"checked\":false},{\"description\":\"Google Android    Chrome Mobile\",\"checked\":false},{\"description\":\"Google Android    Android Browser\",\"checked\":false},{\"description\":\"Google Android    Яндекс: мобильное приложение\",\"checked\":false},{\"description\":\"Google Android    Яндекс.Браузер\",\"checked\":false},{\"description\":\"Google Android    Samsung Internet\",\"checked\":false},{\"description\":\"iOS    Mobile Safari\",\"checked\":false},{\"description\":\"iOS    Google Chrome\",\"checked\":false}]",
+        "customfield_17989": null,
         "customfield_25773": null,
         "customfield_25774": null,
-        "customfield_25777": null,
         "customfield_25778": null,
         "customfield_25779": null,
         "customfield_23179": null,
         "customfield_23178": null,
-        "customfield_17970": null,
         "customfield_23177": null,
+        "customfield_17970": null,
         "customfield_23176": null,
         "customfield_23175": null,
         "customfield_23174": null,
         "customfield_13377": null,
-        "customfield_23171": null,
         "customfield_13376": null,
-        "customfield_23170": null,
+        "customfield_23171": null,
         "customfield_13379": null,
+        "customfield_23170": null,
         "customfield_25780": null,
         "customfield_25781": null,
         "customfield_25782": null,
         "customfield_16871": null,
-        "customfield_16870": null,
         "customfield_12270": null,
+        "customfield_16870": null,
         "customfield_16872": null,
         "customfield_23371": null,
         "customfield_23372": null,
@@ -1174,5 +1399,469 @@
         "customfield_24474": null,
         "customfield_24475": null,
         "customfield_24476": null
+    },
+    "changelog": {
+        "startAt": 0,
+        "maxResults": 13,
+        "total": 13,
+        "histories": [
+            {
+                "id": "6865306",
+                "author": {
+                    "self": "http://jiraft.moscow.alfaintra.net/rest/api/2/user?username=U_M12YK",
+                    "name": "U_M12YK",
+                    "key": "u_m12yk",
+                    "emailAddress": "YYaryshev@alfabank.ru",
+                    "avatarUrls": {
+                        "48x48": "http://jiraft.moscow.alfaintra.net/secure/useravatar?avatarId=10172",
+                        "24x24": "http://jiraft.moscow.alfaintra.net/secure/useravatar?size=small&avatarId=10172",
+                        "16x16": "http://jiraft.moscow.alfaintra.net/secure/useravatar?size=xsmall&avatarId=10172",
+                        "32x32": "http://jiraft.moscow.alfaintra.net/secure/useravatar?size=medium&avatarId=10172"
+                    },
+                    "displayName": "Ярышев Юрий Александрович",
+                    "active": true,
+                    "timeZone": "Europe/Moscow"
+                },
+                "created": "2019-10-23T15:20:13.000+0300",
+                "items": [
+                    {
+                        "field": "status",
+                        "fieldtype": "jira",
+                        "from": "10106",
+                        "fromString": "TO DO",
+                        "to": "3",
+                        "toString": "In Progress"
+                    }
+                ]
+            },
+            {
+                "id": "6865307",
+                "author": {
+                    "self": "http://jiraft.moscow.alfaintra.net/rest/api/2/user?username=U_M12YK",
+                    "name": "U_M12YK",
+                    "key": "u_m12yk",
+                    "emailAddress": "YYaryshev@alfabank.ru",
+                    "avatarUrls": {
+                        "48x48": "http://jiraft.moscow.alfaintra.net/secure/useravatar?avatarId=10172",
+                        "24x24": "http://jiraft.moscow.alfaintra.net/secure/useravatar?size=small&avatarId=10172",
+                        "16x16": "http://jiraft.moscow.alfaintra.net/secure/useravatar?size=xsmall&avatarId=10172",
+                        "32x32": "http://jiraft.moscow.alfaintra.net/secure/useravatar?size=medium&avatarId=10172"
+                    },
+                    "displayName": "Ярышев Юрий Александрович",
+                    "active": true,
+                    "timeZone": "Europe/Moscow"
+                },
+                "created": "2019-10-23T15:20:38.000+0300",
+                "items": [
+                    {
+                        "field": "status",
+                        "fieldtype": "jira",
+                        "from": "3",
+                        "fromString": "In Progress",
+                        "to": "10106",
+                        "toString": "TO DO"
+                    }
+                ]
+            },
+            {
+                "id": "6865308",
+                "author": {
+                    "self": "http://jiraft.moscow.alfaintra.net/rest/api/2/user?username=U_M12YK",
+                    "name": "U_M12YK",
+                    "key": "u_m12yk",
+                    "emailAddress": "YYaryshev@alfabank.ru",
+                    "avatarUrls": {
+                        "48x48": "http://jiraft.moscow.alfaintra.net/secure/useravatar?avatarId=10172",
+                        "24x24": "http://jiraft.moscow.alfaintra.net/secure/useravatar?size=small&avatarId=10172",
+                        "16x16": "http://jiraft.moscow.alfaintra.net/secure/useravatar?size=xsmall&avatarId=10172",
+                        "32x32": "http://jiraft.moscow.alfaintra.net/secure/useravatar?size=medium&avatarId=10172"
+                    },
+                    "displayName": "Ярышев Юрий Александрович",
+                    "active": true,
+                    "timeZone": "Europe/Moscow"
+                },
+                "created": "2019-10-23T15:20:45.000+0300",
+                "items": [
+                    {
+                        "field": "status",
+                        "fieldtype": "jira",
+                        "from": "10106",
+                        "fromString": "TO DO",
+                        "to": "3",
+                        "toString": "In Progress"
+                    }
+                ]
+            },
+            {
+                "id": "6865309",
+                "author": {
+                    "self": "http://jiraft.moscow.alfaintra.net/rest/api/2/user?username=U_M12YK",
+                    "name": "U_M12YK",
+                    "key": "u_m12yk",
+                    "emailAddress": "YYaryshev@alfabank.ru",
+                    "avatarUrls": {
+                        "48x48": "http://jiraft.moscow.alfaintra.net/secure/useravatar?avatarId=10172",
+                        "24x24": "http://jiraft.moscow.alfaintra.net/secure/useravatar?size=small&avatarId=10172",
+                        "16x16": "http://jiraft.moscow.alfaintra.net/secure/useravatar?size=xsmall&avatarId=10172",
+                        "32x32": "http://jiraft.moscow.alfaintra.net/secure/useravatar?size=medium&avatarId=10172"
+                    },
+                    "displayName": "Ярышев Юрий Александрович",
+                    "active": true,
+                    "timeZone": "Europe/Moscow"
+                },
+                "created": "2019-10-23T15:20:54.000+0300",
+                "items": [
+                    {
+                        "field": "status",
+                        "fieldtype": "jira",
+                        "from": "3",
+                        "fromString": "In Progress",
+                        "to": "10106",
+                        "toString": "TO DO"
+                    }
+                ]
+            },
+            {
+                "id": "6865312",
+                "author": {
+                    "self": "http://jiraft.moscow.alfaintra.net/rest/api/2/user?username=U_M12YK",
+                    "name": "U_M12YK",
+                    "key": "u_m12yk",
+                    "emailAddress": "YYaryshev@alfabank.ru",
+                    "avatarUrls": {
+                        "48x48": "http://jiraft.moscow.alfaintra.net/secure/useravatar?avatarId=10172",
+                        "24x24": "http://jiraft.moscow.alfaintra.net/secure/useravatar?size=small&avatarId=10172",
+                        "16x16": "http://jiraft.moscow.alfaintra.net/secure/useravatar?size=xsmall&avatarId=10172",
+                        "32x32": "http://jiraft.moscow.alfaintra.net/secure/useravatar?size=medium&avatarId=10172"
+                    },
+                    "displayName": "Ярышев Юрий Александрович",
+                    "active": true,
+                    "timeZone": "Europe/Moscow"
+                },
+                "created": "2019-10-23T15:21:09.000+0300",
+                "items": [
+                    {
+                        "field": "timeoriginalestimate",
+                        "fieldtype": "jira",
+                        "from": null,
+                        "fromString": null,
+                        "to": "432000",
+                        "toString": "432000"
+                    },
+                    {
+                        "field": "timeestimate",
+                        "fieldtype": "jira",
+                        "from": null,
+                        "fromString": null,
+                        "to": "432000",
+                        "toString": "432000"
+                    }
+                ]
+            },
+            {
+                "id": "6952800",
+                "author": {
+                    "self": "http://jiraft.moscow.alfaintra.net/rest/api/2/user?username=U_M12YK",
+                    "name": "U_M12YK",
+                    "key": "u_m12yk",
+                    "emailAddress": "YYaryshev@alfabank.ru",
+                    "avatarUrls": {
+                        "48x48": "http://jiraft.moscow.alfaintra.net/secure/useravatar?avatarId=10172",
+                        "24x24": "http://jiraft.moscow.alfaintra.net/secure/useravatar?size=small&avatarId=10172",
+                        "16x16": "http://jiraft.moscow.alfaintra.net/secure/useravatar?size=xsmall&avatarId=10172",
+                        "32x32": "http://jiraft.moscow.alfaintra.net/secure/useravatar?size=medium&avatarId=10172"
+                    },
+                    "displayName": "Ярышев Юрий Александрович",
+                    "active": true,
+                    "timeZone": "Europe/Moscow"
+                },
+                "created": "2019-11-05T12:44:51.000+0300",
+                "items": [
+                    {
+                        "field": "description",
+                        "fieldtype": "jira",
+                        "from": null,
+                        "fromString": null,
+                        "to": null,
+                        "toString": "dfdfdf"
+                    }
+                ]
+            },
+            {
+                "id": "6971410",
+                "author": {
+                    "self": "http://jiraft.moscow.alfaintra.net/rest/api/2/user?username=U_M12YK",
+                    "name": "U_M12YK",
+                    "key": "u_m12yk",
+                    "emailAddress": "YYaryshev@alfabank.ru",
+                    "avatarUrls": {
+                        "48x48": "http://jiraft.moscow.alfaintra.net/secure/useravatar?avatarId=10172",
+                        "24x24": "http://jiraft.moscow.alfaintra.net/secure/useravatar?size=small&avatarId=10172",
+                        "16x16": "http://jiraft.moscow.alfaintra.net/secure/useravatar?size=xsmall&avatarId=10172",
+                        "32x32": "http://jiraft.moscow.alfaintra.net/secure/useravatar?size=medium&avatarId=10172"
+                    },
+                    "displayName": "Ярышев Юрий Александрович",
+                    "active": true,
+                    "timeZone": "Europe/Moscow"
+                },
+                "created": "2019-11-07T12:40:10.000+0300",
+                "items": [
+                    {
+                        "field": "timeestimate",
+                        "fieldtype": "jira",
+                        "from": "432000",
+                        "fromString": "432000",
+                        "to": "421200",
+                        "toString": "421200"
+                    },
+                    {
+                        "field": "timespent",
+                        "fieldtype": "jira",
+                        "from": null,
+                        "fromString": null,
+                        "to": "10800",
+                        "toString": "10800"
+                    },
+                    {
+                        "field": "WorklogId",
+                        "fieldtype": "jira",
+                        "from": "235113",
+                        "fromString": "235113",
+                        "to": null,
+                        "toString": null
+                    }
+                ]
+            },
+            {
+                "id": "6971411",
+                "author": {
+                    "self": "http://jiraft.moscow.alfaintra.net/rest/api/2/user?username=U_M12YK",
+                    "name": "U_M12YK",
+                    "key": "u_m12yk",
+                    "emailAddress": "YYaryshev@alfabank.ru",
+                    "avatarUrls": {
+                        "48x48": "http://jiraft.moscow.alfaintra.net/secure/useravatar?avatarId=10172",
+                        "24x24": "http://jiraft.moscow.alfaintra.net/secure/useravatar?size=small&avatarId=10172",
+                        "16x16": "http://jiraft.moscow.alfaintra.net/secure/useravatar?size=xsmall&avatarId=10172",
+                        "32x32": "http://jiraft.moscow.alfaintra.net/secure/useravatar?size=medium&avatarId=10172"
+                    },
+                    "displayName": "Ярышев Юрий Александрович",
+                    "active": true,
+                    "timeZone": "Europe/Moscow"
+                },
+                "created": "2019-11-07T12:40:25.000+0300",
+                "items": [
+                    {
+                        "field": "timeestimate",
+                        "fieldtype": "jira",
+                        "from": "421200",
+                        "fromString": "421200",
+                        "to": "392400",
+                        "toString": "392400"
+                    },
+                    {
+                        "field": "timespent",
+                        "fieldtype": "jira",
+                        "from": "10800",
+                        "fromString": "10800",
+                        "to": "39600",
+                        "toString": "39600"
+                    },
+                    {
+                        "field": "WorklogId",
+                        "fieldtype": "jira",
+                        "from": "235114",
+                        "fromString": "235114",
+                        "to": null,
+                        "toString": null
+                    }
+                ]
+            },
+            {
+                "id": "6971412",
+                "author": {
+                    "self": "http://jiraft.moscow.alfaintra.net/rest/api/2/user?username=U_M12YK",
+                    "name": "U_M12YK",
+                    "key": "u_m12yk",
+                    "emailAddress": "YYaryshev@alfabank.ru",
+                    "avatarUrls": {
+                        "48x48": "http://jiraft.moscow.alfaintra.net/secure/useravatar?avatarId=10172",
+                        "24x24": "http://jiraft.moscow.alfaintra.net/secure/useravatar?size=small&avatarId=10172",
+                        "16x16": "http://jiraft.moscow.alfaintra.net/secure/useravatar?size=xsmall&avatarId=10172",
+                        "32x32": "http://jiraft.moscow.alfaintra.net/secure/useravatar?size=medium&avatarId=10172"
+                    },
+                    "displayName": "Ярышев Юрий Александрович",
+                    "active": true,
+                    "timeZone": "Europe/Moscow"
+                },
+                "created": "2019-11-07T12:40:41.000+0300",
+                "items": [
+                    {
+                        "field": "timeestimate",
+                        "fieldtype": "jira",
+                        "from": "392400",
+                        "fromString": "392400",
+                        "to": "374400",
+                        "toString": "374400"
+                    },
+                    {
+                        "field": "timespent",
+                        "fieldtype": "jira",
+                        "from": "39600",
+                        "fromString": "39600",
+                        "to": "57600",
+                        "toString": "57600"
+                    },
+                    {
+                        "field": "WorklogId",
+                        "fieldtype": "jira",
+                        "from": "235115",
+                        "fromString": "235115",
+                        "to": null,
+                        "toString": null
+                    }
+                ]
+            },
+            {
+                "id": "6971413",
+                "author": {
+                    "self": "http://jiraft.moscow.alfaintra.net/rest/api/2/user?username=U_M12YK",
+                    "name": "U_M12YK",
+                    "key": "u_m12yk",
+                    "emailAddress": "YYaryshev@alfabank.ru",
+                    "avatarUrls": {
+                        "48x48": "http://jiraft.moscow.alfaintra.net/secure/useravatar?avatarId=10172",
+                        "24x24": "http://jiraft.moscow.alfaintra.net/secure/useravatar?size=small&avatarId=10172",
+                        "16x16": "http://jiraft.moscow.alfaintra.net/secure/useravatar?size=xsmall&avatarId=10172",
+                        "32x32": "http://jiraft.moscow.alfaintra.net/secure/useravatar?size=medium&avatarId=10172"
+                    },
+                    "displayName": "Ярышев Юрий Александрович",
+                    "active": true,
+                    "timeZone": "Europe/Moscow"
+                },
+                "created": "2019-11-07T12:44:32.000+0300",
+                "items": [
+                    {
+                        "field": "labels",
+                        "fieldtype": "jira",
+                        "from": null,
+                        "fromString": null,
+                        "to": null,
+                        "toString": "yyalabel1"
+                    }
+                ]
+            },
+            {
+                "id": "6971414",
+                "author": {
+                    "self": "http://jiraft.moscow.alfaintra.net/rest/api/2/user?username=U_M12YK",
+                    "name": "U_M12YK",
+                    "key": "u_m12yk",
+                    "emailAddress": "YYaryshev@alfabank.ru",
+                    "avatarUrls": {
+                        "48x48": "http://jiraft.moscow.alfaintra.net/secure/useravatar?avatarId=10172",
+                        "24x24": "http://jiraft.moscow.alfaintra.net/secure/useravatar?size=small&avatarId=10172",
+                        "16x16": "http://jiraft.moscow.alfaintra.net/secure/useravatar?size=xsmall&avatarId=10172",
+                        "32x32": "http://jiraft.moscow.alfaintra.net/secure/useravatar?size=medium&avatarId=10172"
+                    },
+                    "displayName": "Ярышев Юрий Александрович",
+                    "active": true,
+                    "timeZone": "Europe/Moscow"
+                },
+                "created": "2019-11-07T12:45:36.000+0300",
+                "items": [
+                    {
+                        "field": "duedate",
+                        "fieldtype": "jira",
+                        "from": null,
+                        "fromString": null,
+                        "to": "2019-11-13",
+                        "toString": "2019-11-13 00:00:00.0"
+                    },
+                    {
+                        "field": "priority",
+                        "fieldtype": "jira",
+                        "from": "3",
+                        "fromString": "Medium",
+                        "to": "4",
+                        "toString": "Low"
+                    },
+                    {
+                        "field": "labels",
+                        "fieldtype": "jira",
+                        "from": null,
+                        "fromString": "yyalabel1",
+                        "to": null,
+                        "toString": "yyalabel2 yyalabel3 yyalabel4"
+                    },
+                    {
+                        "field": "timeestimate",
+                        "fieldtype": "jira",
+                        "from": "374400",
+                        "fromString": "374400",
+                        "to": "489600",
+                        "toString": "489600"
+                    }
+                ]
+            },
+            {
+                "id": "6971415",
+                "author": {
+                    "self": "http://jiraft.moscow.alfaintra.net/rest/api/2/user?username=U_M12YK",
+                    "name": "U_M12YK",
+                    "key": "u_m12yk",
+                    "emailAddress": "YYaryshev@alfabank.ru",
+                    "avatarUrls": {
+                        "48x48": "http://jiraft.moscow.alfaintra.net/secure/useravatar?avatarId=10172",
+                        "24x24": "http://jiraft.moscow.alfaintra.net/secure/useravatar?size=small&avatarId=10172",
+                        "16x16": "http://jiraft.moscow.alfaintra.net/secure/useravatar?size=xsmall&avatarId=10172",
+                        "32x32": "http://jiraft.moscow.alfaintra.net/secure/useravatar?size=medium&avatarId=10172"
+                    },
+                    "displayName": "Ярышев Юрий Александрович",
+                    "active": true,
+                    "timeZone": "Europe/Moscow"
+                },
+                "created": "2019-11-07T12:45:49.000+0300",
+                "items": [
+                    {
+                        "field": "status",
+                        "fieldtype": "jira",
+                        "from": "10106",
+                        "fromString": "TO DO",
+                        "to": "3",
+                        "toString": "In Progress"
+                    }
+                ]
+            },
+            {
+                "id": "6971416",
+                "author": {
+                    "self": "http://jiraft.moscow.alfaintra.net/rest/api/2/user?username=U_M12YK",
+                    "name": "U_M12YK",
+                    "key": "u_m12yk",
+                    "emailAddress": "YYaryshev@alfabank.ru",
+                    "avatarUrls": {
+                        "48x48": "http://jiraft.moscow.alfaintra.net/secure/useravatar?avatarId=10172",
+                        "24x24": "http://jiraft.moscow.alfaintra.net/secure/useravatar?size=small&avatarId=10172",
+                        "16x16": "http://jiraft.moscow.alfaintra.net/secure/useravatar?size=xsmall&avatarId=10172",
+                        "32x32": "http://jiraft.moscow.alfaintra.net/secure/useravatar?size=medium&avatarId=10172"
+                    },
+                    "displayName": "Ярышев Юрий Александрович",
+                    "active": true,
+                    "timeZone": "Europe/Moscow"
+                },
+                "created": "2019-11-07T12:45:54.000+0300",
+                "items": [
+                    {
+                        "field": "status",
+                        "fieldtype": "jira",
+                        "from": "3",
+                        "fromString": "In Progress",
+                        "to": "10106",
+                        "toString": "TO DO"
+                    }
+                ]
+            }
+        ]
     }
 }

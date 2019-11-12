@@ -4,7 +4,6 @@ import JiraClient from 'jira-connector';
 import {writeFileSync} from 'fs';
 import {jiraGetAllFieldMetas} from "./dbdJiraField";
 import { startEnv } from "./startEnv";
-import moment from "moment";
 
 
 //10374
@@ -36,9 +35,4 @@ const testFunc = async ()=> {
 };
 
 
-// testFunc();
- console.log('12345678 ==========');
-
- console.log(moment('2010-01-01').format());
- console.log(moment('2010-01-05').format());
- console.log(moment('2010-01-05').diff(moment('2010-01-01'), "d"));
+testFunc();

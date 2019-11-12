@@ -1,0 +1,1 @@
+cls && node ts_out\src\main.js drop_all
