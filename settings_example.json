@@ -1,27 +1,76 @@
 {
-    "jira": {
-        "protocol": "http",
-        "port": 80,
-        "host": "jira.moscow.alfaintra.net",
-        "basic_auth": {
-            "username": "U_M00000",
-            "password": "YOUR_PASSWORD_HERE"
-        },
-        "strictSSL": false
+    "instanceName": "local test",
+    "yyadev": true,
+    "monitorEndpointPort": 29364,
+    "jiraMaxResults": 1000,
+    "jiraMaxConnections": 5000,
+    "jiraHistDate": "2019-11-19",
+    "dbgStream": null,
+    "use_stored_procedures": false,
+    "connect_jira_dev": false,
+    "issuesCache": {
+        "enabled": true,
+        "minutesToLive": 600
     },
-    "jiradev": {
+    "requestsCache": {
+        "enabled": false,
+        "minutesToLive": 600
+    },
+    "jira": {
+        "dbgCacheRequests": true,
         "protocol": "http",
         "port": 80,
         "host": "jiraft.moscow.alfaintra.net",
         "basic_auth": {
-            "username": "U_M00000",
-            "password": "YOUR_PASSWORD_HERE"
+            "username": "ЛОГИН",
+            "password": "ПАРОЛЬ"
         },
         "strictSSL": false
     },
-    "oracle": {
-        "user": "YOUR_LOGIN",
-        "password": "YOUR_PASSWORD_HERE",
+    "jira_issue_loader": {
+        "protocol": "http",
+        "port": 80,
+        "host": "jira.moscow.alfaintra.net",
+        "basic_auth": {
+            "username": "ЛОГИН",
+            "password": "ПАРОЛЬ"
+        },
+        "strictSSL": false
+    },
+    "jira_yya": {
+        "protocol": "http",
+        "port": 80,
+        "host": "jira.moscow.alfaintra.net",
+        "basic_auth": {
+            "username": "ЛОГИН",
+            "password": "ПАРОЛЬ"
+        },
+        "strictSSL": false
+    },
+    "jiradev": {
+        "dbgCacheRequests": true,
+        "protocol": "http",
+        "port": 80,
+        "host": "jiraft.moscow.alfaintra.net",
+        "basic_auth": {
+            "username": "ЛОГИН",
+            "password": "ПАРОЛЬ"
+        },
+        "strictSSL": false
+    },
+    "oracle3": {
+        "user": "ЛОГИН",
+        "password": "ПАРОЛЬ",
         "connectString": "DWSTPROD_TAF"
+    },
+    "oracle": {
+        "user": "ЛОГИН",
+        "password": "ПАРОЛЬ",
+        "connectString": "BIREPDEV",
+        "schema": "BIREPORT_TEST3_STG"
+    },
+    "debug": {
+        "issueKey": "DATAMAP-1",
+        "clearCaches": false
     }
 }

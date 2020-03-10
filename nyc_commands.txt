@@ -1,0 +1,6 @@
+cls && nyc --all --exclude="public" --exclude="*.*" --exclude="*.test.js" --extension=".js" --reporter=text npm run test --clean
+
+cls && nyc --all --exclude="public" --exclude="*.*" --exclude="*.test.js" --extension=".js" --reporter=text npm run test --clean
+
+
+cls && nyc instrument ts_out nyc_out

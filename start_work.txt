@@ -1,0 +1,39 @@
+cd C:\Users\U_M12YK\Documents\YYaryshev\js\issue_loader
+cls
+watch
+
+
+cd C:\Users\U_M12YK\Documents\YYaryshev\js\issue_loader
+cls
+ycplmon
+
+
+cd C:\Users\U_M12YK\Documents\YYaryshev\js\issue_loader
+cls
+tsc --watch
+
+
+cd C:\Users\U_M12YK\Documents\YYaryshev\js\issue_loader
+cls
+drop_all
+
+
+
+cd C:\Users\U_M12YK\Documents\YYaryshev\js\issue_loader
+cls
+web
+
+
+ll sqlite_stg.db && pm2 l && du -h
+
+
+select jobType, sum(succeded) succeded, count(1)-sum(succeded) remaining, count(1) total from job group by jobType;
+
+
+
+
+node --inspect-brk=bicld-jiraplt.moscow.alfaintra.net:9229 ./ts_out/src/start.js
+
+pm2 stop issue_loader_prod issue_loader_test issue_loader_dev
+
+pm2 start issue_loader_prod issue_loader_test issue_loader_dev

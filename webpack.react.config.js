@@ -48,8 +48,8 @@ module.exports = Object.assign(
         ? {
               devServer: {
                   contentBase: "./dist",
-                  hot: true
-              }
+                  hot: true,
+              },
           }
         : {},
     {
@@ -57,10 +57,10 @@ module.exports = Object.assign(
             fs: "empty",
             //        console: 'empty',
             net: "empty",
-            tls: "empty"
+            tls: "empty",
         },
         mode: "development",
-        entry: ["./src/monitor_ui/index.jsx"],
+        entry: ["./src/monitoring_ui/index.jsx"],
         devtool: "inline-source-map",
         resolve: {
             //        root:               path.join(__dirname, 'js'),
@@ -68,12 +68,12 @@ module.exports = Object.assign(
             extensions: [".ts", ".tsx", ".js", ".jsx"],
             alias: {
                 //            'react-dom': '@hot-loader/react-dom',
-                ...moduleAliases
-            }
+                ...moduleAliases,
+            },
         },
         output: {
             path: outputPath,
-            filename: "bundle.js"
+            filename: "bundle.js",
         },
         module: {
             rules: [
@@ -84,7 +84,7 @@ module.exports = Object.assign(
                             if (modulePath.includes(excludedModule)) return true;
                         return false;
                     },
-                    use: "null-loader"
+                    use: "null-loader",
                 },
                 // {
                 // test: /\.scss$/,
@@ -108,19 +108,19 @@ module.exports = Object.assign(
                                 //     { targets: { browsers: "last 2 versions" } } // or whatever your project requires
                                 // ],
                                 "@babel/preset-typescript",
-                                "@babel/preset-react"
+                                "@babel/preset-react",
                             ],
                             plugins: [
                                 // plugin-proposal-decorators is only needed if you're using experimental decorators in TypeScript
                                 ["@babel/plugin-proposal-decorators", { legacy: true }],
                                 ["@babel/plugin-proposal-class-properties", { loose: true }],
-                                "@babel/plugin-proposal-optional-chaining"
+                                "@babel/plugin-proposal-optional-chaining",
                                 //                            "react-hot-loader/babel"
-                            ]
-                        }
-                    }
-                }
-            ]
+                            ],
+                        },
+                    },
+                },
+            ],
         },
         plugins: [
             new webpack.DefinePlugin({
@@ -128,15 +128,17 @@ module.exports = Object.assign(
                 "process.env.BROWSER": "true",
                 "process.env.hot": JSON.stringify(hot),
                 NODE_ENV: JSON.stringify(NODE_ENV),
-                BUILD_DATE: JSON.stringify(BUILD_DATE)
+                BUILD_DATE: JSON.stringify(BUILD_DATE),
             }),
             new CleanWebpackPlugin(),
             new webpack.NamedModulesPlugin(),
-            new HtmlWebpackPlugin({ title: manifest_json ? manifest_json.name : package_json.name })
+            new HtmlWebpackPlugin({ title: manifest_json ? manifest_json.name : package_json.name }),
             //        new webpack.HotModuleReplacementPlugin(),
-        ]
+        ],
         //	watchOptions : {
         //		aggregateTimeout : 300
         //	},
     }
 );
+
+require("./inc_version.js");
