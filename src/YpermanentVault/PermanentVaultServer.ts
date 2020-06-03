@@ -40,6 +40,7 @@ export type PermanentVaultServerAPI =
 
 export class PermanentVaultServer {
     vaults: Map<string, PermanentVault<any>>;
+
     constructor(
         public readonly port = pvDefaultPort,
         public readonly vaultNames: string[],

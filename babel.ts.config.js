@@ -37,4 +37,23 @@ module.exports = {
     ],
 };
 
+module.exports = {
+    presets: ["@babel/preset-typescript", "@babel/preset-react"],
+    plugins: [
+        ["@babel/plugin-proposal-decorators", { legacy: true }],
+        "@babel/proposal-optional-chaining",
+        ["@babel/proposal-class-properties", { legacy: true }],
+        "@babel/proposal-object-rest-spread",
+        "react-hot-loader/babel",
+        [
+            "module-resolver",
+            {
+                root: ["./"],
+                alias: aliases,
+            },
+        ],
+        "@babel/transform-modules-commonjs",
+    ],
+};
+
 require("./inc_version.js");

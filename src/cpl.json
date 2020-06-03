@@ -1,458 +1,458 @@
 [
     {
-        "cpl": 122,
-        "filePath": "src\\dbDomains\\dbdJiraField.ts",
-        "pos": 6811
+        "cpl": 1,
+        "filePath": "src\\Yjob\\mainLogic_JobLifeCycle.ts",
+        "pos": 944
+    },
+    {
+        "cpl": 2,
+        "filePath": "src\\job\\IssueContext.ts",
+        "pos": 733
     },
     {
         "cpl": 3,
         "filePath": "src\\dbDomains\\dbdJiraField.ts",
-        "pos": 7703
+        "pos": 7872
     },
     {
         "cpl": 4,
         "filePath": "src\\dbDomains\\dbdJiraField.ts",
-        "pos": 9494
+        "pos": 9954
     },
     {
         "cpl": 5,
         "filePath": "src\\dbDomains\\dbdJiraField.ts",
-        "pos": 9944
+        "pos": 10404
     },
     {
         "cpl": 6,
         "filePath": "src\\dbDomains\\dbdJiraField.ts",
-        "pos": 10259
+        "pos": 10719
     },
     {
         "cpl": 7,
         "filePath": "src\\dbDomains\\dbdJiraField.ts",
-        "pos": 10373
+        "pos": 10833
     },
     {
         "cpl": 8,
         "filePath": "src\\dbDomains\\dbdJiraIssue.ts",
-        "pos": 2847
+        "pos": 3051
     },
     {
         "cpl": 9,
         "filePath": "src\\dbDomains\\dbdJiraIssue.ts",
-        "pos": 3888
+        "pos": 4795
     },
     {
         "cpl": 10,
         "filePath": "src\\dbDomains\\dbdJiraIssue.ts",
-        "pos": 4975
+        "pos": 5882
     },
     {
         "cpl": 11,
         "filePath": "src\\dbDomains\\dbdJiraIssue.ts",
-        "pos": 8260
+        "pos": 9085
     },
     {
-        "cpl": 214,
-        "filePath": "src\\dbDomains\\dbdJiraIssue.ts",
-        "pos": 8452
+        "cpl": 12,
+        "filePath": "src\\tests\\global_tests_env.test.ts",
+        "pos": 2748
     },
     {
-        "cpl": 215,
-        "filePath": "src\\dbDomains\\dbdJiraIssue.ts",
-        "pos": 8643
+        "cpl": 13,
+        "filePath": "src\\monitoring_api\\jobStatsApi.ts",
+        "pos": 2844
     },
     {
-        "cpl": 216,
-        "filePath": "src\\dbDomains\\dbdJiraIssue.ts",
-        "pos": 8855
+        "cpl": 14,
+        "filePath": "src\\tests\\global_tests_env.test.ts",
+        "pos": 3187
     },
     {
-        "cpl": 217,
-        "filePath": "src\\dbDomains\\dbdJiraIssue.ts",
-        "pos": 8992
+        "cpl": 15,
+        "filePath": "src\\tests\\global_tests_env.test.ts",
+        "pos": 3240
     },
     {
-        "cpl": 258,
-        "filePath": "src\\dbDomains\\dbdJiraIssue.ts",
-        "pos": 9190
+        "cpl": 16,
+        "filePath": "src\\tests\\global_tests_env.test.ts",
+        "pos": 3294
     },
     {
-        "cpl": 259,
-        "filePath": "src\\dbDomains\\dbdJiraIssue.ts",
-        "pos": 9407
+        "cpl": 17,
+        "filePath": "src\\tests\\global_tests_env.test.ts",
+        "pos": 4110
     },
     {
-        "cpl": 260,
-        "filePath": "src\\dbDomains\\dbdJiraIssue.ts",
-        "pos": 9550
+        "cpl": 18,
+        "filePath": "src\\tests\\global_tests_env.test.ts",
+        "pos": 4175
     },
     {
-        "cpl": 261,
-        "filePath": "src\\dbDomains\\dbdJiraIssue.ts",
-        "pos": 9754
+        "cpl": 19,
+        "filePath": "src\\tests\\global_tests_env.test.ts",
+        "pos": 4872
     },
     {
-        "cpl": 262,
-        "filePath": "src\\dbDomains\\dbdJiraIssue.ts",
-        "pos": 9966
+        "cpl": 20,
+        "filePath": "src\\monitoring_api\\jobPauseApi.ts",
+        "pos": 879
     },
     {
-        "cpl": 263,
-        "filePath": "src\\dbDomains\\dbdJiraIssue.ts",
-        "pos": 10106
+        "cpl": 21,
+        "filePath": "src\\Yjob\\yjob_tests_env.test.ts",
+        "pos": 2658
     },
     {
-        "cpl": 264,
-        "filePath": "src\\dbDomains\\dbdJiraIssue.ts",
-        "pos": 10291
+        "cpl": 22,
+        "filePath": "src\\Yjob\\yjob_tests_env.test.ts",
+        "pos": 3147
     },
     {
-        "cpl": 265,
-        "filePath": "src\\dbDomains\\dbdJiraIssue.ts",
-        "pos": 10498
+        "cpl": 23,
+        "filePath": "src\\Yjob\\yjob_tests_env.test.ts",
+        "pos": 3660
     },
     {
-        "cpl": 266,
-        "filePath": "src\\dbDomains\\dbdJiraIssue.ts",
-        "pos": 10634
+        "cpl": 24,
+        "filePath": "src\\Yjob\\yjob_tests_env.test.ts",
+        "pos": 4330
     },
     {
-        "cpl": 267,
-        "filePath": "src\\dbDomains\\dbdJiraIssue.ts",
-        "pos": 10822
+        "cpl": 25,
+        "filePath": "src\\tests\\global_tests_env.test.ts",
+        "pos": 2537
     },
     {
-        "cpl": 268,
-        "filePath": "src\\dbDomains\\dbdJiraIssue.ts",
-        "pos": 11031
+        "cpl": 26,
+        "filePath": "src\\monitoring_api\\importExportApi.ts",
+        "pos": 1723
     },
     {
-        "cpl": 269,
-        "filePath": "src\\dbDomains\\dbdJiraIssue.ts",
-        "pos": 11170
+        "cpl": 27,
+        "filePath": "src\\Yjira\\JiraStub.ts",
+        "pos": 5806
     },
     {
-        "cpl": 270,
-        "filePath": "src\\dbDomains\\dbdJiraIssue.ts",
-        "pos": 11368
+        "cpl": 28,
+        "filePath": "src\\Yjira\\JiraStub.ts",
+        "pos": 6312
     },
     {
-        "cpl": 271,
-        "filePath": "src\\dbDomains\\dbdJiraIssue.ts",
-        "pos": 11585
+        "cpl": 29,
+        "filePath": "src\\Yjira\\JiraWrapper.ts",
+        "pos": 14568
     },
     {
-        "cpl": 272,
-        "filePath": "src\\dbDomains\\dbdJiraIssue.ts",
-        "pos": 11678
+        "cpl": 30,
+        "filePath": "src\\Yjira\\JiraWrapper.ts",
+        "pos": 14799
     },
     {
-        "cpl": 218,
-        "filePath": "src\\dbDomains\\dbdJiraIssue.ts",
-        "pos": 11847
+        "cpl": 31,
+        "filePath": "src\\Yjira\\JiraWrapper.ts",
+        "pos": 15314
     },
     {
-        "cpl": 219,
-        "filePath": "src\\dbDomains\\dbdJiraIssue.ts",
-        "pos": 12298
+        "cpl": 32,
+        "filePath": "src\\Yjira\\JiraWrapper.ts",
+        "pos": 16160
     },
     {
         "cpl": 33,
         "filePath": "src\\dbDomains\\dbdJiraIssue.ts",
-        "pos": 12480
+        "pos": 9283
     },
     {
         "cpl": 34,
         "filePath": "src\\dbDomains\\dbdJiraIssue.ts",
-        "pos": 12779
+        "pos": 9597
     },
     {
         "cpl": 35,
         "filePath": "src\\dbDomains\\dbdJiraIssue.ts",
-        "pos": 12858
+        "pos": 9691
     },
     {
         "cpl": 36,
         "filePath": "src\\dbDomains\\dbdJiraIssue.ts",
-        "pos": 12960
+        "pos": 9808
     },
     {
         "cpl": 37,
         "filePath": "src\\dbDomains\\dbdJiraIssue.ts",
-        "pos": 13116
+        "pos": 9964
     },
     {
         "cpl": 38,
         "filePath": "src\\dbDomains\\dbdJiraIssue.ts",
-        "pos": 13399
-    },
-    {
-        "cpl": 202,
-        "filePath": "src\\dbDomains\\dbdLinkItem.ts",
-        "pos": 4178
+        "pos": 10247
     },
     {
         "cpl": 39,
         "filePath": "src\\dbDomains\\dbDomain.ts",
-        "pos": 7820
+        "pos": 8194
     },
     {
         "cpl": 40,
         "filePath": "src\\dbDomains\\dbDomain.ts",
-        "pos": 8372
+        "pos": 8746
     },
     {
         "cpl": 41,
         "filePath": "src\\dbDomains\\dbDomain.ts",
-        "pos": 8567
+        "pos": 8941
     },
     {
         "cpl": 42,
         "filePath": "src\\dbDomains\\dbDomain.ts",
-        "pos": 10041
+        "pos": 10729
     },
     {
         "cpl": 43,
         "filePath": "src\\dbDomains\\dbDomain.ts",
-        "pos": 11753
+        "pos": 13212
     },
     {
         "cpl": 44,
         "filePath": "src\\entry_scripts\\debugfm.ts",
-        "pos": 1155
+        "pos": 1210
     },
     {
         "cpl": 45,
         "filePath": "src\\entry_scripts\\debugfm.ts",
-        "pos": 1220
+        "pos": 1275
     },
     {
         "cpl": 46,
         "filePath": "src\\entry_scripts\\debugfm.ts",
-        "pos": 1812
+        "pos": 1868
     },
     {
         "cpl": 47,
         "filePath": "src\\entry_scripts\\debugfm.ts",
-        "pos": 2162
+        "pos": 2218
     },
     {
         "cpl": 48,
         "filePath": "src\\entry_scripts\\debugfm.ts",
-        "pos": 2317
+        "pos": 2496
     },
     {
         "cpl": 49,
         "filePath": "src\\entry_scripts\\debugfm.ts",
-        "pos": 2527
+        "pos": 2706
     },
     {
         "cpl": 50,
         "filePath": "src\\entry_scripts\\debugfm.ts",
-        "pos": 2706
+        "pos": 2885
     },
     {
         "cpl": 51,
         "filePath": "src\\entry_scripts\\debugfm.ts",
-        "pos": 2772
+        "pos": 2951
     },
     {
         "cpl": 52,
         "filePath": "src\\entry_scripts\\debugfm.ts",
-        "pos": 2901
+        "pos": 3080
     },
     {
         "cpl": 53,
         "filePath": "src\\entry_scripts\\debugfm.ts",
-        "pos": 2986
+        "pos": 3165
     },
     {
         "cpl": 54,
         "filePath": "src\\entry_scripts\\debugfm.ts",
-        "pos": 3149
+        "pos": 3328
     },
     {
         "cpl": 55,
         "filePath": "src\\entry_scripts\\debugfm.ts",
-        "pos": 3316
+        "pos": 3495
     },
     {
         "cpl": 56,
         "filePath": "src\\entry_scripts\\debugfm.ts",
-        "pos": 3414
+        "pos": 3593
     },
     {
         "cpl": 57,
         "filePath": "src\\entry_scripts\\debugfm.ts",
-        "pos": 3458
+        "pos": 3637
     },
     {
         "cpl": 58,
-        "filePath": "src\\entry_scripts\\deploy.ts",
-        "pos": 1941
+        "filePath": "src\\jiraProxy\\index.ts",
+        "pos": 1434
     },
     {
         "cpl": 59,
-        "filePath": "src\\entry_scripts\\deploy.ts",
-        "pos": 2242
+        "filePath": "src\\Yjob\\JobContext.ts",
+        "pos": 6642
     },
     {
         "cpl": 60,
         "filePath": "src\\entry_scripts\\deploy.ts",
-        "pos": 2530
+        "pos": 2239
     },
     {
         "cpl": 61,
         "filePath": "src\\entry_scripts\\deploy.ts",
-        "pos": 2644
+        "pos": 2353
     },
     {
         "cpl": 62,
         "filePath": "src\\entry_scripts\\deploy.ts",
-        "pos": 2977
+        "pos": 2686
     },
     {
         "cpl": 63,
         "filePath": "src\\entry_scripts\\deploy.ts",
-        "pos": 3187
+        "pos": 2938
     },
     {
         "cpl": 64,
         "filePath": "src\\entry_scripts\\deploy.ts",
-        "pos": 3383
+        "pos": 3134
     },
     {
         "cpl": 65,
         "filePath": "src\\entry_scripts\\deploy.ts",
-        "pos": 3663
+        "pos": 3414
     },
     {
         "cpl": 66,
         "filePath": "src\\entry_scripts\\deploy.ts",
-        "pos": 3897
+        "pos": 3648
     },
     {
         "cpl": 67,
         "filePath": "src\\entry_scripts\\deploy.ts",
-        "pos": 4167
+        "pos": 3912
     },
     {
         "cpl": 68,
         "filePath": "src\\entry_scripts\\deploy.ts",
-        "pos": 4295
+        "pos": 4040
     },
     {
         "cpl": 69,
         "filePath": "src\\entry_scripts\\deploy.ts",
-        "pos": 5347
+        "pos": 5317
     },
     {
         "cpl": 70,
-        "filePath": "src\\entry_scripts\\deploy.ts",
-        "pos": 5535
+        "filePath": "src\\Yjob\\mainLogic_JobLifeCycle.ts",
+        "pos": 5763
     },
     {
         "cpl": 71,
-        "filePath": "src\\entry_scripts\\deploy.ts",
-        "pos": 5760
+        "filePath": "src\\Yjob\\mainLogic_JobLifeCycle.ts",
+        "pos": 6540
     },
     {
         "cpl": 72,
-        "filePath": "src\\entry_scripts\\deploy.ts",
-        "pos": 6096
+        "filePath": "src\\Yjob\\mainLogic_JobLifeCycle.ts",
+        "pos": 7471
     },
     {
         "cpl": 73,
-        "filePath": "src\\entry_scripts\\deploy.ts",
-        "pos": 6477
+        "filePath": "src\\Yjob\\mainLogic_JobLifeCycle.ts",
+        "pos": 11434
     },
     {
         "cpl": 74,
-        "filePath": "src\\entry_scripts\\deploy.ts",
-        "pos": 6573
+        "filePath": "src\\Yjob\\mainLogic_JobLifeCycle.ts",
+        "pos": 11588
     },
     {
         "cpl": 75,
-        "filePath": "src\\entry_scripts\\deploy.ts",
-        "pos": 7277
+        "filePath": "src\\Ylog\\index.ts",
+        "pos": 3567
     },
     {
         "cpl": 76,
-        "filePath": "src\\entry_scripts\\deploy.ts",
-        "pos": 7482
+        "filePath": "src\\Ylog\\index.ts",
+        "pos": 4200
     },
     {
         "cpl": 77,
-        "filePath": "src\\entry_scripts\\deploy.ts",
-        "pos": 7559
+        "filePath": "src\\Ylog\\index.ts",
+        "pos": 4608
     },
     {
         "cpl": 78,
         "filePath": "src\\entry_scripts\\deploy.ts",
-        "pos": 7770
+        "pos": 5528
     },
     {
         "cpl": 79,
         "filePath": "src\\entry_scripts\\deploy.ts",
-        "pos": 8109
+        "pos": 5867
     },
     {
         "cpl": 80,
         "filePath": "src\\entry_scripts\\deploy.ts",
-        "pos": 8271
+        "pos": 6029
     },
     {
         "cpl": 81,
         "filePath": "src\\entry_scripts\\deploy.ts",
-        "pos": 8736
+        "pos": 6868
     },
     {
         "cpl": 82,
         "filePath": "src\\entry_scripts\\deploy.ts",
-        "pos": 8835
+        "pos": 6967
     },
     {
         "cpl": 83,
         "filePath": "src\\entry_scripts\\deploy.ts",
-        "pos": 8977
+        "pos": 8200
     },
     {
         "cpl": 84,
         "filePath": "src\\entry_scripts\\deploy.ts",
-        "pos": 9322
+        "pos": 8671
     },
     {
         "cpl": 85,
         "filePath": "src\\entry_scripts\\deploy.ts",
-        "pos": 9395
+        "pos": 8744
     },
     {
         "cpl": 86,
         "filePath": "src\\entry_scripts\\deploy.ts",
-        "pos": 9507
+        "pos": 8856
     },
     {
         "cpl": 87,
         "filePath": "src\\entry_scripts\\deploy.ts",
-        "pos": 9683
+        "pos": 9032
     },
     {
         "cpl": 88,
         "filePath": "src\\entry_scripts\\deploy.ts",
-        "pos": 9758
+        "pos": 9107
     },
     {
         "cpl": 89,
         "filePath": "src\\entry_scripts\\deploy.ts",
-        "pos": 9938
+        "pos": 9313
     },
     {
         "cpl": 90,
         "filePath": "src\\entry_scripts\\drop_all.ts",
-        "pos": 730
+        "pos": 729
     },
     {
         "cpl": 91,
         "filePath": "src\\entry_scripts\\drop_all.ts",
-        "pos": 889
+        "pos": 888
     },
     {
         "cpl": 92,
@@ -465,939 +465,914 @@
         "pos": 1127
     },
     {
-        "cpl": 203,
-        "filePath": "src\\entry_scripts\\loadJiraFields.ts",
-        "pos": 1225
-    },
-    {
-        "cpl": 204,
-        "filePath": "src\\entry_scripts\\loadJiraFields.ts",
-        "pos": 1274
-    },
-    {
-        "cpl": 178,
-        "filePath": "src\\entry_scripts\\reload.ts",
-        "pos": 1113
-    },
-    {
-        "cpl": 174,
-        "filePath": "src\\entry_scripts\\reload.ts",
-        "pos": 1204
-    },
-    {
-        "cpl": 142,
-        "filePath": "src\\entry_scripts\\reload.ts",
-        "pos": 1285
-    },
-    {
-        "cpl": 205,
-        "filePath": "src\\entry_scripts\\reload.ts",
-        "pos": 1884
-    },
-    {
-        "cpl": 143,
-        "filePath": "src\\entry_scripts\\reload.ts",
-        "pos": 2163
-    },
-    {
-        "cpl": 144,
-        "filePath": "src\\entry_scripts\\reload.ts",
-        "pos": 2665
-    },
-    {
-        "cpl": 145,
-        "filePath": "src\\entry_scripts\\reload.ts",
-        "pos": 2773
-    },
-    {
-        "cpl": 146,
-        "filePath": "src\\entry_scripts\\reload.ts",
-        "pos": 2852
-    },
-    {
-        "cpl": 141,
-        "filePath": "src\\entry_scripts\\run.ts",
-        "pos": 1703
-    },
-    {
-        "cpl": 212,
-        "filePath": "src\\entry_scripts\\run.ts",
-        "pos": 1830
-    },
-    {
-        "cpl": 183,
-        "filePath": "src\\entry_scripts\\run.ts",
-        "pos": 2012
-    },
-    {
-        "cpl": 225,
-        "filePath": "src\\entry_scripts\\run.ts",
-        "pos": 2352
-    },
-    {
-        "cpl": 150,
-        "filePath": "src\\entry_scripts\\run.ts",
-        "pos": 2495
-    },
-    {
-        "cpl": 151,
-        "filePath": "src\\entry_scripts\\run.ts",
-        "pos": 2897
-    },
-    {
-        "cpl": 152,
-        "filePath": "src\\entry_scripts\\run.ts",
-        "pos": 3245
-    },
-    {
-        "cpl": 153,
-        "filePath": "src\\entry_scripts\\run.ts",
-        "pos": 3376
-    },
-    {
-        "cpl": 154,
-        "filePath": "src\\entry_scripts\\run.ts",
-        "pos": 3547
-    },
-    {
-        "cpl": 155,
-        "filePath": "src\\entry_scripts\\run.ts",
-        "pos": 3644
-    },
-    {
-        "cpl": 26,
-        "filePath": "src\\entry_scripts\\run.ts",
-        "pos": 3746
-    },
-    {
-        "cpl": 280,
-        "filePath": "src\\entry_scripts\\run.ts",
-        "pos": 3862
-    },
-    {
-        "cpl": 179,
-        "filePath": "src\\entry_scripts\\run.ts",
-        "pos": 3907
-    },
-    {
-        "cpl": 180,
-        "filePath": "src\\entry_scripts\\run.ts",
-        "pos": 4271
-    },
-    {
-        "cpl": 161,
-        "filePath": "src\\entry_scripts\\run_refreshLoadStreams.ts",
-        "pos": 1064
-    },
-    {
-        "cpl": 157,
-        "filePath": "src\\entry_scripts\\run_refreshLoadStreams.ts",
-        "pos": 1206
-    },
-    {
-        "cpl": 158,
-        "filePath": "src\\entry_scripts\\run_refreshLoadStreams.ts",
-        "pos": 1384
-    },
-    {
-        "cpl": 159,
-        "filePath": "src\\entry_scripts\\run_refreshLoadStreams.ts",
-        "pos": 1524
-    },
-    {
-        "cpl": 160,
-        "filePath": "src\\entry_scripts\\run_refreshLoadStreams.ts",
-        "pos": 1671
-    },
-    {
-        "cpl": 162,
-        "filePath": "src\\entry_scripts\\run_refreshLoadStreams.ts",
-        "pos": 2613
-    },
-    {
-        "cpl": 163,
-        "filePath": "src\\entry_scripts\\run_refreshLoadStreams.ts",
-        "pos": 2674
-    },
-    {
-        "cpl": 164,
-        "filePath": "src\\entry_scripts\\run_refreshLoadStreams.ts",
-        "pos": 2796
-    },
-    {
-        "cpl": 165,
-        "filePath": "src\\entry_scripts\\run_scanForChangedIssueIds.ts",
-        "pos": 1342
-    },
-    {
-        "cpl": 166,
-        "filePath": "src\\entry_scripts\\run_scanForChangedIssueIds.ts",
-        "pos": 1798
-    },
-    {
-        "cpl": 172,
-        "filePath": "src\\entry_scripts\\run_scanForChangedIssueIds.ts",
-        "pos": 1932
-    },
-    {
-        "cpl": 167,
-        "filePath": "src\\entry_scripts\\run_scanForChangedIssueIds.ts",
-        "pos": 2899
-    },
-    {
-        "cpl": 168,
-        "filePath": "src\\entry_scripts\\run_scanForChangedIssueIds.ts",
-        "pos": 3993
-    },
-    {
-        "cpl": 169,
-        "filePath": "src\\entry_scripts\\run_scanForChangedIssueIds.ts",
-        "pos": 4752
-    },
-    {
-        "cpl": 170,
-        "filePath": "src\\entry_scripts\\run_scanForChangedIssueIds.ts",
-        "pos": 4902
-    },
-    {
-        "cpl": 236,
-        "filePath": "src\\job\\Job_issue.ts",
-        "pos": 511
-    },
-    {
-        "cpl": 148,
-        "filePath": "src\\job\\Job_issue.ts",
-        "pos": 720
-    },
-    {
-        "cpl": 176,
-        "filePath": "src\\job\\Job_issue.ts",
-        "pos": 787
-    },
-    {
-        "cpl": 171,
-        "filePath": "src\\job\\Job_issue.ts",
-        "pos": 933
-    },
-    {
-        "cpl": 238,
-        "filePath": "src\\job\\Job_issue.ts",
-        "pos": 1055
-    },
-    {
-        "cpl": 239,
-        "filePath": "src\\job\\Job_issue.ts",
-        "pos": 1248
-    },
-    {
-        "cpl": 240,
-        "filePath": "src\\job\\Job_issue.ts",
-        "pos": 1519
-    },
-    {
-        "cpl": 241,
-        "filePath": "src\\job\\Job_issue.ts",
-        "pos": 1731
-    },
-    {
-        "cpl": 242,
-        "filePath": "src\\job\\Job_issue.ts",
-        "pos": 1946
-    },
-    {
-        "cpl": 243,
-        "filePath": "src\\job\\Job_issue.ts",
-        "pos": 2100
-    },
-    {
-        "cpl": 244,
-        "filePath": "src\\job\\Job_issue.ts",
-        "pos": 2318
-    },
-    {
-        "cpl": 245,
-        "filePath": "src\\job\\Job_issue.ts",
-        "pos": 2537
-    },
-    {
-        "cpl": 246,
-        "filePath": "src\\job\\Job_issue.ts",
-        "pos": 2688
-    },
-    {
-        "cpl": 247,
-        "filePath": "src\\job\\Job_issue.ts",
-        "pos": 2887
-    },
-    {
-        "cpl": 248,
-        "filePath": "src\\job\\Job_issue.ts",
-        "pos": 3092
-    },
-    {
-        "cpl": 249,
-        "filePath": "src\\job\\Job_issue.ts",
-        "pos": 3239
-    },
-    {
-        "cpl": 250,
-        "filePath": "src\\job\\Job_issue.ts",
-        "pos": 3441
-    },
-    {
-        "cpl": 251,
-        "filePath": "src\\job\\Job_issue.ts",
-        "pos": 3648
-    },
-    {
-        "cpl": 252,
-        "filePath": "src\\job\\Job_issue.ts",
-        "pos": 3798
-    },
-    {
-        "cpl": 221,
-        "filePath": "src\\job\\Job_issue.ts",
-        "pos": 4010
-    },
-    {
-        "cpl": 222,
-        "filePath": "src\\job\\Job_issue.ts",
-        "pos": 4225
-    },
-    {
-        "cpl": 223,
-        "filePath": "src\\job\\Job_issue.ts",
-        "pos": 4374
-    },
-    {
-        "cpl": 224,
-        "filePath": "src\\job\\Job_issue.ts",
-        "pos": 4577
-    },
-    {
-        "cpl": 116,
-        "filePath": "src\\job\\Job_issue.ts",
-        "pos": 4786
-    },
-    {
-        "cpl": 117,
-        "filePath": "src\\job\\Job_issue.ts",
-        "pos": 4940
-    },
-    {
-        "cpl": 256,
-        "filePath": "src\\job\\Job_issue.ts",
-        "pos": 5027
-    },
-    {
-        "cpl": 257,
-        "filePath": "src\\job\\Job_issue.ts",
-        "pos": 5109
-    },
-    {
-        "cpl": 230,
-        "filePath": "src\\job\\Job_jiraIssue.ts",
-        "pos": 461
-    },
-    {
-        "cpl": 229,
-        "filePath": "src\\job\\Job_jiraIssue.ts",
-        "pos": 995
-    },
-    {
-        "cpl": 182,
-        "filePath": "src\\job\\Job_jiraIssue.ts",
-        "pos": 1165
-    },
-    {
-        "cpl": 127,
-        "filePath": "src\\job\\Job_jiraIssue.ts",
-        "pos": 1737
-    },
-    {
-        "cpl": 128,
-        "filePath": "src\\job\\Job_jiraIssue.ts",
-        "pos": 1909
-    },
-    {
-        "cpl": 123,
-        "filePath": "src\\job\\Job_jiraIssue.ts",
-        "pos": 2161
-    },
-    {
-        "cpl": 231,
-        "filePath": "src\\job\\Job_transformIssue.ts",
-        "pos": 1601
-    },
-    {
-        "cpl": 232,
-        "filePath": "src\\job\\Job_transformIssue.ts",
-        "pos": 1785
-    },
-    {
-        "cpl": 156,
-        "filePath": "src\\job\\Job_transformIssue.ts",
-        "pos": 1964
-    },
-    {
-        "cpl": 227,
-        "filePath": "src\\job\\Job_transformIssue.ts",
-        "pos": 2205
-    },
-    {
-        "cpl": 228,
-        "filePath": "src\\job\\Job_transformIssue.ts",
-        "pos": 2578
-    },
-    {
-        "cpl": 235,
-        "filePath": "src\\job\\Job_transformIssue.ts",
-        "pos": 2775
-    },
-    {
-        "cpl": 220,
-        "filePath": "src\\job\\Job_transformIssue.ts",
-        "pos": 3827
-    },
-    {
-        "cpl": 31,
-        "filePath": "src\\monitoring_api\\jobMakeStaleApi.ts",
-        "pos": 663
-    },
-    {
-        "cpl": 273,
-        "filePath": "src\\monitoring_api\\jobMakeStaleApi.ts",
-        "pos": 815
-    },
-    {
-        "cpl": 233,
-        "filePath": "src\\monitoring_api\\jobMakeStaleApi.ts",
-        "pos": 945
-    },
-    {
-        "cpl": 12,
-        "filePath": "src\\monitoring_api\\jobPauseApi.ts",
-        "pos": 655
-    },
-    {
-        "cpl": 20,
-        "filePath": "src\\monitoring_api\\jobPauseApi.ts",
-        "pos": 803
-    },
-    {
-        "cpl": 281,
-        "filePath": "src\\monitoring_api\\jobPauseApi.ts",
-        "pos": 929
-    },
-    {
-        "cpl": 211,
-        "filePath": "src\\monitoring_api\\jobResumeApi.ts",
-        "pos": 657
-    },
-    {
-        "cpl": 213,
-        "filePath": "src\\monitoring_api\\jobResumeApi.ts",
-        "pos": 806
-    },
-    {
-        "cpl": 187,
-        "filePath": "src\\monitoring_api\\jobResumeApi.ts",
-        "pos": 933
-    },
-    {
-        "cpl": 282,
-        "filePath": "src\\monitoring_api\\startMonitoringServer.ts",
-        "pos": 1169
-    },
-    {
-        "cpl": 283,
-        "filePath": "src\\monitoring_api\\startMonitoringServer.ts",
-        "pos": 1271
-    },
-    {
-        "cpl": 125,
-        "filePath": "src\\monitoring_api\\statusApi.ts",
-        "pos": 1448
-    },
-    {
-        "cpl": 94,
-        "filePath": "src\\other\\Env.ts",
-        "pos": 7098
-    },
-    {
         "cpl": 95,
-        "filePath": "src\\other\\Env.ts",
-        "pos": 7309
+        "filePath": "src\\Yoracle\\OracleStub.ts",
+        "pos": 4200
     },
     {
         "cpl": 96,
-        "filePath": "src\\other\\Env.ts",
-        "pos": 8139
+        "filePath": "src\\tests\\global_tests.test.ts",
+        "pos": 1300
     },
     {
         "cpl": 97,
-        "filePath": "src\\other\\Env.ts",
-        "pos": 8192
+        "filePath": "src\\monitoring_api\\issueStatsApi.ts",
+        "pos": 7932
     },
     {
         "cpl": 98,
-        "filePath": "src\\other\\Env.ts",
-        "pos": 8246
+        "filePath": "src\\entry_scripts\\run.ts",
+        "pos": 4971
     },
     {
-        "cpl": 105,
-        "filePath": "src\\other\\Env.ts",
-        "pos": 8967
+        "cpl": 99,
+        "filePath": "src\\Yjira\\JiraWrapper.ts",
+        "pos": 16482
     },
     {
-        "cpl": 106,
+        "cpl": 100,
         "filePath": "src\\other\\Env.ts",
-        "pos": 9062
+        "pos": 21567
     },
     {
-        "cpl": 107,
+        "cpl": 101,
         "filePath": "src\\other\\Env.ts",
-        "pos": 9416
+        "pos": 23105
     },
     {
-        "cpl": 108,
-        "filePath": "src\\other\\Env.ts",
-        "pos": 9505
-    },
-    {
-        "cpl": 109,
-        "filePath": "src\\other\\Env.ts",
-        "pos": 10540
-    },
-    {
-        "cpl": 110,
-        "filePath": "src\\other\\Env.ts",
-        "pos": 11015
-    },
-    {
-        "cpl": 111,
-        "filePath": "src\\other\\Env.ts",
-        "pos": 11106
-    },
-    {
-        "cpl": 112,
-        "filePath": "src\\other\\Env.ts",
-        "pos": 11668
+        "cpl": 102,
+        "filePath": "src\\monitoring_api\\jobResumeApi.ts",
+        "pos": 733
     },
     {
         "cpl": 103,
         "filePath": "src\\other\\Env.ts",
-        "pos": 11870
+        "pos": 20649
     },
     {
         "cpl": 104,
         "filePath": "src\\other\\Env.ts",
-        "pos": 12034
+        "pos": 20813
     },
     {
-        "cpl": 274,
+        "cpl": 105,
+        "filePath": "src\\job\\Job_transformIssue.ts",
+        "pos": 2721
+    },
+    {
+        "cpl": 106,
+        "filePath": "src\\tests\\global_tests.test.ts",
+        "pos": 2432
+    },
+    {
+        "cpl": 107,
+        "filePath": "src\\tests\\global_tests.test.ts",
+        "pos": 3584
+    },
+    {
+        "cpl": 108,
+        "filePath": "src\\Yjira\\JiraStub.ts",
+        "pos": 3327
+    },
+    {
+        "cpl": 109,
+        "filePath": "src\\Yjira\\JiraStub.ts",
+        "pos": 5611
+    },
+    {
+        "cpl": 110,
         "filePath": "src\\other\\Env.ts",
-        "pos": 12354
+        "pos": 18167
+    },
+    {
+        "cpl": 111,
+        "filePath": "src\\other\\Env.ts",
+        "pos": 18258
+    },
+    {
+        "cpl": 112,
+        "filePath": "src\\other\\Env.ts",
+        "pos": 19985
     },
     {
         "cpl": 113,
-        "filePath": "src\\other\\Env.ts",
-        "pos": 13129
+        "filePath": "src\\monitoring_api\\issuesApi.ts",
+        "pos": 1301
     },
     {
         "cpl": 114,
         "filePath": "src\\other\\Env.ts",
-        "pos": 13507
+        "pos": 23774
     },
     {
         "cpl": 115,
         "filePath": "src\\other\\Env.ts",
-        "pos": 13624
+        "pos": 23891
     },
     {
-        "cpl": 102,
-        "filePath": "src\\Yjob\\Job.ts",
-        "pos": 3815
+        "cpl": 116,
+        "filePath": "src\\monitoring_api\\runIssuesApi.ts",
+        "pos": 8754
     },
     {
-        "cpl": 173,
-        "filePath": "src\\Yjob\\Job.ts",
-        "pos": 5013
+        "cpl": 117,
+        "filePath": "src\\monitoring_api\\importExportApi.ts",
+        "pos": 1878
     },
     {
-        "cpl": 184,
-        "filePath": "src\\Yjob\\JobFields.ts",
-        "pos": 6127
-    },
-    {
-        "cpl": 2,
-        "filePath": "src\\Yjob\\JobFieldsGen.ts",
-        "pos": 6144
-    },
-    {
-        "cpl": 101,
-        "filePath": "src\\Yjob\\JobLifeCycle.ts",
-        "pos": 434
-    },
-    {
-        "cpl": 124,
-        "filePath": "src\\Yjob\\JobLifeCycle.ts",
-        "pos": 557
-    },
-    {
-        "cpl": 201,
-        "filePath": "src\\Yjob\\JobLifeCycle.ts",
-        "pos": 1273
-    },
-    {
-        "cpl": 121,
-        "filePath": "src\\Yjob\\JobLifeCycle.ts",
-        "pos": 1873
-    },
-    {
-        "cpl": 181,
-        "filePath": "src\\Yjob\\JobLifeCycle.ts",
-        "pos": 2246
-    },
-    {
-        "cpl": 177,
-        "filePath": "src\\Yjob\\JobLifeCycle.ts",
-        "pos": 2525
-    },
-    {
-        "cpl": 206,
-        "filePath": "src\\Yjob\\JobLifeCycle.ts",
-        "pos": 5448
+        "cpl": 118,
+        "filePath": "src\\Yjob\\JobContext.ts",
+        "pos": 9032
     },
     {
         "cpl": 119,
-        "filePath": "src\\Yjob\\JobLifeCycle.ts",
-        "pos": 6167
+        "filePath": "src\\entry_scripts\\run.ts",
+        "pos": 4640
     },
     {
         "cpl": 120,
-        "filePath": "src\\Yjob\\JobLifeCycle.ts",
-        "pos": 6469
+        "filePath": "src\\Yjob\\mainLogic_JobLifeCycle.ts",
+        "pos": 10990
     },
     {
-        "cpl": 129,
-        "filePath": "src\\Yjob\\JobLifeCycle.ts",
-        "pos": 6806
+        "cpl": 121,
+        "filePath": "src\\Yjob\\mainLogic_JobLifeCycle.ts",
+        "pos": 3292
     },
     {
-        "cpl": 130,
-        "filePath": "src\\Yjob\\JobLifeCycle.ts",
-        "pos": 6949
+        "cpl": 122,
+        "filePath": "src\\dbDomains\\dbdJiraField.ts",
+        "pos": 6979
     },
     {
-        "cpl": 207,
-        "filePath": "src\\Yjob\\JobStorage.ts",
-        "pos": 5432
+        "cpl": 123,
+        "filePath": "src\\job\\Job_jiraIssue.ts",
+        "pos": 3352
     },
     {
-        "cpl": 208,
-        "filePath": "src\\Yjob\\JobStorage.ts",
-        "pos": 5625
+        "cpl": 124,
+        "filePath": "src\\Yjob\\mainLogic_JobLifeCycle.ts",
+        "pos": 1254
     },
     {
-        "cpl": 209,
-        "filePath": "src\\Yjob\\JobStorage.ts",
-        "pos": 5968
-    },
-    {
-        "cpl": 210,
-        "filePath": "src\\Yjob\\JobStorage.ts",
-        "pos": 6271
-    },
-    {
-        "cpl": 288,
-        "filePath": "src\\Yjob\\JobStorage.ts",
-        "pos": 6509
-    },
-    {
-        "cpl": 289,
-        "filePath": "src\\Yjob\\JobStorage.ts",
-        "pos": 6855
-    },
-    {
-        "cpl": 290,
-        "filePath": "src\\Yjob\\JobStorage.ts",
-        "pos": 11966
-    },
-    {
-        "cpl": 275,
-        "filePath": "src\\Yjob\\JobStorage.ts",
-        "pos": 12639
-    },
-    {
-        "cpl": 276,
-        "filePath": "src\\Yjob\\JobStorage.ts",
-        "pos": 16658
-    },
-    {
-        "cpl": 291,
-        "filePath": "src\\Yjob\\JobStorage.ts",
-        "pos": 17623
-    },
-    {
-        "cpl": 277,
-        "filePath": "src\\Yjob\\JobStorage.ts",
-        "pos": 19266
-    },
-    {
-        "cpl": 185,
-        "filePath": "src\\Yjob\\JobStorage.ts",
-        "pos": 20835
-    },
-    {
-        "cpl": 226,
-        "filePath": "src\\Yjob\\JobStorage.ts",
-        "pos": 25028
-    },
-    {
-        "cpl": 200,
-        "filePath": "src\\Yjob\\JobType.ts",
-        "pos": 1389
+        "cpl": 125,
+        "filePath": "src\\monitoring_api\\issueStatsApi.ts",
+        "pos": 1683
     },
     {
         "cpl": 126,
-        "filePath": "src\\Yjob\\JobType.ts",
-        "pos": 2383
+        "filePath": "src\\monitoring_api\\jobPauseApi.ts",
+        "pos": 731
     },
     {
-        "cpl": 234,
-        "filePath": "src\\Yjob\\JobType.ts",
-        "pos": 3314
+        "cpl": 127,
+        "filePath": "src\\job\\Job_jiraIssue.ts",
+        "pos": 2787
     },
     {
-        "cpl": 253,
-        "filePath": "src\\Yjob\\JobType.ts",
-        "pos": 3788
+        "cpl": 128,
+        "filePath": "src\\job\\Job_jiraIssue.ts",
+        "pos": 3056
     },
     {
-        "cpl": 254,
-        "filePath": "src\\Yjob\\JobType.ts",
-        "pos": 4164
+        "cpl": 129,
+        "filePath": "src\\Yjob\\mainLogic_JobLifeCycle.ts",
+        "pos": 11177
     },
     {
-        "cpl": 255,
-        "filePath": "src\\Yjob\\JobType.ts",
-        "pos": 4542
-    },
-    {
-        "cpl": 99,
-        "filePath": "src\\Yjob\\JobType.ts",
-        "pos": 4903
-    },
-    {
-        "cpl": 100,
-        "filePath": "src\\Yjob\\JobType.ts",
-        "pos": 5477
-    },
-    {
-        "cpl": 28,
-        "filePath": "src\\Yjob\\yjob_tests.test.ts",
-        "pos": 7117
-    },
-    {
-        "cpl": 186,
-        "filePath": "src\\Yjob\\yjob_tests.test.ts",
-        "pos": 7322
-    },
-    {
-        "cpl": 188,
-        "filePath": "src\\Yjob\\yjob_tests.test.ts",
-        "pos": 9858
-    },
-    {
-        "cpl": 192,
-        "filePath": "src\\Yjob\\yjob_tests.test.ts",
-        "pos": 12466
-    },
-    {
-        "cpl": 196,
-        "filePath": "src\\Yjob\\yjob_tests.test.ts",
-        "pos": 15073
-    },
-    {
-        "cpl": 29,
-        "filePath": "src\\Yjob\\yjob_tests.test.ts",
-        "pos": 17054
-    },
-    {
-        "cpl": 286,
-        "filePath": "src\\Yjob\\yjob_tests.test.ts",
-        "pos": 19820
-    },
-    {
-        "cpl": 19,
-        "filePath": "src\\Yjob\\yjob_tests.test.ts",
-        "pos": 20026
-    },
-    {
-        "cpl": 21,
-        "filePath": "src\\Yjob\\yjob_tests.test.ts",
-        "pos": 22597
-    },
-    {
-        "cpl": 25,
-        "filePath": "src\\Yjob\\yjob_tests.test.ts",
-        "pos": 22806
-    },
-    {
-        "cpl": 27,
-        "filePath": "src\\Yjob\\yjob_tests.test.ts",
-        "pos": 25224
-    },
-    {
-        "cpl": 30,
-        "filePath": "src\\Yjob\\yjob_tests.test.ts",
-        "pos": 25430
-    },
-    {
-        "cpl": 32,
-        "filePath": "src\\Yjob\\yjob_tests.test.ts",
-        "pos": 28285
-    },
-    {
-        "cpl": 287,
-        "filePath": "src\\Yjob\\yjob_tests.test.ts",
-        "pos": 28513
-    },
-    {
-        "cpl": 189,
-        "filePath": "src\\Yjob\\yjob_tests.test.ts",
-        "pos": 30968
-    },
-    {
-        "cpl": 279,
-        "filePath": "src\\Yjob\\yjob_tests.test.ts",
-        "pos": 31519
-    },
-    {
-        "cpl": 190,
-        "filePath": "src\\Yjob\\yjob_tests.test.ts",
-        "pos": 34449
-    },
-    {
-        "cpl": 285,
-        "filePath": "src\\Yjob\\yjob_tests.test.ts",
-        "pos": 34760
-    },
-    {
-        "cpl": 284,
-        "filePath": "src\\Yjob\\yjob_tests.test.ts",
-        "pos": 37171
-    },
-    {
-        "cpl": 191,
-        "filePath": "src\\Yjob\\yjob_tests.test.ts",
-        "pos": 39640
-    },
-    {
-        "cpl": 193,
-        "filePath": "src\\Yjob\\yjob_tests.test.ts",
-        "pos": 42123
-    },
-    {
-        "cpl": 194,
-        "filePath": "src\\Yjob\\yjob_tests.test.ts",
-        "pos": 44605
-    },
-    {
-        "cpl": 195,
-        "filePath": "src\\Yjob\\yjob_tests.test.ts",
-        "pos": 47113
-    },
-    {
-        "cpl": 197,
-        "filePath": "src\\Yjob\\yjob_tests.test.ts",
-        "pos": 49621
-    },
-    {
-        "cpl": 198,
-        "filePath": "src\\Yjob\\yjob_tests.test.ts",
-        "pos": 52156
-    },
-    {
-        "cpl": 199,
-        "filePath": "src\\Yjob\\yjob_tests.test.ts",
-        "pos": 54677
-    },
-    {
-        "cpl": 22,
-        "filePath": "src\\Yjob\\yjob_tests.test.ts",
-        "pos": 56538
-    },
-    {
-        "cpl": 237,
-        "filePath": "src\\Yjob\\yjob_tests_env.test.ts",
-        "pos": 1378
-    },
-    {
-        "cpl": 1,
-        "filePath": "src\\Yjob\\yjob_tests_env.test.ts",
-        "pos": 1732
-    },
-    {
-        "cpl": 23,
-        "filePath": "src\\Yjob\\yjob_tests_env.test.ts",
-        "pos": 2086
-    },
-    {
-        "cpl": 24,
-        "filePath": "src\\Yjob\\yjob_tests_env.test.ts",
-        "pos": 2993
+        "cpl": 130,
+        "filePath": "src\\job\\Job_transformIssue.ts",
+        "pos": 3343
     },
     {
         "cpl": 131,
         "filePath": "src\\Yoracle\\funcs.ts",
-        "pos": 555
+        "pos": 565
     },
     {
         "cpl": 132,
         "filePath": "src\\Yoracle\\funcs.ts",
-        "pos": 894
+        "pos": 904
     },
     {
         "cpl": 133,
         "filePath": "src\\Yoracle\\funcs.ts",
-        "pos": 1360
+        "pos": 1371
     },
     {
         "cpl": 134,
         "filePath": "src\\Yoracle\\funcs.ts",
-        "pos": 1501
+        "pos": 1512
     },
     {
         "cpl": 135,
         "filePath": "src\\Yoracle\\funcs.ts",
-        "pos": 1629
+        "pos": 1640
     },
     {
         "cpl": 136,
         "filePath": "src\\Yoracle\\funcs.ts",
-        "pos": 1932
+        "pos": 1944
     },
     {
         "cpl": 137,
         "filePath": "src\\Yoracle\\funcs.ts",
-        "pos": 2035
+        "pos": 2047
     },
     {
         "cpl": 138,
         "filePath": "src\\Yoracle\\funcs.ts",
-        "pos": 2302
+        "pos": 2315
     },
     {
         "cpl": 139,
         "filePath": "src\\Yoracle\\funcs.ts",
-        "pos": 2405
+        "pos": 2418
     },
     {
         "cpl": 140,
         "filePath": "src\\Yoracle\\funcs.ts",
-        "pos": 2481
+        "pos": 2494
+    },
+    {
+        "cpl": 141,
+        "filePath": "src\\job\\Job_transformIssue.ts",
+        "pos": 3499
+    },
+    {
+        "cpl": 142,
+        "filePath": "src\\entry_scripts\\reload.ts",
+        "pos": 1301
+    },
+    {
+        "cpl": 143,
+        "filePath": "src\\entry_scripts\\reload.ts",
+        "pos": 2179
+    },
+    {
+        "cpl": 144,
+        "filePath": "src\\entry_scripts\\reload.ts",
+        "pos": 2681
+    },
+    {
+        "cpl": 145,
+        "filePath": "src\\entry_scripts\\reload.ts",
+        "pos": 2789
+    },
+    {
+        "cpl": 146,
+        "filePath": "src\\entry_scripts\\reload.ts",
+        "pos": 2868
+    },
+    {
+        "cpl": 147,
+        "filePath": "src\\entry_scripts\\deploy.ts",
+        "pos": 2475
+    },
+    {
+        "cpl": 148,
+        "filePath": "src\\job\\Job_issue.ts",
+        "pos": 1548
+    },
+    {
+        "cpl": 149,
+        "filePath": "src\\entry_scripts\\run_scanForChangedIssueKeys.ts",
+        "pos": 2853
+    },
+    {
+        "cpl": 150,
+        "filePath": "src\\entry_scripts\\run.ts",
+        "pos": 2826
+    },
+    {
+        "cpl": 151,
+        "filePath": "src\\entry_scripts\\run.ts",
+        "pos": 3393
+    },
+    {
+        "cpl": 152,
+        "filePath": "src\\entry_scripts\\run.ts",
+        "pos": 3753
+    },
+    {
+        "cpl": 153,
+        "filePath": "src\\entry_scripts\\run.ts",
+        "pos": 3886
+    },
+    {
+        "cpl": 154,
+        "filePath": "src\\entry_scripts\\run.ts",
+        "pos": 4015
+    },
+    {
+        "cpl": 155,
+        "filePath": "src\\monitoring_api\\runIssuesApi.ts",
+        "pos": 4313
+    },
+    {
+        "cpl": 156,
+        "filePath": "src\\job\\Job_transformIssue.ts",
+        "pos": 4658
+    },
+    {
+        "cpl": 157,
+        "filePath": "src\\entry_scripts\\run_refreshLoadStreams.ts",
+        "pos": 1240
+    },
+    {
+        "cpl": 158,
+        "filePath": "src\\entry_scripts\\run_refreshLoadStreams.ts",
+        "pos": 1418
+    },
+    {
+        "cpl": 159,
+        "filePath": "src\\entry_scripts\\run_refreshLoadStreams.ts",
+        "pos": 1558
+    },
+    {
+        "cpl": 160,
+        "filePath": "src\\entry_scripts\\run_refreshLoadStreams.ts",
+        "pos": 1705
+    },
+    {
+        "cpl": 161,
+        "filePath": "src\\entry_scripts\\run_refreshLoadStreams.ts",
+        "pos": 1097
+    },
+    {
+        "cpl": 162,
+        "filePath": "src\\entry_scripts\\run_refreshLoadStreams.ts",
+        "pos": 2647
+    },
+    {
+        "cpl": 163,
+        "filePath": "src\\entry_scripts\\run_refreshLoadStreams.ts",
+        "pos": 2708
+    },
+    {
+        "cpl": 164,
+        "filePath": "src\\entry_scripts\\run_refreshLoadStreams.ts",
+        "pos": 2830
+    },
+    {
+        "cpl": 165,
+        "filePath": "src\\entry_scripts\\run_scanForChangedIssueKeys.ts",
+        "pos": 4739
+    },
+    {
+        "cpl": 166,
+        "filePath": "src\\entry_scripts\\run_scanForChangedIssueKeys.ts",
+        "pos": 5270
+    },
+    {
+        "cpl": 167,
+        "filePath": "src\\entry_scripts\\run_scanForChangedIssueKeys.ts",
+        "pos": 6888
+    },
+    {
+        "cpl": 168,
+        "filePath": "src\\entry_scripts\\run_scanForChangedIssueKeys.ts",
+        "pos": 8020
+    },
+    {
+        "cpl": 169,
+        "filePath": "src\\entry_scripts\\run_scanForChangedIssueKeys.ts",
+        "pos": 8803
+    },
+    {
+        "cpl": 170,
+        "filePath": "src\\entry_scripts\\run_scanForChangedIssueKeys.ts",
+        "pos": 8954
+    },
+    {
+        "cpl": 171,
+        "filePath": "src\\job\\Job_issue.ts",
+        "pos": 2471
+    },
+    {
+        "cpl": 172,
+        "filePath": "src\\entry_scripts\\run_scanForChangedIssueKeys.ts",
+        "pos": 5420
+    },
+    {
+        "cpl": 173,
+        "filePath": "src\\Yjob\\JobFieldMeta.ts",
+        "pos": 6220
+    },
+    {
+        "cpl": 174,
+        "filePath": "src\\entry_scripts\\reload.ts",
+        "pos": 1220
+    },
+    {
+        "cpl": 175,
+        "filePath": "src\\entry_scripts\\run.ts",
+        "pos": 2252
+    },
+    {
+        "cpl": 176,
+        "filePath": "src\\job\\Job_issue.ts",
+        "pos": 1615
+    },
+    {
+        "cpl": 177,
+        "filePath": "src\\Yjob\\JobType.ts",
+        "pos": 8464
+    },
+    {
+        "cpl": 178,
+        "filePath": "src\\entry_scripts\\reload.ts",
+        "pos": 1129
+    },
+    {
+        "cpl": 179,
+        "filePath": "src\\entry_scripts\\run.ts",
+        "pos": 4060
+    },
+    {
+        "cpl": 180,
+        "filePath": "src\\entry_scripts\\run.ts",
+        "pos": 4507
+    },
+    {
+        "cpl": 181,
+        "filePath": "src\\Yjob\\mainLogic_JobLifeCycle.ts",
+        "pos": 3969
+    },
+    {
+        "cpl": 182,
+        "filePath": "src\\job\\Job_jiraIssue.ts",
+        "pos": 1990
+    },
+    {
+        "cpl": 183,
+        "filePath": "src\\monitoring_api\\startMonitoringServer.ts",
+        "pos": 977
+    },
+    {
+        "cpl": 184,
+        "filePath": "src\\monitoring_api\\jobMakeStaleApi.ts",
+        "pos": 739
+    },
+    {
+        "cpl": 185,
+        "filePath": "src\\Yjira\\JiraStub.ts",
+        "pos": 5348
+    },
+    {
+        "cpl": 186,
+        "filePath": "src\\Yjob\\yjob_tests_env.test.ts",
+        "pos": 2477
+    },
+    {
+        "cpl": 187,
+        "filePath": "src\\job\\Job_transformIssue.ts",
+        "pos": 2977
+    },
+    {
+        "cpl": 188,
+        "filePath": "src\\tests\\global_tests_env.test.ts",
+        "pos": 4957
+    },
+    {
+        "cpl": 189,
+        "filePath": "src\\tests\\global_tests_env.test.ts",
+        "pos": 6820
+    },
+    {
+        "cpl": 190,
+        "filePath": "src\\tests\\global_tests_env.test.ts",
+        "pos": 7615
+    },
+    {
+        "cpl": 191,
+        "filePath": "src\\tests\\global_tests_env.test.ts",
+        "pos": 2009
+    },
+    {
+        "cpl": 192,
+        "filePath": "src\\tests\\global_tests_env.test.ts",
+        "pos": 8614
+    },
+    {
+        "cpl": 193,
+        "filePath": "src\\Yoracle\\OracleStub.ts",
+        "pos": 1520
+    },
+    {
+        "cpl": 194,
+        "filePath": "src\\Yoracle\\OracleStub.ts",
+        "pos": 1756
+    },
+    {
+        "cpl": 195,
+        "filePath": "src\\Yoracle\\OracleStub.ts",
+        "pos": 1905
+    },
+    {
+        "cpl": 196,
+        "filePath": "src\\Yoracle\\OracleStub.ts",
+        "pos": 3195
+    },
+    {
+        "cpl": 197,
+        "filePath": "src\\other\\Env.ts",
+        "pos": 12460
+    },
+    {
+        "cpl": 198,
+        "filePath": "src\\other\\Env.ts",
+        "pos": 13481
+    },
+    {
+        "cpl": 199,
+        "filePath": "src\\other\\Env.ts",
+        "pos": 13534
+    },
+    {
+        "cpl": 200,
+        "filePath": "src\\monitoring_api\\runIssuesApi.ts",
+        "pos": 5529
+    },
+    {
+        "cpl": 201,
+        "filePath": "src\\Yjob\\mainLogic_JobLifeCycle.ts",
+        "pos": 1707
+    },
+    {
+        "cpl": 202,
+        "filePath": "src\\dbDomains\\dbdLinkItem.ts",
+        "pos": 5711
+    },
+    {
+        "cpl": 203,
+        "filePath": "src\\entry_scripts\\loadJiraFields.ts",
+        "pos": 1245
+    },
+    {
+        "cpl": 204,
+        "filePath": "src\\entry_scripts\\loadJiraFields.ts",
+        "pos": 1294
+    },
+    {
+        "cpl": 205,
+        "filePath": "src\\entry_scripts\\reload.ts",
+        "pos": 1900
+    },
+    {
+        "cpl": 206,
+        "filePath": "src\\Yjob\\mainLogic_JobLifeCycle.ts",
+        "pos": 10783
+    },
+    {
+        "cpl": 207,
+        "filePath": "src\\Yjira\\JiraWrapper.ts",
+        "pos": 19774
+    },
+    {
+        "cpl": 208,
+        "filePath": "src\\monitoring_api\\shutdownApi.ts",
+        "pos": 1072
+    },
+    {
+        "cpl": 209,
+        "filePath": "src\\Yjob\\JobStorage.ts",
+        "pos": 12513
+    },
+    {
+        "cpl": 210,
+        "filePath": "src\\Yjob\\batchWriter.ts",
+        "pos": 6284
+    },
+    {
+        "cpl": 211,
+        "filePath": "src\\monitoring_api\\logsApi.ts",
+        "pos": 1031
+    },
+    {
+        "cpl": 212,
+        "filePath": "src\\entry_scripts\\run.ts",
+        "pos": 2762
+    },
+    {
+        "cpl": 213,
+        "filePath": "src\\monitoring_api\\jobResumeApi.ts",
+        "pos": 882
+    },
+    {
+        "cpl": 214,
+        "filePath": "src\\Yjob\\JobStorage.ts",
+        "pos": 16718
+    },
+    {
+        "cpl": 215,
+        "filePath": "src\\Yjob\\JobStorage.ts",
+        "pos": 21165
+    },
+    {
+        "cpl": 216,
+        "filePath": "src\\Yjob\\JobStorage.ts",
+        "pos": 34006
+    },
+    {
+        "cpl": 217,
+        "filePath": "src\\Yjob\\mainLogic_JobLifeCycle.ts",
+        "pos": 1147
+    },
+    {
+        "cpl": 218,
+        "filePath": "src\\Yjob\\mainLogic_JobLifeCycle.ts",
+        "pos": 4824
+    },
+    {
+        "cpl": 219,
+        "filePath": "src\\Yjob\\mainLogic_JobLifeCycle.ts",
+        "pos": 5489
+    },
+    {
+        "cpl": 220,
+        "filePath": "src\\job\\Job_transformIssue.ts",
+        "pos": 5956
+    },
+    {
+        "cpl": 221,
+        "filePath": "src\\tests\\global_tests.test.ts",
+        "pos": 1565
+    },
+    {
+        "cpl": 222,
+        "filePath": "src\\tests\\global_tests.test.ts",
+        "pos": 27019
+    },
+    {
+        "cpl": 224,
+        "filePath": "src\\monitoring_api\\runIssuesApi.ts",
+        "pos": 4573
+    },
+    {
+        "cpl": 225,
+        "filePath": "src\\monitoring_api\\startMonitoringServer.ts",
+        "pos": 2452
+    },
+    {
+        "cpl": 226,
+        "filePath": "src\\entry_scripts\\run.ts",
+        "pos": 2426
+    },
+    {
+        "cpl": 227,
+        "filePath": "src\\job\\Job_transformIssue.ts",
+        "pos": 4920
+    },
+    {
+        "cpl": 228,
+        "filePath": "src\\job\\Job_transformIssue.ts",
+        "pos": 5313
+    },
+    {
+        "cpl": 229,
+        "filePath": "src\\job\\Job_jiraIssue.ts",
+        "pos": 1723
+    },
+    {
+        "cpl": 230,
+        "filePath": "src\\job\\Job_jiraIssue.ts",
+        "pos": 894
+    },
+    {
+        "cpl": 231,
+        "filePath": "src\\job\\Job_transformIssue.ts",
+        "pos": 2509
+    },
+    {
+        "cpl": 232,
+        "filePath": "src\\job\\Job_transformIssue.ts",
+        "pos": 4461
+    },
+    {
+        "cpl": 233,
+        "filePath": "src\\monitoring_api\\jobMakeStaleApi.ts",
+        "pos": 1021
+    },
+    {
+        "cpl": 234,
+        "filePath": "src\\Yjob\\JobType.ts",
+        "pos": 13921
+    },
+    {
+        "cpl": 235,
+        "filePath": "src\\job\\Job_transformIssue.ts",
+        "pos": 5510
+    },
+    {
+        "cpl": 236,
+        "filePath": "src\\job\\Job_issue.ts",
+        "pos": 1328
+    },
+    {
+        "cpl": 237,
+        "filePath": "src\\Yjob\\yjob_tests_env.test.ts",
+        "pos": 2320
+    },
+    {
+        "cpl": 238,
+        "filePath": "src\\Ylog\\index.ts",
+        "pos": 4920
+    },
+    {
+        "cpl": 239,
+        "filePath": "src\\Ylog\\index.ts",
+        "pos": 5141
+    },
+    {
+        "cpl": 240,
+        "filePath": "src\\Ylog\\index.ts",
+        "pos": 5728
+    },
+    {
+        "cpl": 241,
+        "filePath": "src\\Ylog\\index.ts",
+        "pos": 6907
+    },
+    {
+        "cpl": 242,
+        "filePath": "src\\Ylog\\index.ts",
+        "pos": 7007
+    },
+    {
+        "cpl": 243,
+        "filePath": "src\\Ylog\\index.ts",
+        "pos": 7846
+    },
+    {
+        "cpl": 244,
+        "filePath": "src\\Ylog\\index.ts",
+        "pos": 11272
+    },
+    {
+        "cpl": 245,
+        "filePath": "src\\Ystd\\linearDataInterpolation.ts",
+        "pos": 1288
+    },
+    {
+        "cpl": 246,
+        "filePath": "src\\Ystd\\linearDataInterpolation.ts",
+        "pos": 1358
+    },
+    {
+        "cpl": 247,
+        "filePath": "src\\Ystd\\manageableTimer.ts",
+        "pos": 3415
+    },
+    {
+        "cpl": 248,
+        "filePath": "src\\monitoring_api\\jobResumeApi.ts",
+        "pos": 1009
+    },
+    {
+        "cpl": 249,
+        "filePath": "src\\job\\Job_transformIssue.ts",
+        "pos": 3996
+    },
+    {
+        "cpl": 250,
+        "filePath": "src\\other\\Env.ts",
+        "pos": 20447
+    },
+    {
+        "cpl": 251,
+        "filePath": "src\\Yjob\\JobFieldsServer.ts",
+        "pos": 16159
+    },
+    {
+        "cpl": 252,
+        "filePath": "src\\Yjob\\mainLogic_JobLifeCycle.ts",
+        "pos": 7130
+    },
+    {
+        "cpl": 253,
+        "filePath": "src\\Yjob\\yjob_tests_env.test.ts",
+        "pos": 3328
+    },
+    {
+        "cpl": 254,
+        "filePath": "src\\Yjob\\yjob_tests_env.test.ts",
+        "pos": 3817
+    },
+    {
+        "cpl": 255,
+        "filePath": "src\\Yjob\\yjob_tests_env.test.ts",
+        "pos": 3998
+    },
+    {
+        "cpl": 256,
+        "filePath": "src\\Yjob\\yjob_tests_env.test.ts",
+        "pos": 2990
+    },
+    {
+        "cpl": 257,
+        "filePath": "src\\Yjob\\mainLogic_JobLifeCycle.ts",
+        "pos": 1821
+    },
+    {
+        "cpl": 258,
+        "filePath": "src\\Yjob\\mainLogic_JobLifeCycle.ts",
+        "pos": 1917
+    },
+    {
+        "cpl": 259,
+        "filePath": "src\\Yjob\\mainLogic_JobLifeCycle.ts",
+        "pos": 2150
+    },
+    {
+        "cpl": 260,
+        "filePath": "src\\Yjob\\mainLogic_JobLifeCycle.ts",
+        "pos": 2450
+    },
+    {
+        "cpl": 261,
+        "filePath": "src\\monitoring_api\\runIssuesApi.ts",
+        "pos": 6130
+    },
+    {
+        "cpl": 262,
+        "filePath": "src\\monitoring_api\\runIssuesApi.ts",
+        "pos": 6669
+    },
+    {
+        "cpl": 263,
+        "filePath": "src\\monitoring_api\\runIssuesApi.ts",
+        "pos": 8244
+    },
+    {
+        "cpl": 264,
+        "filePath": "src\\monitoring_api\\runIssuesApi.ts",
+        "pos": 8652
+    },
+    {
+        "cpl": 265,
+        "filePath": "src\\YsqlLog\\SqliteLog.ts",
+        "pos": 5795
+    },
+    {
+        "cpl": 266,
+        "filePath": "src\\YsqlLog\\SqliteLog.ts",
+        "pos": 6065
+    },
+    {
+        "cpl": 267,
+        "filePath": "src\\YsqlLog\\SqliteLog.ts",
+        "pos": 7615
+    },
+    {
+        "cpl": 268,
+        "filePath": "src\\entry_scripts\\run.ts",
+        "pos": 4720
+    },
+    {
+        "cpl": 269,
+        "filePath": "src\\entry_scripts\\run.ts",
+        "pos": 4843
+    },
+    {
+        "cpl": 270,
+        "filePath": "src\\entry_scripts\\run.ts",
+        "pos": 5077
+    },
+    {
+        "cpl": 271,
+        "filePath": "src\\entry_scripts\\run.ts",
+        "pos": 5242
+    },
+    {
+        "cpl": 272,
+        "filePath": "src\\entry_scripts\\run_scanForChangedIssueKeys.ts",
+        "pos": 4415
+    },
+    {
+        "cpl": 273,
+        "filePath": "src\\monitoring_api\\jobMakeStaleApi.ts",
+        "pos": 891
+    },
+    {
+        "cpl": 274,
+        "filePath": "src\\monitoring_api\\jobStatsApi.ts",
+        "pos": 2627
+    },
+    {
+        "cpl": 275,
+        "filePath": "src\\Yjob\\mainLogic_startJobs.ts",
+        "pos": 3529
+    },
+    {
+        "cpl": 276,
+        "filePath": "src\\Yjob\\JobStorage.ts",
+        "pos": 26814
+    },
+    {
+        "cpl": 277,
+        "filePath": "src\\Yjob\\yjob_tests_env.test.ts",
+        "pos": 1988
     },
     {
         "cpl": 278,
@@ -1405,8 +1380,348 @@
         "pos": 296
     },
     {
-        "cpl": 147,
+        "cpl": 279,
+        "filePath": "src\\Yjob\\mainLogic_startJobs.ts",
+        "pos": 3272
+    },
+    {
+        "cpl": 280,
+        "filePath": "src\\other\\importExport.ts",
+        "pos": 685
+    },
+    {
+        "cpl": 281,
+        "filePath": "src\\monitoring_api\\jobPauseApi.ts",
+        "pos": 1005
+    },
+    {
+        "cpl": 282,
+        "filePath": "src\\monitoring_api\\startMonitoringServer.ts",
+        "pos": 2564
+    },
+    {
+        "cpl": 283,
+        "filePath": "src\\monitoring_api\\startMonitoringServer.ts",
+        "pos": 2757
+    },
+    {
+        "cpl": 284,
+        "filePath": "src\\Yjob\\yjob_tests_env.test.ts",
+        "pos": 4487
+    },
+    {
+        "cpl": 285,
+        "filePath": "src\\Yjob\\yjob_tests_env.test.ts",
+        "pos": 5524
+    },
+    {
+        "cpl": 286,
+        "filePath": "src\\monitoring_api\\jobsApi.ts",
+        "pos": 7649
+    },
+    {
+        "cpl": 287,
+        "filePath": "src\\Ystd\\projectDir.ts",
+        "pos": 566
+    },
+    {
+        "cpl": 288,
+        "filePath": "src\\Yjob\\JobStorage.ts",
+        "pos": 12751
+    },
+    {
+        "cpl": 289,
+        "filePath": "src\\Yjob\\JobStorage.ts",
+        "pos": 13097
+    },
+    {
+        "cpl": 290,
+        "filePath": "src\\Yjob\\JobStorage.ts",
+        "pos": 15818
+    },
+    {
+        "cpl": 291,
+        "filePath": "src\\Yjob\\mainLogic_loadUnload.ts",
+        "pos": 8427
+    },
+    {
+        "cpl": 292,
+        "filePath": "src\\Yjob\\JobStorage.ts",
+        "pos": 30971
+    },
+    {
+        "cpl": 293,
+        "filePath": "src\\Yjob\\JobType.ts",
+        "pos": 3616
+    },
+    {
+        "cpl": 294,
+        "filePath": "src\\Yjob\\JobType.ts",
+        "pos": 5324
+    },
+    {
+        "cpl": 295,
+        "filePath": "src\\YsqlLog\\SqliteLog.ts",
+        "pos": 7883
+    },
+    {
+        "cpl": 296,
+        "filePath": "src\\Yjira\\JiraStub.ts",
+        "pos": 3078
+    },
+    {
+        "cpl": 297,
+        "filePath": "src\\Yjira\\JiraWrapper.ts",
+        "pos": 17367
+    },
+    {
+        "cpl": 298,
+        "filePath": "src\\monitoring_api\\runIssuesApi.ts",
+        "pos": 8360
+    },
+    {
+        "cpl": 299,
+        "filePath": "src\\YsqlLog\\SqliteLog.ts",
+        "pos": 5521
+    },
+    {
+        "cpl": 300,
+        "filePath": "src\\Yjob\\mainLogic_JobLifeCycle.ts",
+        "pos": 1073
+    },
+    {
+        "cpl": 301,
+        "filePath": "src\\Yjob\\Job.ts",
+        "pos": 3980
+    },
+    {
+        "cpl": 302,
+        "filePath": "src\\Yjob\\Job.ts",
+        "pos": 5780
+    },
+    {
+        "cpl": 303,
+        "filePath": "src\\Yjob\\JobContextType.ts",
+        "pos": 1408
+    },
+    {
+        "cpl": 304,
+        "filePath": "src\\Yjob\\JobContextType.ts",
+        "pos": 2496
+    },
+    {
+        "cpl": 305,
+        "filePath": "src\\Yjob\\JobContextType.ts",
+        "pos": 3124
+    },
+    {
+        "cpl": 306,
+        "filePath": "src\\other\\Env.ts",
+        "pos": 13588
+    },
+    {
+        "cpl": 307,
+        "filePath": "src\\other\\Env.ts",
+        "pos": 15068
+    },
+    {
+        "cpl": 308,
+        "filePath": "src\\other\\Env.ts",
+        "pos": 15163
+    },
+    {
+        "cpl": 309,
+        "filePath": "src\\other\\Env.ts",
+        "pos": 16424
+    },
+    {
+        "cpl": 310,
+        "filePath": "src\\other\\Env.ts",
+        "pos": 16513
+    },
+    {
+        "cpl": 311,
+        "filePath": "src\\other\\Env.ts",
+        "pos": 17661
+    },
+    {
+        "cpl": 312,
+        "filePath": "src\\entry_scripts\\run.ts",
+        "pos": 2478
+    },
+    {
+        "cpl": 313,
+        "filePath": "src\\Yjira\\JiraStub.ts",
+        "pos": 6586
+    },
+    {
+        "cpl": 314,
+        "filePath": "src\\entry_scripts\\run.ts",
+        "pos": 5528
+    },
+    {
+        "cpl": 315,
+        "filePath": "src\\Yjob\\mainLogic_loadUnload.ts",
+        "pos": 8190
+    },
+    {
+        "cpl": 316,
+        "filePath": "src\\Yjob\\mainLogic_loadUnload.ts",
+        "pos": 2498
+    },
+    {
+        "cpl": 317,
+        "filePath": "src\\Yjob\\mainLogic_JobLifeCycle.ts",
+        "pos": 1455
+    },
+    {
+        "cpl": 318,
+        "filePath": "src\\job\\Job_transformIssue.ts",
+        "pos": 3163
+    },
+    {
+        "cpl": 319,
+        "filePath": "src\\entry_scripts\\run.ts",
+        "pos": 2991
+    },
+    {
+        "cpl": 320,
+        "filePath": "src\\Yjob\\JobType.ts",
+        "pos": 14017
+    },
+    {
+        "cpl": 321,
+        "filePath": "src\\job\\JobFieldsServer.ts",
+        "pos": 17557
+    },
+    {
+        "cpl": 322,
+        "filePath": "src\\entry_scripts\\run.ts",
+        "pos": 5599
+    },
+    {
+        "cpl": 323,
+        "filePath": "src\\entry_scripts\\run.ts",
+        "pos": 5645
+    },
+    {
+        "cpl": 324,
+        "filePath": "src\\other\\oracleBatchWriter.ts",
+        "pos": 3575
+    },
+    {
+        "cpl": 325,
+        "filePath": "src\\monitoring_api\\runIssuesApi.ts",
+        "pos": 5083
+    },
+    {
+        "cpl": 326,
+        "filePath": "src\\monitoring_api\\SQLApi.ts",
+        "pos": 1432
+    },
+    {
+        "cpl": 327,
+        "filePath": "src\\other\\Env.ts",
+        "pos": 11232
+    },
+    {
+        "cpl": 328,
+        "filePath": "src\\other\\Env.ts",
+        "pos": 11383
+    },
+    {
+        "cpl": 329,
+        "filePath": "src\\other\\Env.ts",
+        "pos": 11509
+    },
+    {
+        "cpl": 330,
+        "filePath": "src\\Yjob\\JobStorage.ts",
+        "pos": 12314
+    },
+    {
+        "cpl": 331,
+        "filePath": "src\\Yjob\\JobStorage.ts",
+        "pos": 34288
+    },
+    {
+        "cpl": 332,
+        "filePath": "src\\Yjob\\JobStorage.ts",
+        "pos": 34570
+    },
+    {
+        "cpl": 333,
+        "filePath": "src\\Yjob\\JobStorage.ts",
+        "pos": 35151
+    },
+    {
+        "cpl": 334,
+        "filePath": "src\\other\\Env.ts",
+        "pos": 12052
+    },
+    {
+        "cpl": 335,
+        "filePath": "src\\other\\importExport.ts",
+        "pos": 1018
+    },
+    {
+        "cpl": 336,
+        "filePath": "src\\other\\importExport.ts",
+        "pos": 2165
+    },
+    {
+        "cpl": 337,
+        "filePath": "src\\other\\importExport.ts",
+        "pos": 2591
+    },
+    {
+        "cpl": 338,
+        "filePath": "src\\other\\importExport.ts",
+        "pos": 2722
+    },
+    {
+        "cpl": 339,
+        "filePath": "src\\other\\importExport.ts",
+        "pos": 2980
+    },
+    {
+        "cpl": 340,
+        "filePath": "src\\other\\importExport.ts",
+        "pos": 3174
+    },
+    {
+        "cpl": 341,
+        "filePath": "src\\other\\importExport.ts",
+        "pos": 5147
+    },
+    {
+        "cpl": 342,
+        "filePath": "src\\other\\importExport.ts",
+        "pos": 6104
+    },
+    {
+        "cpl": 343,
+        "filePath": "src\\other\\importExport.ts",
+        "pos": 6235
+    },
+    {
+        "cpl": 344,
+        "filePath": "src\\other\\importExport.ts",
+        "pos": 6311
+    },
+    {
+        "cpl": 345,
+        "filePath": "src\\other\\Env.ts",
+        "pos": 12249
+    },
+    {
+        "cpl": 999,
         "filePath": "src\\entry_scripts\\deploy.ts",
-        "pos": 2766
+        "pos": 8326
+    },
+    {
+        "cpl": 3000221,
+        "filePath": "src\\job\\Job_transformIssue.ts",
+        "pos": 7172
     }
 ]

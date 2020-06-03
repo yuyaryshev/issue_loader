@@ -12,29 +12,59 @@ export interface DLinkItem {
     INWARDISSUE?: string; //link on this(key) issue
     OUTWARDISSUE?: string;
     TYPEID: string;
+    TS?: string;
+    DELETED_FLAG?: string;
 }
 
-export function dlinkItemFromJira(issueKey: string, a: JiraLinkItem): DLinkItem {
-    return {
-        ISSUEKEY: issueKey,
-        ID: a.id,
-        INWARDISSUE: a.inwardIssue?.key,
-        OUTWARDISSUE: a.outwardIssue?.key,
-        TYPEID: a.type.id,
-    };
+export function dlinkItemFromJira(issueKey: string, a: JiraLinkItem, TSinput: string, env: Env): DLinkItem {
+    if (env.settings.write_into_log_tables) {
+        return {
+            ISSUEKEY: issueKey,
+            ID: a.id,
+            INWARDISSUE: a.inwardIssue?.key,
+            OUTWARDISSUE: a.outwardIssue?.key,
+            TYPEID: a.type.id,
+            TS: TSinput + env.sequenceTS.nextValue(),
+            DELETED_FLAG: "N",
+        };
+    } else {
+        return {
+            ISSUEKEY: issueKey,
+            ID: a.id,
+            INWARDISSUE: a.inwardIssue?.key,
+            OUTWARDISSUE: a.outwardIssue?.key,
+            TYPEID: a.type.id,
+        };
+    }
 }
 
 export const dbdDLinkItemInput: DbDomainInput<DLinkItem, JiraLinkItem> = {
     // TODO Доработать таблицу, взять все необходимые поля, пока что так
     name: "LINK_T",
     hasChangesTable: true,
-    deleteByIssueKeyBeforeMerge: false,
+    deleteByIssueKeyBeforeMerge: true,
     fields: [
         { name: "ISSUEKEY", type: "string100", nullable: false, pk: true, insert: true } as DbDomFieldInput,
         { name: "ID", type: "string100", nullable: false, pk: true, insert: true } as DbDomFieldInput,
         { name: "INWARDISSUE", type: "string100", nullable: true, pk: false, insert: true } as DbDomFieldInput,
         { name: "OUTWARDISSUE", type: "string100", nullable: true, pk: false, insert: true } as DbDomFieldInput,
         { name: "TYPEID", type: "string100", nullable: true, pk: false, insert: true } as DbDomFieldInput,
+    ] as DbDomFieldInput[],
+};
+
+export const dbdDLinkItemInputLog: DbDomainInput<DLinkItem, JiraLinkItem> = {
+    // TODO Доработать таблицу, взять все необходимые поля, пока что так
+    name: "LINK_T_LOG",
+    hasChangesTable: false,
+    deleteByIssueKeyBeforeMerge: false,
+    fields: [
+        { name: "ISSUEKEY", type: "string100", nullable: false, pk: false, insert: true } as DbDomFieldInput,
+        { name: "ID", type: "string100", nullable: false, pk: false, insert: true } as DbDomFieldInput,
+        { name: "INWARDISSUE", type: "string100", nullable: true, pk: false, insert: true } as DbDomFieldInput,
+        { name: "OUTWARDISSUE", type: "string100", nullable: true, pk: false, insert: true } as DbDomFieldInput,
+        { name: "TYPEID", type: "string100", nullable: true, pk: false, insert: true } as DbDomFieldInput,
+        { name: "TS", type: "string40", nullable: true, pk: false, insert: true } as DbDomFieldInput,
+        { name: "DELETED_FLAG", type: "dwh_flag", nullable: false, pk: false, insert: true } as DbDomFieldInput,
     ] as DbDomFieldInput[],
 };
 

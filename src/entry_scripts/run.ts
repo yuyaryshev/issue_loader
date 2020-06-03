@@ -1,11 +1,13 @@
 import { LoadStreamsList } from "./run_refreshLoadStreams";
 import { loadDbdIssueFields, startEnv } from "../other/Env";
 import { IssueStreamRunStatus } from "dbDomains";
-import { debugMsgFactory, yconsole } from "Ystd";
+import { awaitDelay, debugMsgFactory, manageableTimer, yconsole } from "Ystd";
 import moment from "moment";
-import { scanForChangedIssueIds } from "./run_scanForChangedIssueIds";
+import { scanForChangedIssueKeys } from "./run_scanForChangedIssueKeys";
 import { Job } from "Yjob";
 import { startMonitoring } from "monitoring_api";
+import fsPath from "path";
+import fs from "fs-extra";
 
 const debug = debugMsgFactory("run");
 const debugSql = debugMsgFactory("sql");
@@ -47,31 +49,41 @@ export interface PrefetchItem {
 
 export const run = async function(args: any) {
     if (!args) args = {};
-    const debugMode = !!args.debugMode;
-    const enableScanIssues = !!args.scanIssues;
-    const env0 = await startEnv("run", { args, debugMode });
+    const cleanStartMode = !!args.cleanStart;
+    if (cleanStartMode) {
+        const logSqlite = fsPath.resolve("./sqlite_log.db");
+        const stgSqlite = fsPath.resolve("./sqlite_stg.db");
+        console.log(`CODE00000175`, `Deleting '${stgSqlite}', '${logSqlite}' ...`);
+        try {
+            fs.unlinkSync(logSqlite);
+        } catch (e) {}
 
-    const port = env0.settings.monitorEndpointPort;
-    console.log(`CODE00000141`, `Starting 'run'...`);
-    yconsole.log(`CODE00000212`, `Starting 'run'...`);
-
-    if (port) startMonitoring(env0, port);
-    else {
-        console.log(
-            `CODE00000183`,
-            `No monitoring port specified. /runStatus and /api/runStatus monitor endpoint is disabled in settings file.`
-        );
-        yconsole.log(
-            `CODE00000225`,
-            `No monitoring port specified. /runStatus and /api/runStatus monitor endpoint is disabled in settings file.`
-        );
+        try {
+            fs.unlinkSync(stgSqlite);
+        } catch (e) {}
     }
 
+    const debugMode = !!args.debugMode;
+    const disableRefresh = !!args.disableRefresh || debugMode;
+    const dbgReloadProjects = (args.dbgReloadProjects && args.dbgReloadProjects.split(",")) || [];
+    if (args.dbgReloadProjects && !dbgReloadProjects.length) {
+        console.trace(`CODE00000226 Invalid values in 'dbgReloadProjects' option`);
+        process.exit(1);
+    }
+
+    const env0 = await startEnv("run", { args, debugMode });
+
+    console.log(`CODE00000312`, `Starting 'run'...`);
+    yconsole.log(`CODE00000212`, `Starting 'run'...`);
+
     const env = await loadDbdIssueFields(env0);
+
+    startMonitoring(env, env.settings.monitorEndpointPort);
     const loadStreamsList = new LoadStreamsList(env.settings);
 
     async function scanIssueChangesCycle() {
         debugWorkCycle(`CODE00000150`, `Starting`);
+        env.jobStorage.my_console.log(`CODE00000319`, `Starting scanIssueChangesCycle`);
         let thisDay = moment().format("YYYY-MM-DD");
         if (prevDay !== thisDay) {
             debugWorkCycle(`CODE00000151`, `Flushing day counters`);
@@ -92,30 +104,50 @@ export const run = async function(args: any) {
         }
 
         await loadStreamsList.refresh(env);
-        await scanForChangedIssueIds(env, loadStreamsList.loadStreams, debugMode && enableScanIssues);
+        await scanForChangedIssueKeys(env, loadStreamsList.loadStreams, { dbgReloadProjects: dbgReloadProjects });
         debugWorkCycle(`CODE00000153`, `Finished - OK`);
+
         setTimeout(scanIssueChangesCycle, env.settings.timeouts.workCycle);
         debugWorkCycle(`CODE00000154`, `Scheduled next run in ${env.settings.timeouts.workCycle} ms`);
     }
 
-    if (!debugMode || enableScanIssues) scanIssueChangesCycle();
-
-    yconsole.log(`CODE00000155`, `'run' initialization Finished - OK`);
-
-    if (!debugMode) {
-        console.log(`CODE00000026`, `Start up finished successfully. Listening to changes in Jira...`);
-        yconsole.log(`CODE00000280`, `Start up finished successfully. Listening to changes in Jira...`);
-    } else {
+    if (debugMode) {
         yconsole.log(`CODE00000179`, `\n\n\n`);
         yconsole.log(`CODE00000180`, `debugMode = ${debugMode}...\n\n\n`);
 
         function pauseHandler(job: Job) {
-            if (!job.jobType.stored) return;
             job.pause();
         }
 
         env.jobStorage.onJobLoadedHandlers.push(pauseHandler);
         env.jobStorage.onJobCreatedHandlers.push(pauseHandler);
         env.jobStorage.startRegularFunc();
+    }
+
+    if (!disableRefresh) {
+        manageableTimer(
+            env,
+            env.settings.timeouts.workCycle,
+            `CODE00000119`,
+            "scanIssueChangesCycle",
+            scanIssueChangesCycle
+        ).setTimeout();
+
+        console.log(`CODE00000268`, `Waiting 3 secs for monitoring to start...`);
+        yconsole.log(`CODE00000269`, `Waiting 3 secs for monitoring to start...`);
+        setTimeout(function startLoading() {
+            debug(`CODE00000098`, `starting jobStorage.startRegularFunc`);
+            env.jobStorage.startRegularFunc();
+
+            console.log(`CODE00000270`, `Start up finished successfully. Listening to changes in Jira...`);
+            yconsole.log(`CODE00000271`, `Start up finished successfully. Listening to changes in Jira...`);
+        }, 3000);
+    } else if (dbgReloadProjects.length) {
+        yconsole.log(`CODE00000314`, `Starting dbgReloadProjects for ${dbgReloadProjects.join(", ")}`);
+        await scanForChangedIssueKeys(env, loadStreamsList.loadStreams, { dbgReloadProjects: dbgReloadProjects });
+        await awaitDelay(15 * 1000);
+        env.terminate(false);
+        yconsole.log(`CODE00000322`, `dbgReloadProjects - FINISHED OK.`);
+        yconsole.log(`CODE00000323`, `TERMINATIG PROCESS`);
     }
 };

@@ -1,0 +1,11 @@
+{
+    "x": 1420,
+    "wins": {
+        "watch": "cls && watch",
+        "ycplmon": "cls && ycplmon",
+        "tsc": "cls && ycplmon && tsc --watch",
+        "web": "cls && web",
+        "node": "node",
+        "cmd": "git status"
+    }
+}

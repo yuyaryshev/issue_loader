@@ -8,6 +8,11 @@
     "dbgStream": null,
     "use_stored_procedures": false,
     "connect_jira_dev": false,
+    "jobResourcesLimits": {
+        "jira": 40,
+        "cpu": 30,
+        "db": 30
+    },
     "issuesCache": {
         "enabled": true,
         "minutesToLive": 600
@@ -72,5 +77,10 @@
     "debug": {
         "issueKey": "DATAMAP-1",
         "clearCaches": false
-    }
+    },
+    "jiraStub": {
+        "filename": "jiraStub.js",
+        "forwardMode": true
+    },
+    "write_into_log_tables": false
 }

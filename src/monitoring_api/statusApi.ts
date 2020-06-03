@@ -1,7 +1,7 @@
 import { Env } from "other";
 import moment from "moment";
-import debugjs from "debug";
-import { sortObjects } from "Ystd";
+import { debugMsgFactory as debugjs } from "Ystd";
+import { JobResources } from "Yjob/JobResources";
 
 const debug = debugjs("jobStatusApi");
 
@@ -11,22 +11,14 @@ export const statusApi = async (env: Env, req: any, res: any) => {
     let error: string | undefined = undefined;
     let ok: boolean = false;
     const { query } = req;
-    const jobStatuses = [];
-    const logItems = [];
     const fullRefresh = !query.ts || moment().diff(query.ts) > env.jobStorage.statusTTL;
-    try {
-        env.jobStorage.refreshJobsStatus();
-        for (let [, jobStatus] of env.jobStorage.jobsStatus) {
-            if (fullRefresh || !jobStatus.updatedTs || jobStatus.updatedTs >= query.ts) jobStatuses.push(jobStatus);
-        }
+    const jiraStats = env.jira.responseStats().total;
 
-        for (let logItem of env.genericLog.lastItems) {
-            if (fullRefresh || !logItem.ts || logItem.ts >= query.ts) logItems.push(logItem);
-        }
-    } catch (e) {
-        error = e.message;
-        if (env.debugMode) debug(`CODE00000125 statusApi for ts=${query.ts} - ERROR!`, e);
-    }
+    let jiraStatus = {
+        jiraRequestsPerSecond: jiraStats.c, /// Запросов к Jira в секунду
+        JiraResposeErrorsCount: jiraStats.errorsCount, /// Количество ошибок к Jira в ответах
+        JiraResponseAverageTime: jiraStats.avgMs, /// Среднее время отклика JIra
+    };
 
     return res.send(
         JSON.stringify({
@@ -36,8 +28,19 @@ export const statusApi = async (env: Env, req: any, res: any) => {
             fullRefresh,
             instanceName: env.settings.instanceName,
             versionStr: env.versionStr,
-            jobs: jobStatuses,
-            logs: logItems,
+            globalMessages: env.globalMessages,
+            jiraStatus: jiraStatus,
+            startLocks: env.jobStorage.startLocks.size,
+            unloading: env.jobStorage.unloading,
+            contextsLoaded: env.jobStorage.jobContextById.size,
+            maxContextsInMem: env.jobStorage.maxContextsInMem,
+            contextsRunning: env.jobStorage.runningContextsCount(),
+            contextsReadyToRun: env.jobStorage.readyToRunJobContexts.length,
+            resources: env.jobStorage.jobResourcesCurrent,
+            resourcesLimits: env.jobStorage.jobResourcesLimits,
+            jobResourcesDelays: env.jobStorage.jobResourcesLimits,
+            importExportCurrent: env.importExportCurrent,
+            importExportTotal: env.importExportTotal,
         })
     );
 };

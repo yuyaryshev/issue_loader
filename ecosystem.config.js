@@ -6,11 +6,14 @@ const name = path
     .split(path.sep)
     .pop();
 
+const settings = JSON.parse(fs.readFileSync(`settings.json`, "utf-8"));
+
 module.exports = {
     apps: [
         {
             name,
             script: "./ts_out/src/start.js",
+            node_args: [...(settings.debugPort ? [`--inspect=0.0.0.0:${settings.debugPort}`] : [])],
             env: {
                 NODE_ENV: "development",
             },

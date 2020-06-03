@@ -1,6 +1,6 @@
 import { expect } from "chai";
 
-describe(`temp_tests`, function() {
+xdescribe(`temp_tests`, function() {
     it(`temp test1`, function() {
         //
         // const m1 = new Map();

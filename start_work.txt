@@ -1,27 +1,17 @@
 cd C:\Users\U_M12YK\Documents\YYaryshev\js\issue_loader
-cls
-watch
+cls && watch
 
 
 cd C:\Users\U_M12YK\Documents\YYaryshev\js\issue_loader
-cls
-ycplmon
+cls && ycplmon
 
 
 cd C:\Users\U_M12YK\Documents\YYaryshev\js\issue_loader
-cls
-tsc --watch
+cls && ycplmon && tsc --watch
 
 
 cd C:\Users\U_M12YK\Documents\YYaryshev\js\issue_loader
-cls
-drop_all
-
-
-
-cd C:\Users\U_M12YK\Documents\YYaryshev\js\issue_loader
-cls
-web
+cls && web
 
 
 ll sqlite_stg.db && pm2 l && du -h

@@ -1,31 +1,35 @@
+import { JobWait } from "Yjob/JobWait";
+
 export interface JobLogItem {
     cpl: string;
-    message: string;
+    message?: string;
     severity: string;
     jobId: string;
     type: string;
-    name: string;
-    createdTs: string;
     step: string;
     prevError?: string;
     finished: 1 | 0;
     ready: 1 | 0;
+    waitType: JobWait | undefined;
+    project?: string; // wa
+    issueKey?: string; // wa
 }
 
 export const jobListLogColumnStr: string = (function() {
     const s = `
     export interface JobLogItem {
-        cpl:string;
-        message:string;
-        severity:string;    
+        cpl: string;
+        message?: string;
+        severity: string;
         jobId: string;
         type: string;
-        name: string;
-        createdTs: string;
         step: string;
         prevError?: string;
         finished: 1 | 0;
         ready: 1 | 0;
+        waitType: JobWait | undefined;
+        project?: string;// wa
+        issueKey?: string;// wa
     }
         `;
     const r = s

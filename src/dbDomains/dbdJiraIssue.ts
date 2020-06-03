@@ -1,6 +1,6 @@
 import { JiraIssue, JiraUser } from "Yjira";
 import { awaitDelay, debugMsgFactory, writeFileSyncIfChanged, yconsole } from "Ystd";
-import { Env, EnvWithDbdJiraIssue, OracleConnection } from "../other/Env";
+import { Env, EnvWithDbdJiraIssue } from "../other/Env";
 import { DJiraFieldMarkedMeta } from "./dbdJiraField";
 import { resolve } from "path";
 
@@ -11,8 +11,10 @@ import { DLabel } from "./dbdLabel";
 
 import { dcommentFromJira, DCommentItem } from "./dbdCommentItem";
 import { DbDomainInput, DbDomFieldInput } from "./dbDomain";
+import { OracleConnection0 } from "Yoracle";
 
 const debugIssues = debugMsgFactory("run.issues");
+const debugIssuesWriteToDbNormal = debugMsgFactory("normal.run.writeToDb.normal");
 
 export const dbg_fieldMapper_path = resolve("./dbg_fieldMapper.js");
 export const dbg_datetimeWalker_path = resolve("./dbg_datetimeWalker.js");
@@ -33,9 +35,11 @@ export const makeFieldMapperSource = (markedFields: DJiraFieldMarkedMeta[]) => {
 
                     case "created":
                     case "updated":
-                    case "resolutionDate":
+                    case "resolutiondate":
                     case "lastViewed":
-                    case "dueDate":
+                    case "timeestimate":
+                    case "timeoriginalestimate":
+                    case "duedate":
                         // datetime string
                         return `${f.TARGET_NAME}:a.fields.${f.ID}`;
 
@@ -78,7 +82,19 @@ export const makeFieldMapperSource = (markedFields: DJiraFieldMarkedMeta[]) => {
         ...markedFields
             .map(f => {
                 if (f.CUSTOM_ID) {
-                    return `${f.TARGET_NAME}:a.fields.${f.ID} && a.fields.${f.ID}.value`;
+                    switch (f.TYPE) {
+                        case "string":
+                        case "user":
+                        case "date":
+                        case "number":
+                        case "priority":
+                        case "datetime":
+                        case "issuetype":
+                        case "option":
+                            return `${f.TARGET_NAME}:typeof a.fields.${f.ID} === 'object'?(a.fields.${f.ID}.value?a.fields.${f.ID}.value:a.fields.${f.ID}.name):a.fields.${f.ID}`;
+                        case "array":
+                            return `${f.TARGET_NAME}: a.fields.${f.ID}?(a.fields.${f.ID}.length?(a.fields.${f.ID}.map(a => {return a.name?a.name:a.value}).join(',')):undefined):undefined`;
+                    }
                 }
                 return undefined;
             })
@@ -137,10 +153,11 @@ export const dbdJiraIssueInput = (fieldsMeta: DJiraFieldMarkedMeta[]): DbDomainI
     return {
         name: "ISSUE_T",
         hasChangesTable: true,
-        // table: "ISSUE_T",
-        // changesTable: "ISSUE_T_CHANGES",
+        // table: "ISSUE_T_LOG",
+        // changesTable: "ISSUE_LOG_CHANGES",
         // handlerStoredProc: "HANDLE_ISSUE_T_CHANGES",
         deleteByIssueKeyBeforeMerge: false,
+
         fields: [
             {
                 name: "ID",
@@ -149,9 +166,16 @@ export const dbdJiraIssueInput = (fieldsMeta: DJiraFieldMarkedMeta[]): DbDomainI
                 pk: false,
                 insert: true,
             } as DbDomFieldInput,
+            {
+                name: "DELETED_FLAG",
+                type: "dwh_flag",
+                nullable: false,
+                pk: false,
+                insert: true,
+            } as DbDomFieldInput,
             ...fieldsMeta.map(f => {
                 return {
-                    name: f.ID,
+                    name: f.TARGET_NAME,
                     type: f.ISSUE_LOADER_TYPE,
                     nullable: !["ISSUEKEY", "PROJECT"].includes(f.ID),
                     pk: f.ID.toUpperCase() === "ISSUEKEY",
@@ -164,155 +188,65 @@ export const dbdJiraIssueInput = (fieldsMeta: DJiraFieldMarkedMeta[]): DbDomainI
     };
 };
 
-export async function writeJiraIssuesToDb(env: EnvWithDbdJiraIssue, jiraIssues: JiraIssue[]) {
-    if (jiraIssues.length) {
-        const worklogs: DWorklogItem[] = [];
-        const changelogs: DChangelogItem[] = [];
-        const comments: DCommentItem[] = [];
-        const labelsMap: Map<string, DLabel> = new Map();
-        const usersMap: Map<string, DUser> = new Map();
+export const dbdJiraIssueInputLog = (fieldsMeta: DJiraFieldMarkedMeta[]): DbDomainInput<DJiraIssue, JiraIssue> => {
+    return {
+        name: "ISSUE_T_LOG",
+        hasChangesTable: false,
+        deleteByIssueKeyBeforeMerge: false,
 
-        for (let issue of jiraIssues) {
-            if (!issue || !issue.fields) continue;
-
-            if (
-                issue.fields &&
-                issue.fields.worklog &&
-                issue.fields.worklog.worklogs &&
-                issue.fields.worklog.worklogs.length
-            )
-                for (let i of issue.fields.worklog.worklogs) worklogs.push(dworklogLogItemFromJira(issue.key, i));
-
-            if (issue.changelog && issue.changelog) changelogs.push(...dchangeLogFromJira(issue.key, issue.changelog));
-
-            let issueUsers: (JiraUser | undefined)[] = [
-                issue.fields.creator,
-                issue.fields.reporter,
-                issue.fields.assignee,
-            ];
-            for (let u of issueUsers) if (u && !usersMap.has(u.key)) usersMap.set(u.key, duserFromJira(u));
-
-            for (let lb_str of issue.fields.labels) {
-                const lb = { ISSUEKEY: issue.key, FIELD: "labels", NAME: lb_str.trim() };
-                labelsMap.set(JSON.stringify(lb), lb);
-            }
-
-            if (issue.fields.comment)
-                for (let c of issue.fields.comment.comments) comments.push(dcommentFromJira(issue.key, c));
-        }
-
-        const users: DUser[] = [...usersMap.values()];
-        const labels: DLabel[] = [...labelsMap.values()];
-
-        const issues = jiraIssues.map(i => env.dbdJiraIssue.fromJira!(i));
-
-        while (true)
-            try {
-                debugIssues(`CODE00000214`, `Connecting to db...`);
-                await env.dbProvider(async function(db: OracleConnection) {
-                    if (issues.length) {
-                        debugIssues(`CODE00000215`, `Inserting issues...`);
-                        await env.dbdJiraIssue.insertMany(db, issues);
-                        await db.commit();
-
-                        debugIssues(`CODE00000216`, `Merging issues...`);
-                        await env.dbdJiraIssue.executeMerge!(db);
-                        await db.commit();
-                    } else {
-                        debugIssues(`CODE00000217`, `No issues - OK`);
-                    }
-
-                    if (worklogs.length) {
-                        debugIssues(`CODE00000258`, `Inserting worklogs...`);
-                        await env.dbdDWorklogItem.insertMany(db, worklogs);
-                        await db.commit();
-
-                        debugIssues(`CODE00000259`, `Merging worklogs...`);
-                        await env.dbdDWorklogItem.executeMerge!(db);
-                        await db.commit();
-                    } else {
-                        debugIssues(`CODE00000260.2`, `No worklogs - OK`);
-                    }
-
-                    if (changelogs.length) {
-                        debugIssues(`CODE00000261`, `Inserting changelogs...`);
-                        await env.dbdDChangelogItem.insertMany(db, changelogs);
-                        await db.commit();
-
-                        debugIssues(`CODE00000262`, `Merging changelogs...`);
-                        await env.dbdDUser.executeMerge!(db);
-                        await db.commit();
-                    } else {
-                        debugIssues(`CODE00000263.2`, `No changelogs - OK`);
-                    }
-
-                    if (users.length) {
-                        debugIssues(`CODE00000264`, `Inserting users...`);
-                        await env.dbdDUser.insertMany(db, users);
-                        await db.commit();
-
-                        debugIssues(`CODE00000265`, `Merging users...`);
-                        await env.dbdDUser.executeMerge!(db);
-                        await db.commit();
-                    } else {
-                        debugIssues(`CODE00000266.2`, `No users - OK`);
-                    }
-
-                    if (labels.length) {
-                        debugIssues(`CODE00000267`, `Inserting labels...`);
-                        await env.dbdDLabel.insertMany(db, labels);
-                        await db.commit();
-
-                        debugIssues(`CODE00000268`, `Merging labels...`);
-                        await env.dbdDLabel.executeMerge!(db);
-                        await db.commit();
-                    } else {
-                        debugIssues(`CODE00000269.2`, `No labels - OK`);
-                    }
-
-                    if (comments.length) {
-                        debugIssues(`CODE00000270`, `Inserting comments...`);
-                        await env.dbdDCommentItem.insertMany(db, comments);
-                        await db.commit();
-
-                        debugIssues(`CODE00000271`, `Merging comments...`);
-                        await env.dbdDCommentItem.executeMerge!(db);
-                        await db.commit();
-                    } else {
-                        debugIssues(`CODE00000272.2`, `No comments - OK`);
-                    }
-
-                    debugIssues(`CODE00000218`, `Writing issues to db - OK`);
-                });
-                return;
-            } catch (e) {
-                yconsole.error(
-                    `CODE00000219`,
-                    `Database returned error `,
-                    e,
-                    ` waiting ${env.settings.timeouts.dbRetry} ms to retry...`
-                );
-                await awaitDelay(env.settings.timeouts.dbRetry);
-            }
-    }
-}
+        fields: [
+            {
+                name: "ID",
+                type: "string100",
+                nullable: false,
+                pk: false,
+                insert: true,
+            } as DbDomFieldInput,
+            {
+                name: "TS",
+                type: "string40",
+                nullable: true,
+                pk: false,
+                insert: true,
+            } as DbDomFieldInput,
+            {
+                name: "DELETED_FLAG",
+                type: "dwh_flag",
+                nullable: false,
+                pk: false,
+                insert: true,
+            } as DbDomFieldInput,
+            ...fieldsMeta.map(f => {
+                return {
+                    name: f.TARGET_NAME,
+                    type: f.ISSUE_LOADER_TYPE,
+                    nullable: !["ISSUEKEY", "PROJECT"].includes(f.ID),
+                    pk: false,
+                    insert: true,
+                } as DbDomFieldInput;
+            }),
+        ],
+        fromJira: compileFieldMapper(fieldsMeta),
+        datetimeWalker: compiledDatetimeWalker(fieldsMeta),
+    };
+};
 
 export async function writeDbFinalize(env: Env, ls_id: string | undefined, last_updated_ts: string | undefined) {
     while (true)
         try {
-            debugIssues(`CODE00000033`, `Connecting to db...`);
-            await env.dbProvider(async function(db: OracleConnection) {
+            debugIssuesWriteToDbNormal(`CODE00000033`, `Connecting to db...`);
+            await env.dbProvider(async function(db: OracleConnection0) {
                 if (last_updated_ts) {
-                    debugIssues(`CODE00000034`, `Saving LAST_UPDATED_TS...`);
+                    debugIssuesWriteToDbNormal(`CODE00000034`, `Saving LAST_UPDATED_TS...`);
                     await db.execute(
                         `update ${env.settings.tables.LOAD_STREAM_T} set LAST_UPDATED_TS = :1 where id = :2`,
                         [last_updated_ts, ls_id]
                     );
-                    debugIssues(`CODE00000035`, `Saving LAST_UPDATED_TS - OK`);
+                    debugIssuesWriteToDbNormal(`CODE00000035`, `Saving LAST_UPDATED_TS - OK`);
 
-                    debugIssues(`CODE00000036`, `Commiting...`);
+                    debugIssuesWriteToDbNormal(`CODE00000036`, `Commiting...`);
                     await db.commit();
-                    debugIssues(`CODE00000037`, `Commited - OK`);
+                    debugIssuesWriteToDbNormal(`CODE00000037`, `Commited - OK`);
                 }
             });
             return;

@@ -42,6 +42,13 @@ try {
 
 let excludedModules = ["fs", "sql-prettier", "prettier", "express", "socket.io"];
 
+try {
+    fs.unlinkSync("./public/index.html");
+} catch (e) {}
+try {
+    fs.unlinkSync("./public/bundle.js");
+} catch (e) {}
+
 module.exports = Object.assign(
     {},
     hot
@@ -60,7 +67,7 @@ module.exports = Object.assign(
             tls: "empty",
         },
         mode: "development",
-        entry: ["./src/monitoring_ui/index.jsx"],
+        entry: ["./src/monitoring_ui/index.tsx"],
         devtool: "inline-source-map",
         resolve: {
             //        root:               path.join(__dirname, 'js'),
@@ -130,7 +137,7 @@ module.exports = Object.assign(
                 NODE_ENV: JSON.stringify(NODE_ENV),
                 BUILD_DATE: JSON.stringify(BUILD_DATE),
             }),
-            new CleanWebpackPlugin(),
+            //            new CleanWebpackPlugin(),
             new webpack.NamedModulesPlugin(),
             new HtmlWebpackPlugin({ title: manifest_json ? manifest_json.name : package_json.name }),
             //        new webpack.HotModuleReplacementPlugin(),

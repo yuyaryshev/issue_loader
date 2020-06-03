@@ -1,2 +1,5 @@
 export * from "./startMonitoringServer";
-export * from "./statusApi";
+export * from "./jobsApi";
+export * from "./logsApi";
+export * from "./jobStatsApi";
+export * from "./graphChartApi";

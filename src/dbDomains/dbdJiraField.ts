@@ -1,9 +1,9 @@
 import { JiraField } from "Yjira";
 import { Env } from "../other/Env";
 import { DbDomainInput, DbDomFieldInput, decoderDomainFieldType, DomainFieldType } from "./dbDomain";
-import { Connection } from "oracledb";
 import { boolean, constant, Decoder, number, object, oneOf, optional, string } from "@mojotech/json-type-validation";
 import { yconsole } from "Ystd";
+import { OracleConnection0 } from "Yoracle";
 
 export interface DJiraField {
     ID: string;
@@ -36,7 +36,7 @@ export const dbdDJiraFieldInput: DbDomainInput<DJiraField, JiraField> = {
     deleteByIssueKeyBeforeMerge: false,
     fields: [
         { name: "ID", type: "string100", nullable: false, pk: true, insert: true } as DbDomFieldInput,
-        { name: "CUSTOM_ID", type: "number", nullable: true, pk: false, insert: true } as DbDomFieldInput,
+        { name: "CUSTOM_ID", type: "number", nullable: true, pk: false, insert: false } as DbDomFieldInput,
         { name: "NAME", type: "string255", nullable: false, pk: false, insert: true } as DbDomFieldInput,
         { name: "JAVA_TYPE", type: "string255", nullable: true, pk: false, insert: true } as DbDomFieldInput,
         { name: "TYPE", type: "string100", nullable: false, pk: false, insert: true } as DbDomFieldInput,
@@ -50,7 +50,7 @@ export const dbdDJiraFieldInput: DbDomainInput<DJiraField, JiraField> = {
     ] as DbDomFieldInput[],
 };
 
-export type FieldLoadAlg = "null" | "unsupported" | "primitive" | "user" | "array" | "status";
+export type FieldLoadAlg = "null" | "unsupported" | "primitive" | "user" | "array" | "status" | "option";
 
 export const decoderFieldLoadAlg: Decoder<FieldLoadAlg> = oneOf(
     constant("null"),
@@ -58,7 +58,8 @@ export const decoderFieldLoadAlg: Decoder<FieldLoadAlg> = oneOf(
     constant("primitive"),
     constant("user"),
     constant("status"),
-    constant("array")
+    constant("array"),
+    constant("option")
 );
 
 export interface DJiraFieldMarkedMeta extends DJiraField {
@@ -66,6 +67,7 @@ export interface DJiraFieldMarkedMeta extends DJiraField {
     LOAD_FLAG: string;
     DELETED_FLAG: string;
     LOAD_ALG_OVERRIDE?: FieldLoadAlg;
+    ORACLE_TYPE_OVERRIDE?: string;
     ISSUE_LOADER_TYPE_OVERRIDE?: DomainFieldType;
     ISSUE_LOADER_TYPE: DomainFieldType;
     LOAD_ALG: FieldLoadAlg;
@@ -159,8 +161,9 @@ export const selectFieldAlg = (f: DJiraFieldMarkedMeta): FieldLoadAlg => {
         case "watches":
             return "null"; // Точно игнорируем, поскольку эти данные получаются как то иначе или точно не нужны
 
-        case "any":
         case "option":
+            return "option";
+        case "any":
         case "option-with-child":
         case "progress":
         case "resolution":
@@ -200,10 +203,13 @@ export const selectFieldType = (f: DJiraFieldMarkedMeta): DomainFieldType => {
         case "string":
             return "string2000";
 
+        case "array":
+            return "string2000";
+
         default:
             if (!unknownJiraTypes.has(f.TYPE)) {
                 unknownJiraTypes.add(f.TYPE);
-                yconsole.warn(`CODE00000003`, `Unknown fieldMarked.TYPE = '${f.TYPE}', mapped to 'varchar2(255)'`);
+                yconsole.warn(`CODE00000003`, `Unknown fieldMarked.TYPE = '${f.TYPE}', mapped to 'varchar2(2000)'`);
             }
             return "string2000";
     }
@@ -257,7 +263,7 @@ export const enrichAndValidateDJiraFieldMarked = (r: any): DJiraFieldMarkedMeta 
 };
 
 export const readDJiraFieldMarkedMeta = async function(
-    db: Connection,
+    db: OracleConnection0,
     tableName: string,
     allow_update: boolean,
     debugfm?: boolean
@@ -272,8 +278,14 @@ export const readDJiraFieldMarkedMeta = async function(
             await db.execute(`update ${tableName} set target_name = ID, load_flag = case when 
             custom_id is null and not(type in ('array'))
             then 'Y' else 'N' end
+            where target_name is null and load_flag = 'N'`);
+            /*
+            await db.execute(`update ${tableName} set target_name = ID, load_flag = case when 
+            custom_id is null and not(type in ('array'))
+            then 'Y' else 'N' end
             where target_name is null and load_flag = 'N' and not exists (select 1 c from  ${tableName} where target_name is not null and load_flag = 'Y')
             `);
+             */
 
             result = await db.execute(sql, []);
         }

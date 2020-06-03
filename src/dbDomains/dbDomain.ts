@@ -2,10 +2,17 @@ import oracledb from "oracledb";
 import { EnvSettings } from "../other/Env";
 import { constant, Decoder, oneOf } from "@mojotech/json-type-validation";
 import { debugMsgFactory, yconsole } from "Ystd";
-import { makeMergeSql, makeProcSql, MergeMeta } from "../Yoracle/generateSql";
-import { creatorFactory, tableExists as dbTableExists } from "../Yoracle";
+import {
+    creatorFactory,
+    makeMergeSql,
+    makeProcSql,
+    MergeMeta,
+    OracleConnection0,
+    tableExists as dbTableExists,
+} from "Yoracle";
 
 const debugSql = debugMsgFactory("sql");
+const debugSqlMerge = debugMsgFactory("sql.merge");
 
 export const oracleTypes = {
     string40: { name: "varchar2(40)", bindType: { type: oracledb.STRING, maxSize: 40 } },
@@ -72,22 +79,26 @@ export interface DbDomainInput<T, JiraT, FT extends DbDomFieldInput = DbDomField
 }
 
 export interface PreperedDbDomain<T, JiraT = unknown> {
+    name: string;
     createTableSql: string;
-    tableExists: (db: oracledb.Connection) => Promise<boolean>;
-    changesTableExists: (db: oracledb.Connection) => Promise<boolean>;
-    createTable: (db: oracledb.Connection) => Promise<void>;
-    dropObjects: (db: oracledb.Connection, keepPermanent?: boolean) => Promise<void>;
-    insertMany: (db: oracledb.Connection, values: T[]) => Promise<void>;
+    tableExists: (db: OracleConnection0) => Promise<boolean>;
+    changesTableExists: (db: OracleConnection0) => Promise<boolean>;
+    createTable: (db: OracleConnection0) => Promise<void>;
+    dropObjects: (db: OracleConnection0, keepPermanent?: boolean) => Promise<void>;
+    insertMany: (db: OracleConnection0, values: T[]) => Promise<void>;
 
     createChangesTableSql?: string;
     objectToArray?: (f: T) => any;
     deleteByIssueJeySql?: string;
     mergeSql?: string;
 
-    createChangesTable?: (db: oracledb.Connection) => Promise<void>;
-    createHandleChangesSP?: (db: oracledb.Connection) => Promise<void>;
-    executeMerge?: (db: oracledb.Connection) => Promise<void>;
+    createChangesTable?: (db: OracleConnection0) => Promise<void>;
+    createHandleChangesSP?: (db: OracleConnection0) => Promise<void>;
+    executeMerge?: (db: OracleConnection0) => Promise<void>;
     fromJira?: (jiraValue: JiraT) => T;
+
+    extractKeyJs?: string;
+    extractKey?: (o: T) => string;
 }
 
 export function utf8len(s: string) {
@@ -175,7 +186,7 @@ export const prepareDbDomain = <FT extends DbDomFieldInput, DT extends DbDomainI
         d.indexOrganized ? "ORGANIZATION INDEX PCTTHRESHOLD 10" : ""
     }`;
 
-    const dropObjects = async function(db: oracledb.Connection, keepPermanent: boolean = false) {
+    const dropObjects = async function(db: OracleConnection0, keepPermanent: boolean = false) {
         if (!keepPermanent)
             try {
                 await db.execute(`drop table ${table}`);
@@ -192,13 +203,14 @@ export const prepareDbDomain = <FT extends DbDomFieldInput, DT extends DbDomainI
         .filter(f => f.insert)
         .map(f => {
             const rr = "f." + f.name;
+            if (f.name == "TS" && settings.write_into_log_tables) return `${rr}`;
             if (f.type.startsWith("string")) return `utf8trim(${rr}, ${f.type.split("string")[1]})`;
             return rr;
         })
         .join(",")}]`;
     const objectToArray = eval(objectToArrayStr) as any;
 
-    const insertMany = async function(db: oracledb.Connection, values: any[]) {
+    const insertMany = async function(db: OracleConnection0, values: any[]) {
         debugSql(`CODE00000039`, insertSql);
         const mappedValues = values.map(objectToArray) as any[];
         const bindingDefs = {
@@ -255,10 +267,10 @@ export const prepareDbDomain = <FT extends DbDomFieldInput, DT extends DbDomainI
     };
 
     const createTable = creatorFactory("table", createTableSql);
-    const tableExists = async (db: oracledb.Connection): Promise<boolean> => {
+    const tableExists = async (db: OracleConnection0): Promise<boolean> => {
         return await dbTableExists(db, table);
     };
-    const changesTableExists = async (db: oracledb.Connection): Promise<boolean> => {
+    const changesTableExists = async (db: OracleConnection0): Promise<boolean> => {
         return await dbTableExists(db, changesTable);
     };
 
@@ -273,16 +285,23 @@ export const prepareDbDomain = <FT extends DbDomFieldInput, DT extends DbDomainI
         const deleteByIssueKeySql = `delete from ${table} where issuekey in (select issuekey from ${settings.tables.ISSUE_T_CHANGES})`;
 
         const mergeSql = makeMergeSql(mergeDef);
+        debugSqlMerge(mergeSql);
         const createChangesTableSql = `create global temporary table ${changesTable} (${columnsInCreateTable}) ON COMMIT PRESERVE ROWS`;
 
         const executeMergeSql =
             settings.use_stored_procedures && handlerStoredProc ? `BEGIN\n${handlerStoredProc};\nEND;` : mergeSql;
 
-        const executeMerge = async function(db: oracledb.Connection) {
+        const executeMerge = async function(db: OracleConnection0) {
             debugSql(`CODE00000043`, executeMergeSql);
             if (d.deleteByIssueKeyBeforeMerge) await db.execute(deleteByIssueKeySql);
             await db.execute(executeMergeSql);
         };
+
+        const extractKeyJs = `(o)=>\`${d.fields
+            .filter(f => (settings.write_into_log_tables ? f.name == "TS" : f.pk))
+            .map(f => "${o." + f.name + "}")
+            .join("|")}\``;
+        const extractKey = eval(extractKeyJs);
 
         const createChangesTable = creatorFactory("changesTable", createChangesTableSql);
         const createHandleChangesSP = handlerStoredProc
@@ -317,8 +336,15 @@ export const prepareDbDomain = <FT extends DbDomFieldInput, DT extends DbDomainI
             createChangesTable,
             createHandleChangesSP,
             executeMerge,
+            extractKeyJs,
+            extractKey,
         });
-    } else
+    } else {
+        const extractKeyJs = `(o)=>\`${d.fields
+            .filter(f => (settings.write_into_log_tables ? f.name == "TS" : f.pk))
+            .map(f => "${o." + f.name + "}")
+            .join("|")}\``;
+        const extractKey = eval(extractKeyJs);
         return Object.assign(d, {
             tableExists,
             changesTableExists,
@@ -335,5 +361,8 @@ export const prepareDbDomain = <FT extends DbDomFieldInput, DT extends DbDomainI
             createChangesTable: undefined,
             createHandleChangesSP: undefined,
             executeMerge: undefined,
+            extractKeyJs: extractKeyJs,
+            extractKey: extractKey,
         });
+    }
 };

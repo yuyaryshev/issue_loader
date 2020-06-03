@@ -37,19 +37,6 @@ export function newIssueStreamRunStatus(id: string): IssueStreamRunStatus {
     };
 }
 
-export function setLsPartStatus(ls: LoadStream, index: number, status: string, comment?: string) {
-    ls.status.partStatuses[index] = status;
-    if (ls.status.partStatuses.length) {
-        ls.status.status = ls.status.partStatuses[0];
-        for (let s2 of ls.status.partStatuses) if (s2 < ls.status.status) ls.status.status = s2;
-    }
-}
-
-export function setLsStatus(ls: LoadStream, status: string, comment?: string) {
-    ls.status.partStatuses = [];
-    ls.status.status = status;
-}
-
 export interface LoadStream {
     ID: string;
     TYPE: LoadStreamType;
@@ -57,8 +44,6 @@ export interface LoadStream {
     CONDITION: string;
     ENABLED: boolean;
     LAST_UPDATED_TS?: string | undefined;
-    idle: boolean;
-    status: IssueStreamRunStatus;
 }
 
 export interface LoadStreams {

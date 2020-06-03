@@ -2,33 +2,38 @@
 // import { SqliteLog } from "../SqliteLog";
 // import { assertNever } from "assert-never";
 // import { EnvSettings } from "../Env";
-// import { runOnce } from "../runOnce";
 import { JobWait } from "./JobWait";
 import { JobStep } from "./JobStep";
 import { JobType } from "./JobType";
 import { JobStorage } from "./JobStorage";
 import moment from "moment";
-import { ObjectWithCont } from "Ystd";
+import { JobContext, JobContextId } from "Yjob/JobContext";
+import { JobState } from "Yjob/JobState";
+import { EnvWithTimers, Severity } from "Ystd";
 
-export type JobId = string;
+export type JobId = number;
 export type JobKey = string;
 
 export interface JobDependencyItem {
     succeded: boolean;
     id: JobId;
+    jobContextId?: number;
     result: any;
 }
 
-export class Job<TEnv = any, TIn = any, TOut = any> implements ObjectWithCont<Job> {
+export type ObserverItem = JobId | [JobContextId, JobId];
+
+export class Job<TEnv extends EnvWithTimers = any, TContext = any, TIn = any, TOut = any> {
     // GRP_job_readonly_fields - immutable & readonly by Job system fields
     public readonly jobStorage: JobStorage<TEnv>;
+    public readonly jobContext: JobContext<TEnv>;
+    public readonly jobContextId: JobContextId;
     public readonly id: JobId;
     public readonly key: JobKey;
     public readonly parent: JobId | undefined;
     public readonly jobType: JobType;
     public readonly input: TIn;
     public priority?: number;
-    public createdTs: moment.Moment;
 
     // ----------------------  GRP_job_fields ----------------------
     // GRP_job_flow_fields - shouldn't be modified from outside of Job system directly, - use functions to change some of this fields
@@ -36,10 +41,10 @@ export class Job<TEnv = any, TIn = any, TOut = any> implements ObjectWithCont<Jo
     running: boolean;
     succeded: boolean;
     paused: boolean;
-    deps: Map<JobId, JobDependencyItem>;
-    deps_succeded: boolean;
-    observers: JobId[];
-    prevResult: TOut | undefined;
+    predecessors: Map<JobId, JobDependencyItem>;
+    predecessorsDone: boolean;
+    successors: ObserverItem[];
+    result: TOut | undefined;
 
     // GRP_scheduling
     retryIntervalIndex: number;
@@ -49,60 +54,59 @@ export class Job<TEnv = any, TIn = any, TOut = any> implements ObjectWithCont<Jo
     // }
     // set nextRunTs(v:moment.Moment | undefined) {
     //     if(v) {
-    //         console.trace(`CODE00000102 REMOVE_THIS`, v?.format());
+    //         console.trace(`CODE00000301 REMOVE_THIS`, v?.format());
     //     }
     //     this._nextRunTs = v;
     // }
 
     // GRP_job_info_fields - writeonly fields, - job system writes to this fields and writes some them to DB as logs, but it never READS from it in JobCycle
-    public startedTs?: moment.Moment;
-    public finishedTs?: moment.Moment;
     public waitType: JobWait | undefined;
     public prevError: string | undefined;
     public timesSaved: number;
+    public state: JobState;
     // ----------------------  GRP_job_fields END ----------------------
 
     public unloaded: boolean;
     public touchTs: moment.Moment;
     public jobSteps: JobStep[];
     public currentJobStep: JobStep;
-    public container: Job[] | Set<Job> | undefined;
+    public needToLoad: boolean;
 
     constructor(
         jobType: JobType,
-        jobStorage: JobStorage<TEnv>,
+        jobContext: JobContext<TEnv>,
         input: TIn,
-        id: string,
+        id: number,
         key: string,
-        parent: JobId | undefined
+        parent: JobId | undefined,
+        deserialized: boolean = false
     ) {
         // GRP_job_readonly_fields
-        this.jobStorage = jobStorage;
+        this.jobContext = jobContext;
+        this.jobContextId = jobContext.id;
+        this.jobStorage = jobContext.jobStorage;
         this.id = id;
         this.key = key;
         this.parent = parent;
         this.jobType = jobType;
         this.input = input;
         this.priority = undefined;
-        this.createdTs = moment();
 
         // GRP_job_ready_states
         this.cancelled = false;
         this.running = false;
         this.succeded = false;
         this.paused = false;
-        this.deps = new Map();
-        this.deps_succeded = true;
-        this.observers = [];
-        this.prevResult = undefined;
+        this.predecessors = new Map();
+        this.predecessorsDone = true;
+        this.successors = [];
+        this.result = undefined;
 
         // GRP_job_scheduling
         this.retryIntervalIndex = 0;
         this.nextRunTs = undefined;
 
         // GRP_job_info_fields
-        this.startedTs = undefined;
-        this.finishedTs = undefined;
         this.waitType = undefined;
         this.prevError = undefined;
         this.timesSaved = 0;
@@ -110,22 +114,20 @@ export class Job<TEnv = any, TIn = any, TOut = any> implements ObjectWithCont<Jo
         this.currentJobStep = undefined as any;
         this.touchTs = moment();
         this.unloaded = false;
-        this.setStep(`CODE00000173`, `Created`, undefined);
+        if (!deserialized) this.setStep(`CODE00000302`, `Created`, undefined);
+        this.state = "readyToRun";
+        this.needToLoad = true;
     }
 
-    elapsed(unitOfTime: moment.unitOfTime.Diff = "s") {
-        return (this.finishedTs || moment()).diff(this.startedTs, unitOfTime);
-    }
-
-    setStep(cpl: string, step: string, waitType: JobWait | undefined) {
-        const jobStep = { cpl, step, waitType };
+    setStep(cpl: string, step: string, waitType: JobWait | undefined, severity: Severity = "D", finished?: boolean) {
+        const jobStep = { cpl, step, waitType, severity, finished } as JobStep;
         this.jobSteps.push(jobStep);
         this.currentJobStep = jobStep;
         this.jobStorage.onJobStep(this, jobStep);
     }
 
     save(saveHistory: boolean): Promise<void> {
-        return this.jobStorage.saveJob(this, saveHistory);
+        return this.jobStorage.saveJobContext(this.jobContext, saveHistory);
     }
 
     startNow() {
@@ -146,7 +148,7 @@ export class Job<TEnv = any, TIn = any, TOut = any> implements ObjectWithCont<Jo
         this.succeded = false;
         if (!this.running) {
             this.save(false);
-            this.jobStorage.fixJobContainer(this);
+            this.jobStorage.updateJobState(this);
         }
     }
 
@@ -155,10 +157,26 @@ export class Job<TEnv = any, TIn = any, TOut = any> implements ObjectWithCont<Jo
     }
 
     touch() {
-        this.jobStorage.touch(this);
+        this.jobStorage.touch(this.jobContext);
     }
+}
 
-    unload() {
-        return this.jobStorage.unload(this);
-    }
+export function jobSequenceCompare(a: Job, b: Job): -1 | 0 | 1 {
+    if (a.running > b.running) return -1;
+
+    if (a.running < b.running) return 1;
+
+    if (a.predecessorsDone > b.predecessorsDone) return -1;
+
+    if (a.predecessorsDone < b.predecessorsDone) return 1;
+
+    if (!!a.nextRunTs > !!b.nextRunTs || (a.nextRunTs && b.nextRunTs && a.nextRunTs > b.nextRunTs)) return -1;
+
+    if (!!a.nextRunTs < !!b.nextRunTs || (a.nextRunTs && b.nextRunTs && a.nextRunTs < b.nextRunTs)) return 1;
+
+    if (!a.paused > !b.paused) return -1;
+
+    if (!a.paused < !b.paused) return 1;
+
+    return 0;
 }

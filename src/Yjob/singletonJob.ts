@@ -1,22 +1,26 @@
-import { JobFunc, JobType, JobTypeInput } from "./JobType";
-import { JobStorage } from "./JobStorage";
-import { Job } from "./Job";
+import { JobWait } from "Yjob/JobWait";
 
-export type SingletonJobFunc<TEnv> = (env: TEnv, job: Job) => void | Promise<void>;
+export interface SingletonJobStep {
+    cpl: string;
+    step: string;
+    waitType: JobWait | undefined;
+}
 
-export function singletonJob<TEnv>(
-    env: TEnv,
-    jobStorage: JobStorage<TEnv>,
-    cpl: string,
-    type: string,
-    singletonFunc: SingletonJobFunc<TEnv>
-) {
-    const func = ((env: any, job: Job) => {
-        return singletonFunc(env, job);
-    }) as JobFunc<TEnv, void, void>;
+export interface StatusReporter {
+    setStep: (cpl: string, step: string, waitType: JobWait | undefined) => void;
+}
 
-    const input = { stored: false, func, type, cpl } as JobTypeInput<TEnv, void, void>;
-    const jobType = new JobType(input);
+export type SingletonJobFunc<TEnv> = (statusReporter: StatusReporter) => void | Promise<void>;
 
-    return jobType.run(jobStorage, undefined, input as any);
+export function singletonJob<TEnv>(env: TEnv, cpl: string, type: string, singletonFunc: SingletonJobFunc<TEnv>) {
+    let currentStep;
+    let steps = [];
+    return singletonFunc({
+        setStep: function setStep(cpl: string, step: string, waitType: JobWait | undefined) {
+            const jobStep = { cpl, step, waitType };
+            steps.push(jobStep);
+            currentStep = jobStep;
+            if ((env as any).onSingletonJobStep) (env as any).onSingletonJobStep(cpl, type, currentStep);
+        },
+    });
 }

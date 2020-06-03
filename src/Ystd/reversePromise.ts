@@ -54,15 +54,15 @@ export const reversePromise = (c: number, cpl?: string) => {
         rejectPromise: undefined as any,
         resolveItem: function resolveItem() {
             pthis.c--;
-            if (c <= 0) {
+            if (pthis.c <= 0) {
                 if (pthis.e) pthis.rejectPromise(pthis.e);
                 else pthis.resolvePromise();
             }
         },
         rejectItem: function rejectItem(e: Error) {
-            c--;
+            pthis.c--;
             if (!pthis.e) pthis.e = e;
-            if (c <= 0) {
+            if (pthis.c <= 0) {
                 if (pthis.e) pthis.rejectPromise(pthis.e);
                 else pthis.resolvePromise();
             }
@@ -73,6 +73,9 @@ export const reversePromise = (c: number, cpl?: string) => {
         pthis.resolvePromise = resolve;
         pthis.rejectPromise = reject;
     });
+
+    if (c <= 0) pthis.resolvePromise();
+
     return pthis;
 };
 

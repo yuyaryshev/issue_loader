@@ -1,8 +1,11 @@
 import { PermanentVaultObject } from "../YpermanentVault/PermanentVault";
 import { YSemaphore, ysemaphore } from "../Ystd/ymutex";
 import JiraClient from "jira-connector";
-import { EnvSettings } from "../other/Env";
 import moment from "moment";
+import { IssueContextInput } from "../job/IssueContext";
+import { Decoder, number, object } from "@mojotech/json-type-validation";
+import { shortSelfOrsha256base64 } from "Ystd";
+import sortKeys from "sort-keys";
 
 export type JiraUrl = string; // "2019-11-07T12:40:10.000+0300",
 export type JiraDateTime = string; // "2019-11-07T12:40:10.000+0300",
@@ -17,6 +20,12 @@ export interface JiraPagination {
     maxResults: number; // 20
     total: number; // 3
 }
+
+export const decoderJiraPagination: Decoder<JiraPagination> = object({
+    startAt: number(),
+    maxResults: number(),
+    total: number(),
+});
 
 export interface JiraAvatarUrls {
     "16x16": JiraUrl;
@@ -47,7 +56,6 @@ export interface JiraWorklogItem {
     timeSpent: JiraTimeInterval; // "3h",
     timeSpentSeconds: number; // 10800,
     id: JiraNumId;
-    issueId: JiraNumId;
 }
 
 export interface JiraComment {
@@ -249,7 +257,8 @@ export interface JiraIssue extends PermanentVaultObject {
     // Added fields!
     ts: string;
     type: "issue";
-    issueId: string;
+    TS?: moment.Moment;
+    DELETED_FLAG?: string;
 }
 
 export interface JiraIssues extends JiraPagination {
@@ -278,12 +287,7 @@ export interface GetIssueRequest1 {
     expand?: string[];
 }
 
-export interface GetIssueRequest2 {
-    issueId: string;
-    expand?: string[];
-}
-
-export type GetIssueRequest = GetIssueRequest1 | GetIssueRequest2;
+export type GetIssueRequest = GetIssueRequest1;
 
 export interface SearchRequest extends JiraPaginatedRequest {
     jql: string;
@@ -313,125 +317,312 @@ export interface AdditionalRequest {
     apiCall: (opts: any) => any;
 }
 
+export interface ResponseLogItem {
+    tsStart: moment.Moment;
+    tsEnd: moment.Moment;
+    ms: number;
+    type: string;
+    error?: string;
+}
+
+export interface ResponseStatItem {
+    c: number;
+    errorsCount: number;
+    maxMs: number;
+    avgMs: number;
+    minMs: number;
+}
+
+export interface ResponseStats {
+    [key: string]: ResponseStatItem;
+}
+
+export interface JiraRequest {
+    jiraApiPath: string;
+    opts: any | undefined;
+}
+
+export function jiraRequestKey(jiraRequest: JiraRequest) {
+    return jiraRequest.jiraApiPath + "/" + shortSelfOrsha256base64(JSON.stringify(sortKeys(jiraRequest.opts)), 200);
+}
+
+export type JiraRequestHandler = (
+    key: string,
+    jiraRequest: JiraRequest,
+    stubGet?: JiraRequestHandler
+) => Promise<any> | any;
+
+export interface JiraStubInterface {
+    get: JiraRequestHandler;
+    save: (key: string, jiraRequest: JiraRequest, value: any) => Promise<void> | void;
+}
+
+export const defaultJiraWrapperSettings: JiraWrapperSettings = {
+    jiraMaxResults: 1000,
+    jiraStub: undefined,
+    jiraMaxConnectionsTimeSpan: 1000,
+    jiraMaxConnections: 100,
+    credentials: undefined as any,
+    console: console,
+};
+
+export interface JiraWrapperSettings {
+    jiraMaxResults: number;
+    jiraStub?: JiraStubInterface;
+    jiraMaxConnectionsTimeSpan: number;
+    jiraMaxConnections: number;
+    credentials: any;
+    console?: any;
+}
+
+export function jiraCleanInner(a: any, p: string) {
+    if (!a[p]) {
+        if (a[p] === null || a[p] === undefined) delete a[p];
+        return;
+    } else {
+        if (!Array.isArray(a[p]) && typeof a[p] === "object") {
+            delete a[p].self;
+            delete a[p].expand;
+            delete a[p].avatarUrls;
+            delete a[p].customfield_20970;
+        }
+
+        if (Array.isArray(a[p]) || typeof a[p] === "object") {
+            for (let k in a[p]) jiraCleanInner(a[p], k);
+        }
+    }
+}
+
+export function jiraClean(a: any) {
+    jiraCleanInner({ a }, "a");
+    return a;
+}
+
 export class JiraWrapper {
     jira: any;
-    envSettings: EnvSettings;
     maxResults: number;
     ysemaphore: YSemaphore;
+    responseLogs: ResponseLogItem[];
+    maxResponseLogsMs: number;
+    stub?: JiraStubInterface;
 
-    constructor(settings: EnvSettings) {
-        this.envSettings = settings;
+    constructor(settings0: JiraWrapperSettings) {
+        const settings = Object.assign({}, defaultJiraWrapperSettings, settings0);
         this.maxResults = settings.jiraMaxResults;
-        this.jira = new JiraClient(!settings.connect_jira_dev ? settings.jira : settings.jiradev!);
-        this.ysemaphore = ysemaphore(settings.jiraMaxConnections);
+        this.stub = settings.jiraStub;
+        this.jira = new JiraClient(settings.credentials);
+        this.ysemaphore = ysemaphore(settings.jiraMaxConnections, settings.jiraMaxConnectionsTimeSpan);
+        this.responseLogs = [];
+        this.maxResponseLogsMs = 20 * 1000;
     }
 
-    async fetchAllPages(jiraApiPath: string, prop: string, opts?: any) {
+    responseStats(): ResponseStats {
+        this.removeOldResponseLog();
+        const firstMs = this.responseLogs[0]?.ms || 0;
+        const r = { total: { c: 0, ms: firstMs, minMs: firstMs, maxMs: firstMs, errorsCount: 0 } } as any;
+
+        for (let item of this.responseLogs) {
+            if (!r[item.type])
+                r[item.type] = {
+                    c: 0,
+                    ms: 0,
+                };
+
+            r.total.c++;
+            r.total.errorsCount += item.error ? 1 : 0;
+            r.total.ms += item.ms;
+            if (r.total.minMs > item.ms) r.total.minMs = item.ms;
+            if (r.total.maxMs < item.ms) r.total.maxMs = item.ms;
+
+            r[item.type].c++;
+            r[item.type].errorsCount += item.error ? 1 : 0;
+            r[item.type].ms += item.ms;
+            if (r[item.type].minMs > item.ms) r[item.type].minMs = item.ms;
+            if (r[item.type].maxMs < item.ms) r[item.type].maxMs = item.ms;
+        }
+
+        for (let k in r) {
+            r[k].avgMs = Math.round(r[k].ms / r[k].c / this.maxResponseLogsMs);
+            delete r[k].ms;
+        }
+        return r;
+    }
+
+    addResponseLog(tsStart: moment.Moment, type: string, error: string | undefined) {
+        const tsEnd = moment();
+        this.responseLogs.push({ tsStart, tsEnd, type, ms: tsEnd.diff(tsStart, "ms"), error });
+        this.removeOldResponseLog();
+    }
+
+    removeOldResponseLog() {
+        const ts = moment();
+        let n = 0;
+        for (; n < this.responseLogs.length; n++)
+            if (ts.diff(this.responseLogs[n].tsEnd) < this.maxResponseLogsMs) break;
+
+        if (n > 0) this.responseLogs.splice(0, n);
+    }
+
+    async jiraRequest<T>(
+        jiraApiPath: string,
+        prop: string | undefined,
+        opts: any | undefined,
+        expectedFields: string[] | undefined,
+        verificator: undefined | ((r: any) => void)
+    ): Promise<T> {
         const pthis = this;
         return pthis.ysemaphore.lock(async () => {
-            const callJira = eval(`(opts)=>pthis.jira.${jiraApiPath}(opts)`);
-            const r = await callJira(opts);
+            const tsStart = moment();
+            let checked: boolean = true;
+            let error: string | undefined;
+            let response;
+            let result;
+            try {
+                const callJira = eval(`(opts)=>pthis.jira.${jiraApiPath}(opts)`);
+                const jiraRequest: JiraRequest = { jiraApiPath, opts };
 
-            if (!r[prop]) return [];
-            while (r[prop].length < r.total) {
-                const newOpts = { ...opts, startAt: r[prop].length };
-                const r2 = await callJira(newOpts);
-                r[prop].push(...r2[prop]);
+                let key: string;
+                if (this.stub) {
+                    key = jiraRequestKey(jiraRequest);
+                    response = await this.stub.get(key, jiraRequest);
+                }
+
+                if (!response) response = jiraClean(await callJira(opts || {}));
+
+                if (!prop && (!expectedFields || !expectedFields.length) && !verificator) {
+                    checked = false;
+                    console.warn(`CODE00000029 Jira request without verificator`);
+                    // If stopped here add any verificatior or props for this request.
+                    debugger;
+                }
+
+                if (!response) throw new Error(`CODE00000030 Got empty response from Jira!`);
+
+                if (expectedFields) {
+                    for (let field of expectedFields)
+                        if (!response[field])
+                            throw new Error(`CODE00000031 Expected field ${field} not found in jira response!`);
+                }
+
+                if (verificator) {
+                    checked = true;
+                    verificator(response);
+                }
+
+                if (!prop) {
+                    this.addResponseLog(tsStart, jiraApiPath, undefined);
+                    result = response;
+                } else {
+                    checked = true;
+                    if (!response[prop])
+                        throw new Error(`CODE00000032 Got response from Jira, but it doesn't have ${prop} prop!`);
+
+                    while (response[prop].length < response.total) {
+                        const newOpts = { ...opts, startAt: response[prop].length };
+                        const r2 = jiraClean(await callJira(newOpts));
+                        response[prop].push(...r2[prop]);
+                    }
+                    this.addResponseLog(tsStart, jiraApiPath, undefined);
+                    result = response[prop] || [];
+                }
+
+                if (checked && this.stub) await this.stub.save(key!, jiraRequest, response);
+
+                return result;
+            } catch (e) {
+                if (!(e instanceof Error)) {
+                    if (typeof e === "string") e = JSON.parse(e);
+                    const ne: any = new Error(`CODE00000099 JiraWrapper error: ${JSON.stringify(e)}`);
+                    ne.data = e;
+                    ne.code = e.statusCode;
+                    ne.statusCode = e.statusCode;
+                    e = ne;
+                }
+                if ((e?.code + "").trim() === "429") {
+                    e = new Error(`CODE00000297 Jira error 429 too many requests`);
+                    e.code = 429;
+                    e.statusCode = 429;
+                }
+
+                this.addResponseLog(tsStart, jiraApiPath, e.message);
+                throw e;
             }
-            return r[prop] || [];
         });
     }
 
-    async getWorkLogs(issueId: string) {
-        const pthis = this;
-        return (await pthis.fetchAllPages(`issue.getWorkLogs`, `worklogs`, { issueId })) as JiraWorklogItem[];
+    async getWorkLogs(issueKey: string) {
+        return this.jiraRequest<JiraWorklogItem[]>(`issue.getWorkLogs`, `worklogs`, { issueKey }, undefined, undefined);
     }
 
-    async getComments(issueId: string) {
-        const pthis = this;
-        return (await pthis.fetchAllPages(`issue.getComments`, `comments`, { issueId })) as JiraComment[];
+    async getComments(issueKey: string) {
+        return this.jiraRequest<JiraComment[]>(`issue.getComments`, `comments`, { issueKey }, undefined, undefined);
     }
 
     async getAllFields(): Promise<JiraField[]> {
-        const pthis = this;
-        return pthis.ysemaphore.lock(async () => {
-            return await pthis.jira.field.getAllFields();
+        return this.jiraRequest<JiraField[]>(`field.getAllFields`, undefined, {}, undefined, (response: any) => {
+            if (!Array.isArray(response) || response.length < 1)
+                throw new Error(`CODE00000207 Expected non empty array of jira fields!`);
         });
     }
 
     async getServerInfo(): Promise<JiraServerInfo> {
-        const pthis = this;
-        return pthis.ysemaphore.lock(async () => {
-            return await pthis.jira.serverInfo.getServerInfo({});
-        });
-    }
-
-    async getIssueById(getIssueRequest: GetIssueRequest2): Promise<JiraIssue> {
-        const pthis = this;
-        return pthis.ysemaphore.lock(async () => {
-            const ts = moment().format();
-            const r = await pthis.jira.issue.getIssue(getIssueRequest);
-            if (r) {
-                r.ts = ts;
-                r.type = "issue";
-                r.issueId = r.id;
-            }
-            return r;
-        });
+        return this.jiraRequest<JiraServerInfo>(`serverInfo.getServerInfo`, undefined, {}, ["serverTime"], undefined);
     }
 
     async getIssueByKey(getIssueRequest: GetIssueRequest1): Promise<JiraIssue> {
-        const pthis = this;
-        return pthis.ysemaphore.lock(async () => {
-            return await pthis.jira.issue.getIssue(getIssueRequest);
-        });
+        const ts = moment().format();
+        if (!getIssueRequest.expand) getIssueRequest.expand = ["changelog"];
+        else getIssueRequest.expand.push("changelog");
+        const r = await this.jiraRequest<JiraIssue>(
+            `issue.getIssue`,
+            undefined,
+            getIssueRequest,
+            ["id", "key", "fields", "changelog"],
+            undefined
+        );
+        if (r) {
+            r.ts = ts;
+            r.type = "issue";
+        }
+        return r;
     }
 
     // Находит максимальный номер issue в проекте. Нельзя использовать с JQL в котором несколько проектов - будет undefined behaviour
     async searchLastIssue(query0: SearchRequest): Promise<number | undefined> {
-        const pthis = this;
-        return pthis.ysemaphore.lock(async () => {
-            const query = Object.assign({}, query0, {
-                maxResults: 1,
-                jql: query0.jql.toUpperCase().split("ORDER BY")[0] + " ORDER BY issuekey DESC",
-            });
-            if (query.fullLoad) delete query.fullLoad;
-
-            let issuesList = await pthis.jira.search.search(query);
-            if (issuesList) for (let issue of issuesList.issues) return Number(issue.key.split("-")[1]);
-            return undefined;
+        const query = Object.assign({}, query0, {
+            maxResults: 1,
+            jql: query0.jql.toUpperCase().split("ORDER BY")[0] + " ORDER BY issuekey DESC",
         });
+        if (query.fullLoad) delete query.fullLoad;
+
+        let issuesList = await this.jiraRequest<JiraIssue[]>(`search.search`, "issues", query, undefined, undefined);
+        if (issuesList) for (let issue of issuesList) return Number(issue.key.split("-")[1]);
+        return undefined;
     }
 
-    async jqlGetIssueIds(jql: string): Promise<string[]> {
-        const pthis = this;
-        return pthis.ysemaphore.lock(async () => {
-            const maxResults = 1000;
-            const issueIds: string[] = [];
-            let anError: any = undefined;
-            const r0 = await pthis.jira.search.search({ jql, startAt: 0, maxResults, fields: ["id"] });
-            for (let issue of r0.issues) issueIds.push(issue.id);
+    issuesToContextInputs(r: IssueContextInput[], issues: JiraIssue[]) {
+        for (let issue of issues)
+            r.push({
+                project: issue.key.split("-")[0],
+                issueKey: issue.key,
+                updated: issue.fields.updated,
+            });
+    }
 
-            const promises: Promise<void>[] = [];
-            if (r0 && r0.total > r0.issues.length) {
-                for (let startAt = maxResults; startAt < r0.total; startAt += maxResults) {
-                    promises.push(
-                        (async function() {
-                            try {
-                                const r1 = await pthis.jira.search.search({ jql, maxResults, startAt, fields: ["id"] });
-                                for (let issue of r1.issues) issueIds.push(issue.id);
-                            } catch (e) {
-                                anError = e;
-                            }
-                        })()
-                    );
-                }
-            }
-
-            for (let promise of promises) await promise;
-            if (anError) throw new anError();
-            return issueIds;
-        });
+    async jqlGetIssueKeys(jql: string): Promise<IssueContextInput[]> {
+        let issues = await this.jiraRequest<JiraIssue[]>(
+            `search.search`,
+            "issues",
+            {
+                jql,
+                fields: ["id", "updated"],
+            },
+            undefined,
+            undefined
+        );
+        const result: IssueContextInput[] = [];
+        this.issuesToContextInputs(result, issues);
+        return result;
     }
 }
 

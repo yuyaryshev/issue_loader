@@ -15,8 +15,8 @@ export const sha256base64 = (...args: any[]): string => {
     return r.substr(0, r.length - 1); // remove trailing '=' char
 };
 
-export const shortSelfOrsha256base64 = (s: string): string => {
-    if (s.length < 50) return s;
+export const shortSelfOrsha256base64 = (s: string, maxLen: number = 50): string => {
+    if (s.length < maxLen) return s;
     const r = crypto
         .createHash("sha256")
         .update(s)

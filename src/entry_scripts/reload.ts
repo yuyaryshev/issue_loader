@@ -1,6 +1,6 @@
 import { EnvWithDbdJiraIssue, loadDbdIssueFields, startEnv } from "../other/Env";
 import { yconsole } from "Ystd";
-import { JobTypesEnum } from "Yjob";
+// import { allJobTypes } from "job";
 
 // TODO Нужно удалить эту функцию и добавить флаг --reload в run. Этот флаг должен делать то же самое что и однократное нажатие Reload в UI мониторинга
 
@@ -10,11 +10,11 @@ export async function reloadIssuesFromCache(env: EnvWithDbdJiraIssue, projects?:
     let total = 0;
     yconsole.log(`CODE00000178`, `Reloading from cache...`);
 
-    for (let [, job] of env.jobStorage.jobsById) {
-        if (job.jobType.type == JobTypesEnum.jiraIssue) {
-            console.log("WE GOT|" + job.key);
-        }
-    }
+    // for (let [, job] of env.jobStorage.jobsById) {
+    //     if (job.jobType.type == JobTypesEnum.jiraIssue) {
+    //         console.log("WE GOT|" + job.key);
+    //     }
+    // }
 
     /*
     for(let [,job] of env.jobStorage.jobsStatus) {

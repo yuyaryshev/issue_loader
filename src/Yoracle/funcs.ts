@@ -1,9 +1,9 @@
-import { OracleConnection } from "../other/Env";
 import { debugMsgFactory, yconsole } from "Ystd";
+import { OracleConnection0 } from "./OracleConnection0";
 
 const debugSql = debugMsgFactory("sql");
 
-export async function tableExists(db: OracleConnection, tableName: string) {
+export async function tableExists(db: OracleConnection0, tableName: string) {
     try {
         const sql = `select count(1) c from ${tableName} where 1=0`;
         debugSql(`CODE00000131`, sql);
@@ -14,7 +14,7 @@ export async function tableExists(db: OracleConnection, tableName: string) {
     }
 }
 
-export async function executeIfExists(db: OracleConnection, sql: string) {
+export async function executeIfExists(db: OracleConnection0, sql: string) {
     try {
         debugSql(`CODE00000132`, sql);
         await db.execute(sql);
@@ -32,7 +32,7 @@ export async function executeIfExists(db: OracleConnection, sql: string) {
     }
 }
 
-export async function renameTable(db: OracleConnection, oldName: string, newName: string, skipIfOldNotExist: boolean) {
+export async function renameTable(db: OracleConnection0, oldName: string, newName: string, skipIfOldNotExist: boolean) {
     if (!(await tableExists(db, oldName))) {
         if (skipIfOldNotExist) return;
         throw new Error(`CODE00000134 Table '${oldName}' does not exist - can't rename it!`);
@@ -49,7 +49,7 @@ export async function renameTable(db: OracleConnection, oldName: string, newName
 }
 
 export const creatorFactory = (createType: string, sql: string) =>
-    async function(db: OracleConnection) {
+    async function(db: OracleConnection0) {
         try {
             await db.execute(sql);
             yconsole.log(`CODE00000137`, `Creating ${createType}\n`, sql, "OK");
@@ -59,7 +59,7 @@ export const creatorFactory = (createType: string, sql: string) =>
     };
 
 export const dropperFactory = (createType: string, sql: string) =>
-    async function(db: OracleConnection) {
+    async function(db: OracleConnection0) {
         try {
             await db.execute(sql);
             yconsole.log(`CODE00000139`, `Dropping ${createType}\n`, sql, "OK");

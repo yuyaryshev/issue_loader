@@ -1,6 +1,7 @@
 import { Env } from "other";
 import { Request, Response } from "express";
-import debugjs from "debug";
+import { debugMsgFactory as debugjs } from "Ystd";
+
 const debug = debugjs("jobPause");
 
 // http://a123278.moscow.alfaintra.net:29364/api/jobResumeApi
@@ -9,8 +10,8 @@ export const jobMakeStaleApi = async (env: Env, req: Request, res: Response) => 
     let ok: boolean = false;
     const { query } = req;
     try {
-        const job = await env.jobStorage.findJobById(query.jobId);
-        if (!job) error = `CODE00000031 Job id ${query.jobId} - not found!`;
+        const job = await env.jobStorage.findJobById(Number(query.contextId), Number(query.jobId));
+        if (!job) error = `CODE00000184 Job id ${query.contextId} ${query.jobId} - not found!`;
         else {
             await job.makeStale();
             ok = true;

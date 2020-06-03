@@ -43,8 +43,13 @@ program
 
 program
     .command("run")
+    .option("--cleanStart", "Deletes stg and log sqlite databases on start")
     .option("-debug, --debugMode", "Debug mode: will pause all jobs and disable some background activity")
-    .option("-scanIssues, --scanIssues", "Enable scanning issues in debug mode")
+    .option("--disableRefresh", "Disables periodic refresh based on load_streams_t table")
+    .option(
+        "--dbgReloadProjects <items>",
+        "Reloads specified project once on start, ignoring load_stream. Specify projects like this: '--dbgReloadProjects=PROJECT1,PROJECT2'"
+    )
     .description("Replicates issues from Jira to OracleDB.")
     .action(
         globalHandler(async function(args?: any) {

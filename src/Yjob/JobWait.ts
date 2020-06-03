@@ -1,4 +1,5 @@
 export type JobWait = "DbConn" | "DbResponse" | "JiraConn" | "JiraResponse" | "DebugAbandon";
+
 export function JobWaitStr(step: JobWait) {
     switch (step) {
         case "DbConn":

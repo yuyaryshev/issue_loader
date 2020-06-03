@@ -1,7 +1,8 @@
-import { Env, EnvSettings, OracleConnection } from "../other/Env";
+import { Env, EnvSettings } from "../other/Env";
 import { decoderLoadStream, LoadStreams } from "dbDomains";
 import { debugMsgFactory } from "Ystd";
-import { Job, singletonJob } from "Yjob";
+import { singletonJob, StatusReporter } from "Yjob";
+import { OracleConnection0 } from "Yoracle";
 
 const debug = debugMsgFactory("run");
 const debugSql = debugMsgFactory("sql");
@@ -17,6 +18,7 @@ export interface LoadStreamStatus {
 export class LoadStreamsList {
     readonly sqlLoadStreams: string;
     loadStreams: LoadStreams;
+
     constructor(settings: EnvSettings) {
         this.sqlLoadStreams = `select * from ${settings.tables.LOAD_STREAM_T}`;
         this.loadStreams = {};
@@ -25,12 +27,11 @@ export class LoadStreamsList {
     async refresh(env: Env) {
         const pthis = this;
 
-        await singletonJob<Env>(env, env.jobStorage, "CODE00000161", "db.LoadStreams.refresh", async function(
-            env: Env,
-            job: Job
+        await singletonJob<Env>(env, "CODE00000161", "db.LoadStreams.refresh", async function LoadStreams_refresh(
+            job: StatusReporter
         ) {
             job.setStep("CODE00000157", "Connecting to Db", "DbConn");
-            await env.dbProvider(async function(db: OracleConnection) {
+            await env.dbProvider(async function(db: OracleConnection0) {
                 debugSql(`CODE00000158`, `Reading load streams from Oracle '${pthis.sqlLoadStreams}'`);
                 const response = await db.execute(pthis.sqlLoadStreams);
                 job.setStep("CODE00000159", "Reading rows", undefined);

@@ -1,0 +1,256 @@
+-- 25.05.2020
+
+SET DEFINE OFF;
+Insert into BIREPORT_STG.LOAD_STREAM_T
+   (ID, TYPE, CONDITION, ENABLED, LAST_UPDATED_TS, 
+    PROJECT)
+ Values
+   ('UATIS', 'jira', 'Project = UATIS', 'Y', '2020-05-25T20:51:31+03:00', 
+    'UATIS');
+Insert into BIREPORT_STG.LOAD_STREAM_T
+   (ID, TYPE, CONDITION, ENABLED, PROJECT)
+ Values
+   ('DATALAKE', 'jira', 'Project = DATALAKE', 'N', 'DATALAKE');
+Insert into BIREPORT_STG.LOAD_STREAM_T
+   (ID, TYPE, CONDITION, ENABLED, LAST_UPDATED_TS, 
+    PROJECT)
+ Values
+   ('DWHCORE', 'jira', 'Project = DWHCORE', 'Y', '2020-05-25T20:51:31+03:00', 
+    'DWHCORE');
+Insert into BIREPORT_STG.LOAD_STREAM_T
+   (ID, TYPE, CONDITION, ENABLED, LAST_UPDATED_TS, 
+    PROJECT)
+ Values
+   ('BIPPM', 'jira', 'Project = BIPPM', 'Y', '2020-05-25T20:51:31+03:00', 
+    'BIPPM');
+Insert into BIREPORT_STG.LOAD_STREAM_T
+   (ID, TYPE, CONDITION, ENABLED, PROJECT)
+ Values
+   ('BIBUDGET', 'jira', 'Project = BIBUDGET', 'N', 'BIBUDGET');
+Insert into BIREPORT_STG.LOAD_STREAM_T
+   (ID, TYPE, CONDITION, ENABLED, PROJECT)
+ Values
+   ('RBPATNER', 'jira', 'Project = RBPATNER', 'N', 'RBPATNER');
+Insert into BIREPORT_STG.LOAD_STREAM_T
+   (ID, TYPE, CONDITION, ENABLED, LAST_UPDATED_TS, 
+    PROJECT)
+ Values
+   ('BIHELP', 'jira', 'Project = BIHELP', 'Y', '2020-05-25T20:51:31+03:00', 
+    'BIHELP');
+Insert into BIREPORT_STG.LOAD_STREAM_T
+   (ID, TYPE, CONDITION, ENABLED, PROJECT)
+ Values
+   ('DWHRB', 'jira', 'Project = DWHRB', 'N', 'DWHRB');
+Insert into BIREPORT_STG.LOAD_STREAM_T
+   (ID, TYPE, CONDITION, ENABLED, PROJECT)
+ Values
+   ('DWHMOTIV', 'jira', 'Project = DWHMOTIV', 'N', 'DWHMOTIV');
+Insert into BIREPORT_STG.LOAD_STREAM_T
+   (ID, TYPE, CONDITION, ENABLED, PROJECT)
+ Values
+   ('DATA2DWH', 'jira', 'Project = DATA2DWH', 'N', 'DATA2DWH');
+Insert into BIREPORT_STG.LOAD_STREAM_T
+   (ID, TYPE, CONDITION, ENABLED, PROJECT)
+ Values
+   ('PILSTREAM', 'jira', 'Project = PILSTREAM', 'N', 'PILSTREAM');
+Insert into BIREPORT_STG.LOAD_STREAM_T
+   (ID, TYPE, CONDITION, ENABLED, PROJECT)
+ Values
+   ('CCBI', 'jira', 'Project = CCBI', 'N', 'CCBI');
+Insert into BIREPORT_STG.LOAD_STREAM_T
+   (ID, TYPE, CONDITION, ENABLED, PROJECT)
+ Values
+   ('MOTIVDATA', 'jira', 'Project = MOTIVDATA', 'N', 'MOTIVDATA');
+Insert into BIREPORT_STG.LOAD_STREAM_T
+   (ID, TYPE, CONDITION, ENABLED, PROJECT)
+ Values
+   ('DMSFA', 'jira', 'Project = DMSFA', 'N', 'DMSFA');
+Insert into BIREPORT_STG.LOAD_STREAM_T
+   (ID, TYPE, CONDITION, ENABLED, PROJECT)
+ Values
+   ('DWHSFA', 'jira', 'Project = DWHSFA', 'N', 'DWHSFA');
+Insert into BIREPORT_STG.LOAD_STREAM_T
+   (ID, TYPE, CONDITION, ENABLED, PROJECT)
+ Values
+   ('DWHCB', 'jira', 'Project = DWHCB', 'N', 'DWHCB');
+Insert into BIREPORT_STG.LOAD_STREAM_T
+   (ID, TYPE, CONDITION, ENABLED, PROJECT)
+ Values
+   ('DWHMASS', 'jira', 'Project = DWHMASS', 'N', 'DWHMASS');
+Insert into BIREPORT_STG.LOAD_STREAM_T
+   (ID, TYPE, CONDITION, ENABLED, PROJECT)
+ Values
+   ('DATA2MSKB', 'jira', 'Project = DATA2MSKB', 'N', 'DATA2MSKB');
+Insert into BIREPORT_STG.LOAD_STREAM_T
+   (ID, TYPE, CONDITION, ENABLED, PROJECT)
+ Values
+   ('DATA2BRB', 'jira', 'Project = DATA2BRB', 'N', 'DATA2BRB');
+Insert into BIREPORT_STG.LOAD_STREAM_T
+   (ID, TYPE, CONDITION, ENABLED, PROJECT)
+ Values
+   ('DQBASEL', 'jira', 'Project = DQBASEL', 'N', 'DQBASEL');
+Insert into BIREPORT_STG.LOAD_STREAM_T
+   (ID, TYPE, CONDITION, ENABLED, PROJECT)
+ Values
+   ('DWHCOMP', 'jira', 'Project = DWHCOMP', 'N', 'DWHCOMP');
+Insert into BIREPORT_STG.LOAD_STREAM_T
+   (ID, TYPE, CONDITION, ENABLED, PROJECT)
+ Values
+   ('ODH', 'jira', 'Project = ODH', 'N', 'ODH');
+Insert into BIREPORT_STG.LOAD_STREAM_T
+   (ID, TYPE, CONDITION, ENABLED, PROJECT)
+ Values
+   ('DMPROCESS', 'jira', 'Project = DMPROCESS', 'N', 'DMPROCESS');
+Insert into BIREPORT_STG.LOAD_STREAM_T
+   (ID, TYPE, CONDITION, ENABLED, PROJECT)
+ Values
+   ('BIBASEL', 'jira', 'Project = BIBASEL', 'N', 'BIBASEL');
+Insert into BIREPORT_STG.LOAD_STREAM_T
+   (ID, TYPE, CONDITION, ENABLED, PROJECT)
+ Values
+   ('DWH4DM', 'jira', 'Project = DWH4DM', 'N', 'DWH4DM');
+Insert into BIREPORT_STG.LOAD_STREAM_T
+   (ID, TYPE, CONDITION, ENABLED, PROJECT)
+ Values
+   ('DWHONLINE', 'jira', 'Project = DWHONLINE', 'N', 'DWHONLINE');
+Insert into BIREPORT_STG.LOAD_STREAM_T
+   (ID, TYPE, CONDITION, ENABLED, LAST_UPDATED_TS, 
+    PROJECT)
+ Values
+   ('DATAMAP', 'jira', 'Project = DATAMAP', 'Y', '2020-05-25T20:51:31+03:00', 
+    'DATAMAP');
+Insert into BIREPORT_STG.LOAD_STREAM_T
+   (ID, TYPE, CONDITION, ENABLED, PROJECT)
+ Values
+   ('DMREPORT', 'jira', 'Project = DMREPORT', 'N', 'DMREPORT');
+Insert into BIREPORT_STG.LOAD_STREAM_T
+   (ID, TYPE, CONDITION, ENABLED, PROJECT)
+ Values
+   ('RAS', 'jira', 'Project = RAS', 'N', 'RAS');
+Insert into BIREPORT_STG.LOAD_STREAM_T
+   (ID, TYPE, CONDITION, ENABLED, PROJECT)
+ Values
+   ('UFBABS', 'jira', 'Project = UFBABS', 'N', 'UFBABS');
+Insert into BIREPORT_STG.LOAD_STREAM_T
+   (ID, TYPE, CONDITION, ENABLED, PROJECT)
+ Values
+   ('UFBATECH', 'jira', 'Project = UFBATECH', 'N', 'UFBATECH');
+Insert into BIREPORT_STG.LOAD_STREAM_T
+   (ID, TYPE, CONDITION, ENABLED, PROJECT)
+ Values
+   ('DWHDQ', 'jira', 'Project = DWHDQ', 'N', 'DWHDQ');
+Insert into BIREPORT_STG.LOAD_STREAM_T
+   (ID, TYPE, CONDITION, ENABLED, PROJECT)
+ Values
+   ('DWHDM', 'jira', 'Project = DWHDM', 'N', 'DWHDM');
+Insert into BIREPORT_STG.LOAD_STREAM_T
+   (ID, TYPE, CONDITION, ENABLED, PROJECT)
+ Values
+   ('DMCB', 'jira', 'Project = DMCB', 'N', 'DMCB');
+Insert into BIREPORT_STG.LOAD_STREAM_T
+   (ID, TYPE, CONDITION, ENABLED, PROJECT)
+ Values
+   ('ORS', 'jira', 'Project = ORS', 'N', 'ORS');
+Insert into BIREPORT_STG.LOAD_STREAM_T
+   (ID, TYPE, CONDITION, ENABLED, PROJECT)
+ Values
+   ('DMMOBI', 'jira', 'Project = DMMOBI', 'N', 'DMMOBI');
+Insert into BIREPORT_STG.LOAD_STREAM_T
+   (ID, TYPE, CONDITION, ENABLED, PROJECT)
+ Values
+   ('DMTAX', 'jira', 'Project = DMTAX', 'N', 'DMTAX');
+Insert into BIREPORT_STG.LOAD_STREAM_T
+   (ID, TYPE, CONDITION, ENABLED, PROJECT)
+ Values
+   ('DWHCBRPT', 'jira', 'Project = DWHCBRPT', 'N', 'DWHCBRPT');
+Insert into BIREPORT_STG.LOAD_STREAM_T
+   (ID, TYPE, CONDITION, ENABLED, LAST_UPDATED_TS, 
+    PROJECT)
+ Values
+   ('BASELGBC', 'jira', 'Project = BASELGBC', 'Y', '2020-05-25T20:51:31+03:00', 
+    'BASELGBC');
+Insert into BIREPORT_STG.LOAD_STREAM_T
+   (ID, TYPE, CONDITION, ENABLED, LAST_UPDATED_TS, 
+    PROJECT)
+ Values
+   ('BIPOSTGR', 'jira', 'Project = BIPOSTGR', 'Y', '2020-05-25T20:51:31+03:00', 
+    'BIPOSTGR');
+Insert into BIREPORT_STG.LOAD_STREAM_T
+   (ID, TYPE, CONDITION, ENABLED, LAST_UPDATED_TS, 
+    PROJECT)
+ Values
+   ('DMCOLL', 'jira', 'Project = DMCOLL', 'Y', '2020-05-25T20:51:31+03:00', 
+    'DMCOLL');
+Insert into BIREPORT_STG.LOAD_STREAM_T
+   (ID, TYPE, CONDITION, ENABLED, LAST_UPDATED_TS, 
+    PROJECT)
+ Values
+   ('CLIENT360', 'jira', 'Project = CLIENT360', 'Y', '2020-05-25T20:51:31+03:00', 
+    'CLIENT360');
+Insert into BIREPORT_STG.LOAD_STREAM_T
+   (ID, TYPE, CONDITION, ENABLED, LAST_UPDATED_TS, 
+    PROJECT)
+ Values
+   ('BMBREPORT', 'jira', 'Project = BMBREPORT', 'Y', '2020-05-25T20:51:31+03:00', 
+    'BMBREPORT');
+Insert into BIREPORT_STG.LOAD_STREAM_T
+   (ID, TYPE, CONDITION, ENABLED, LAST_UPDATED_TS, 
+    PROJECT)
+ Values
+   ('DWHFR', 'jira', 'Project = DWHFR', 'Y', '2020-05-25T20:51:31+03:00', 
+    'DWHFR');
+Insert into BIREPORT_STG.LOAD_STREAM_T
+   (ID, TYPE, CONDITION, ENABLED, LAST_UPDATED_TS, 
+    PROJECT)
+ Values
+   ('ROLEMODEL', 'jira', 'Project = ROLEMODEL', 'Y', '2020-05-25T20:51:31+03:00', 
+    'ROLEMODEL');
+Insert into BIREPORT_STG.LOAD_STREAM_T
+   (ID, TYPE, CONDITION, ENABLED, LAST_UPDATED_TS, 
+    PROJECT)
+ Values
+   ('BISUPPORT', 'jira', 'Project = BISUPPORT', 'Y', '2020-05-25T20:51:31+03:00', 
+    'BISUPPORT');
+Insert into BIREPORT_STG.LOAD_STREAM_T
+   (ID, TYPE, CONDITION, ENABLED, LAST_UPDATED_TS, 
+    PROJECT)
+ Values
+   ('SAPUIAPP', 'jira', 'Project = SAPUIAPP', 'Y', '2020-05-25T20:51:31+03:00', 
+    'SAPUIAPP');
+Insert into BIREPORT_STG.LOAD_STREAM_T
+   (ID, TYPE, CONDITION, ENABLED, LAST_UPDATED_TS, 
+    PROJECT)
+ Values
+   ('UATISFIN', 'jira', 'Project = UATISFIN', 'Y', '2020-05-25T20:51:31+03:00', 
+    'UATISFIN');
+Insert into BIREPORT_STG.LOAD_STREAM_T
+   (ID, TYPE, CONDITION, ENABLED, LAST_UPDATED_TS, 
+    PROJECT)
+ Values
+   ('QWE', 'jira', 'Project = QWE', 'Y', '2020-05-25T20:51:31+03:00', 
+    'QWE');
+Insert into BIREPORT_STG.LOAD_STREAM_T
+   (ID, TYPE, CONDITION, ENABLED, LAST_UPDATED_TS, 
+    PROJECT)
+ Values
+   ('ACLUB', 'jira', 'Project = ACLUB', 'Y', '2020-05-25T20:51:31+03:00', 
+    'ACLUB');
+Insert into BIREPORT_STG.LOAD_STREAM_T
+   (ID, TYPE, CONDITION, ENABLED, LAST_UPDATED_TS, 
+    PROJECT)
+ Values
+   ('SFAREPORT', 'jira', 'Project = SFAREPORT', 'Y', '2020-05-25T20:50:57+03:00', 
+    'SFAREPORT');
+Insert into BIREPORT_STG.LOAD_STREAM_T
+   (ID, TYPE, CONDITION, ENABLED, LAST_UPDATED_TS, 
+    PROJECT)
+ Values
+   ('DMPRCIB', 'jira', 'Project = DMPRCIB', 'Y', '2020-05-25T20:50:57+03:00', 
+    'DMPRCIB');
+Insert into BIREPORT_STG.LOAD_STREAM_T
+   (ID, TYPE, CONDITION, ENABLED, LAST_UPDATED_TS, 
+    PROJECT)
+ Values
+   ('PLATFORM', 'jira', 'Project = PLATFORM', 'Y', '2020-05-25T20:50:57+03:00', 
+    'PLATFORM');
+COMMIT;

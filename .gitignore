@@ -20,3 +20,8 @@ dbg_jsons
 /nyc_out
 /docs/*.~vsdx
 coverage
+/jiraStub.js
+/tests_db
+/pnpm-debug.log
+/sqlite_bak
+/*.db-journal

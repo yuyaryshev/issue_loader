@@ -10,6 +10,7 @@ export interface PermanentVaultObject {
     type: string;
     priority?: string | number | undefined;
 }
+
 export function isPermanentVaultObject(v: any): v is PermanentVaultObject {
     return !!(v && v.id && v.type);
 }

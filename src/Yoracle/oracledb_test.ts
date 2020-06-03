@@ -14,6 +14,7 @@ async function run() {
         //"T"hh24:mi:ss.ffTZHTZM
         db = await oracledb.getConnection(env.settings.oracle);
 
+        await db.execute(`alter session set NLS_DATE_FORMAT='YYYY-MM-DD'`);
         await db.execute(`alter session set NLS_TIME_FORMAT='HH24:MI:SSXFF'`);
         await db.execute(`alter session set NLS_TIMESTAMP_FORMAT='YYYY-MM-DD"T"hh24:mi:ss.ff'`);
         await db.execute(`alter session set NLS_TIME_TZ_FORMAT='HH24:MI:SSXFF TZR'`);

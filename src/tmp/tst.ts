@@ -1,4 +1,3 @@
-import { Connection } from "oracledb";
 //console.log("13456");
 import JiraClient from "jira-connector";
 import { writeFileSync } from "fs";
@@ -8,6 +7,7 @@ import { ymutex } from "../Ystd/ymutex";
 import { awaitDelay } from "Ystd";
 import { makeMomentInterval } from "../Ystd/makeMomentInterval";
 import better_sqlite3 from "better-sqlite3";
+import { OracleConnection0 } from "Yoracle";
 
 export const unused345: any = 4;
 
@@ -78,7 +78,7 @@ function aaa() {
         const env = await startEnv("test", { noJiraTest: false, noDbTest: true });
 
         for (let i = 0; i < 100; i++) {
-            env.dbProvider(async function(db: Connection) {
+            env.dbProvider(async function(db: OracleConnection0) {
                 console.log("inside = ", ++inside, ", i = ", i);
                 await db.execute(`select * from dual`, []);
                 --inside;
@@ -86,6 +86,7 @@ function aaa() {
         }
         console.log("testDbProvider - ended");
     }
+
     testDbProvider();
     //----------------------------------------------------------------------------------------------------------------------------------------------------------
     // testFunc();

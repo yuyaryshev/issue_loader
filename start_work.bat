@@ -9,4 +9,6 @@ start C:\Windows\System32\cmd.exe /k
 start C:\Windows\System32\cmd.exe /k
 start C:\Windows\System32\cmd.exe /k
 start C:\Windows\System32\cmd.exe /k
+start C:\Windows\System32\cmd.exe /k
 start_work.txt
+"C:\Program Files\JetBrains\WebStorm 2019.2.2\bin\webstorm64.exe"

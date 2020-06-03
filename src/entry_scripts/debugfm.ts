@@ -1,7 +1,8 @@
 import { readFileSync, writeFileSync } from "fs";
-import { OracleConnection, startEnv } from "../other/Env";
+import { startEnv } from "../other/Env";
 import {
     dbdJiraIssueInput,
+    dbdJiraIssueInputLog,
     dbg_fieldMapper_path,
     makeDatetimeWalkerSource,
     makeFieldMapperSource,
@@ -9,6 +10,7 @@ import {
     readDJiraFieldMarkedMeta,
 } from "dbDomains";
 import { debugMsgFactory, deleteFileIfExists, writeFileSyncIfChanged, yconsole } from "Ystd";
+import { OracleConnection0 } from "Yoracle";
 
 const debug = debugMsgFactory("debugfm");
 const debugSql = debugMsgFactory("sql");
@@ -33,7 +35,7 @@ export const debugfm = async function(clearCaches: boolean) {
     try {
         markedFields = JSON.parse(readFileSync("./dbg_jira_fields.json", "utf-8"));
     } catch (e) {
-        const dbdJiraIssue = await env.dbProvider(async function(db: OracleConnection) {
+        const dbdJiraIssue = await env.dbProvider(async function(db: OracleConnection0) {
             markedFields = await readDJiraFieldMarkedMeta(db, env.settings.tables.CURRENT_JIRA_FIELD_T, false, true);
             writeFileSync("./dbg_jira_fields.json", JSON.stringify(markedFields, undefined, "    "), "utf-8");
         });
@@ -50,7 +52,9 @@ export const debugfm = async function(clearCaches: boolean) {
     }
 
     yconsole.log(`CODE00000048`, `Initializing dbdJiraIssue...`);
-    const dbdJiraIssue = prepareDbDomain(env.settings, dbdJiraIssueInput(markedFields));
+    const dbdJiraIssue = env.settings.write_into_log_tables
+        ? prepareDbDomain(env.settings, dbdJiraIssueInputLog(markedFields))
+        : prepareDbDomain(env.settings, dbdJiraIssueInput(markedFields));
 
     yconsole.log(`CODE00000049`, `Generating fieldMapperSource...`);
     const fieldMapperSource = makeFieldMapperSource(markedFields);
