@@ -1,6 +1,6 @@
 // THIS IS A AUTO-GENERATED FILE - ALL CHANGES WILL BE LOST. ITS NOT USED IN PRODUCTION LOADING.
 module.exports = {
-    fieldMapper: a => ({
+    fieldMapper: (a) => ({
         ID: a.id,
 
         lastViewed: a.fields.lastViewed,

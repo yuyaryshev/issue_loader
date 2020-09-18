@@ -13,14 +13,14 @@ import { loadJiraFields, loadJiraLinkTypes } from "./loadJiraFields";
 import { yconsole } from "Ystd";
 import deepEqual from "fast-deep-equal";
 
-export const deploy = async function(args: any) {
+export const deploy = async function (args: any) {
     let needsReload = false;
     const env = await startEnv("deploy", { args });
     env.args = args;
     yconsole.log(`CODE00000060`, `Starting 'deploy'...`);
 
     env.settings.tables.ISSUE_T = env.settings.write_into_log_tables ? "ISSUE_T_LOG" : env.settings.tables.ISSUE_T;
-    await env.dbProvider(async function(db: OracleConnection0) {
+    await env.dbProvider(async function (db: OracleConnection0) {
         const baseDevDropDomains: PreperedDbDomain<any, any>[] = [
             env.dbdDChangelogItem,
             env.dbdDCommentItem,
@@ -29,6 +29,12 @@ export const deploy = async function(args: any) {
             env.dbdDUser,
             env.dbdDWorklogItem,
             env.dbdDLinkType,
+            env.dbdDIssueErrorParentItem,
+            env.dbdDTaskTemplateItem,
+            env.dbdDFieldConfigurationItem,
+            env.dbdDIssueLayoutMapItem,
+            env.dbdDIssueChildsItem,
+            env.dbdDFieldsInheritanceItem,
         ];
 
         const baseDomains = [env.dbdDJiraField, env.dbdLoadStream, ...baseDevDropDomains];
@@ -127,7 +133,7 @@ export const deploy = async function(args: any) {
 
         yconsole.log(`CODE00000080`, `Dropping old issue temp tables`);
 
-        await executeIfExists(db, `drop table ${env.settings.tables.ISSUE_T_CHANGES}`);
+        //await executeIfExists(db, `drop table ${env.settings.tables.ISSUE_T_CHANGES}`);
 
         yconsole.log(`CODE00000081`, `Creating issue tables`);
 
@@ -156,6 +162,7 @@ export const deploy = async function(args: any) {
             if (env.settings.write_into_log_tables) {
                 valuesSqlFromOldFields.push("TS");
             }
+            valuesSqlFromOldFields.push("PARENT_ISSUEKEY");
             //добавляем остальные
             outer: for (let newF of newFields) {
                 for (let oldF of oldFields) {
@@ -167,8 +174,8 @@ export const deploy = async function(args: any) {
                 valuesSqlFromOldFields.push("null");
             }
             migrationSql = `insert into ${env.settings.tables.ISSUE_T}(
-                    ID, DELETED_FLAG, ${env.settings.write_into_log_tables ? "TS, " : ""}
-                    ${newFields.map(m => m.TARGET_NAME).join(",\n")}
+                    ID, DELETED_FLAG, ${env.settings.write_into_log_tables ? "TS, " : ""} PARENT_ISSUEKEY, 
+                    ${newFields.map((m) => m.TARGET_NAME).join(",\n")}
                 ) 
                 select 
                     ${valuesSqlFromOldFields.join(",\n")}

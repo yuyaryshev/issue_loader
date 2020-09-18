@@ -77,6 +77,7 @@ export class JobContext<
     public jobsById: { [key: string]: Job }; // JobId -> Job
     //public jobsByKey: { [key: string]: Job }; // JobKey -> Job
     public externalDeps: ContextExtDeps;
+    public newIssue: number;
 
     // ------- Пересмотреть поля ниже. Вероятно часть удалить -------
     // ----------------------  GRP_job_fields ----------------------
@@ -117,7 +118,8 @@ export class JobContext<
         jobStorage: JobStorage<TEnv, TSerializedJobContext, TJobContextStatus, TSerializedJob, TJobStatus>,
         input: TContextIn,
         id: number,
-        key: string
+        key: string,
+        newIssue: number
     ) {
         // GRP_job_readonly_fields
         this.jobStorage = jobStorage;
@@ -129,6 +131,7 @@ export class JobContext<
         this.jobsById = {};
         this.externalDeps = {};
         this.stage = "";
+        this.newIssue = newIssue;
 
         // GRP_job_ready_states
         this.running = false;
@@ -199,7 +202,7 @@ export class JobContext<
 
     refreshState() {
         const jobsArray = this.jobsArray();
-        this.jobSequence = jobsArray.filter(job => !job.succeded);
+        this.jobSequence = jobsArray.filter((job) => !job.succeded);
         this.jobSequence.sort(jobSequenceCompare);
         this.currentJob = this.jobSequence[0];
 
@@ -207,7 +210,7 @@ export class JobContext<
         let stateNum = jobStateToNum["succeded"];
 
         let newNextRunTs = undefined;
-        let new_predecessorsDone = true;
+        //let new_predecessorsDone = true;
         let newSucceded: boolean = true;
         let newPrevError: any = undefined;
         let newRetryIntervalIndex: number = 0;
@@ -215,13 +218,11 @@ export class JobContext<
         let newRunning = job0.running;
         let newPaused = job0.paused;
 
-        this.jobStats = makeJobStats();
         for (let job of jobsArray) {
-            this.jobStats[job.state] = (this.jobStats[job.state] || 0) + 1;
             newRunning = newRunning || job.running;
             newPaused = newPaused || job.paused;
 
-            if (!job.predecessorsDone) new_predecessorsDone = false;
+            //if (!job.predecessorsDone) new_predecessorsDone = false;
 
             if (job.nextRunTs && (!newNextRunTs || job.nextRunTs.diff(newNextRunTs) < 0)) newNextRunTs = job.nextRunTs;
 
@@ -233,11 +234,12 @@ export class JobContext<
 
             if (!job.succeded && job.jobType.stage < newStage) newStage = job.jobType.stage;
         }
-
         this.retryIntervalIndex = newRetryIntervalIndex;
         this.nextRunTs = newNextRunTs;
         this.state = this.currentJob?.state || "succeded";
-        this.predecessorsDone = new_predecessorsDone;
+        //this.predecessorsDone = new_predecessorsDone;
+        // @ts-ignore
+        if (newSucceded || newPrevError) this.jobStorage.saveJobContext(this, true);
         this.succeded = newSucceded;
         this.prevError = newPrevError;
         this.stage = newStage;

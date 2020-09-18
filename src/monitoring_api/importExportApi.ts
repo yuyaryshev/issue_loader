@@ -15,9 +15,13 @@ export async function importApi(env: EnvWithDbdJiraIssue, req: Request, res: Res
     let ok: boolean = false;
     const { query } = req;
 
-    if (!checkPass(query)) {
+    if (req.query?.pass != env.password) {
         return res.send(JSON.stringify({ ok: false, error: "Incorrect password!" }));
     }
+    /*
+    if (!checkPass(query)) {
+        return res.send(JSON.stringify({ ok: false, error: "Incorrect password!" }));
+    }*/
 
     try {
         await importJiraDataFromSqlite(env, "export.db"); //import.db
@@ -35,9 +39,12 @@ export async function exportApi(env: EnvWithDbdJiraIssue, req: Request, res: Res
     let ok: boolean = false;
     const { query } = req;
 
-    if (!checkPass(query)) {
+    if (req.query?.pass != env.password) {
         return res.send(JSON.stringify({ ok: false, error: "Incorrect password!" }));
     }
+    /*if (!checkPass(query)) {
+        return res.send(JSON.stringify({ ok: false, error: "Incorrect password!" }));
+    }*/
 
     try {
         await exportJiraDataToSqlite(env, "export.db");

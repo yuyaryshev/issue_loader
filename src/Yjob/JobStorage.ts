@@ -145,7 +145,7 @@ export const defaultJobStorageSettings = {
     bulkSize: 25,
     maxLoadedJobs: 1000,
     autoStartRegularFunc: true,
-    regularFuncBulk: 10,
+    regularFuncBulk: 3,
     regularFuncMinTimeout: 10,
     maxAwaitBeforeUnload: 60 * 1000,
     regularFuncMaxTimeout: 10,
@@ -257,6 +257,7 @@ export class JobStorage<
     deleteManySql: Statement<PermanentVaultId[]>;
     selectContextsReadyToRunByNextRunTs: Statement<[string, number]>;
     selectContextsAllNotSucceded: Statement<[number]>;
+    selectContextsOnlyJiraStage: Statement<[number]>;
     selectJobsForContext: Statement<[number]>;
     selectResultForJob: Statement<[number]>;
     jobContextFieldFuncs: JobContextFieldFuncs<TSerializedJobContext, TJobContextStatus>;
@@ -501,6 +502,10 @@ export class JobStorage<
         this.selectResultForJob = db.prepare(`select * from ${jobResultTableName} where id = ?`);
 
         this.selectContextsAllNotSucceded = db.prepare(`select * from ${tableName} where succeded = 0 limit ?`);
+
+        this.selectContextsOnlyJiraStage = db.prepare(
+            `select * from ${tableName} where succeded = 0 and stage='01_jira' limit ?`
+        );
         // -------------------- historyDb ------------------------------------------------
         if (historyDb) {
             try {
@@ -550,7 +555,7 @@ export class JobStorage<
     loadJobs(iterator: IterableIterator<any>, contextRow: any) {
         let jobsById: any = {};
         for (let row of iterator) {
-            jobsById[row.id] = Object.assign(row, { jobType: row.key });
+            jobsById[row.id] = Object.assign(row, { state: "unload", jobType: row.key });
         }
         return Object.keys(jobsById).length ? JSON.stringify(jobsById) : undefined;
     }
@@ -614,6 +619,11 @@ export class JobStorage<
     }
 
     async saveJobContext(jobContext: JobContext, saveHistory: boolean): Promise<void> {
+        for (let i of Object.keys(jobContext.jobsById)) {
+            this.saveJobResult(jobContext.jobsById[i]);
+            this.saveJob(jobContext.jobsById[i]);
+        }
+
         const serializeContext = (): any[] => {
             this.haveNewSavesFlag = jobContext.timesSaved <= 0;
             jobContext.timesSaved++;
@@ -630,11 +640,6 @@ export class JobStorage<
         //         ...sJobContextArray,
         //     ]);
         await promise1;
-
-        for (let i of Object.keys(jobContext.jobsById)) {
-            this.saveJob(jobContext.jobsById[i]);
-            this.saveJobResult(jobContext.jobsById[i]);
-        }
     }
 
     saveJobContextMem(jobContext: JobContext): void {
@@ -654,8 +659,8 @@ export class JobStorage<
     }
 
     loadJobContext(row: any): JobContext {
-        const existingJob = this.jobContextById.get(row.id);
-        if (existingJob) return existingJob;
+        const existingJobContext = this.jobContextById.get(row.id);
+        if (existingJobContext) return existingJobContext;
         row.jobsById = this.loadJobs(this.selectJobsForContext.iterate(row.id), row);
         const serialized: TSerializedJobContext = this.jobContextFieldFuncs.rowToSerialized(row);
 
@@ -663,8 +668,10 @@ export class JobStorage<
         //     this.changeUnloadedStats(serializedJob.state, -1);
 
         const jobContext = this.jobContextFieldFuncs.deserialize(this, serialized);
-        this.jobContextByKey.set(jobContext.key, jobContext);
-        this.jobContextById.set(jobContext.id, jobContext);
+
+        this.preparingJobContextToContainer(jobContext);
+
+        //jobStats[job.state] = (this.jobStats[job.state] || 0) + 1;
         for (let handler of jobContext.jobStorage.onJobContextLoadedHandlers) handler(jobContext, "CODE00000292");
         for (let job of jobContext.jobsArray()) this.updateJobState(job);
 
@@ -737,8 +744,10 @@ export class JobStorage<
             newState = "running";
         } else if (job.nextRunTs && moment().diff(job.nextRunTs) < 0) {
             newState = "waitingTime";
+            /*
         } else if (!checkPredecessors(job)) {
             newState = "waitingDeps";
+             */
         } else if (job.succeded) {
             newState = "succeded";
         } else {
@@ -747,13 +756,13 @@ export class JobStorage<
 
         if (job.state !== newState) {
             if (job.state !== "unloaded") {
-                this.jobStats[job.state]--;
+                job.jobContext.jobStats[job.state]--;
             }
 
             job.state = newState;
 
             if (job.state !== "unloaded") {
-                this.jobStats[job.state]++;
+                job.jobContext.jobStats[job.state]++;
             }
         }
 
@@ -765,6 +774,29 @@ export class JobStorage<
             moveToContainer(this.waitingTimeJobContexts, job.jobContext);
             sortObjects(this.waitingTimeJobContexts, "nextRunTs");
         } else moveToContainer(undefined, job.jobContext);
+    }
+
+    preparingJobContextToContainer(jobContext: JobContext) {
+        // востанавливаем предтранзакционное состояние
+        jobContext.state == "running" ? (jobContext.state = "readyToRun") : undefined;
+
+        for (let jobK of Object.keys(jobContext.jobsById)) {
+            this.updateJobState(jobContext.jobsById[jobK]);
+            /*
+            jobContext.jobStats[jobContext.jobsById[jobK].state] =
+                (jobContext.jobStats[jobContext.jobsById[jobK].state] || 0) + 1;*/
+        }
+
+        jobContext.refreshState();
+
+        /*
+        if (jobContext.hasReadyToRun()) {
+            moveToContainer(this.readyToRunJobContexts, jobContext);
+        } else if (jobContext.hasWaitingTimeJobs()) {
+            moveToContainer(this.waitingTimeJobContexts, jobContext);
+            sortObjects(this.waitingTimeJobContexts, "nextRunTs");
+        } else moveToContainer(undefined, jobContext);
+         */
     }
 
     startNow(job: Job) {
@@ -874,7 +906,7 @@ export class JobStorage<
         this.startLockDbg = this.lockNewStarts({
             id: -1,
             c: 1000000000,
-            cpl: "CODE00000000",
+            cpl: "CODE00000369",
             expire: moment("5999-01-01"),
         });
     }

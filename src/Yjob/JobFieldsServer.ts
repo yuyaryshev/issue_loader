@@ -10,11 +10,11 @@ require("moment-countdown");
 
 export const defaultJobContextFieldFuncs: JobContextFieldFuncs<DefaultSerializedJobContext, DefaultJobContextStatus> = {
     jobContextColumnStr:
-        "id, key, priority, predecessorsDone, jobContextType, succeded, prevError, retryIntervalIndex, nextRunTs, input, paused, timesSaved, state, stage",
-    jobContextColumnPlaceholderStr: "?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?",
+        "id, key, priority, predecessorsDone, jobContextType, succeded, prevError, retryIntervalIndex, nextRunTs, input, paused, timesSaved, state, stage, newIssue",
+    jobContextColumnPlaceholderStr: "?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?",
     jobContextMemColumnStr:
-        "id, key, priority, predecessorsDone, jobContextType, succeded, prevError, retryIntervalIndex, nextRunTs, paused, timesSaved, updatedTs, state, stage",
-    jobContextMemColumnPlaceholderStr: "?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?",
+        "id, key, priority, predecessorsDone, jobContextType, succeded, prevError, retryIntervalIndex, nextRunTs, paused, timesSaved, updatedTs, state, stage, newIssue",
+    jobContextMemColumnPlaceholderStr: "?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?",
 
     serializeStatus: function serializeStatus(j: JobContext): DefaultJobContextStatus {
         const input = j.input;
@@ -40,6 +40,7 @@ export const defaultJobContextFieldFuncs: JobContextFieldFuncs<DefaultSerialized
             timesSaved: j.timesSaved,
             state: j.state,
             stage: j.stage,
+            newIssue: j.newIssue,
         };
     },
     serialize: function serialize(j: JobContext): DefaultSerializedJobContext {
@@ -65,6 +66,7 @@ export const defaultJobContextFieldFuncs: JobContextFieldFuncs<DefaultSerialized
             timesSaved: j.timesSaved,
             state: j.state,
             stage: j.stage,
+            newIssue: j.newIssue,
         };
     },
     serializeMem: function serializeMem(j: JobContext): DefaultSerializedJobContextMem {
@@ -85,6 +87,7 @@ export const defaultJobContextFieldFuncs: JobContextFieldFuncs<DefaultSerialized
             timesSaved: j.timesSaved,
             state: j.state,
             stage: j.stage,
+            newIssue: j.newIssue,
         };
     },
     serializeToArray: function serializedToArray(o: DefaultSerializedJobContext) {
@@ -103,6 +106,7 @@ export const defaultJobContextFieldFuncs: JobContextFieldFuncs<DefaultSerialized
             o.timesSaved,
             o.state,
             o.stage,
+            o.newIssue,
         ];
     },
 
@@ -122,6 +126,7 @@ export const defaultJobContextFieldFuncs: JobContextFieldFuncs<DefaultSerialized
             o.updatedTs,
             o.state,
             o.stage,
+            o.newIssue,
         ];
     },
 
@@ -144,14 +149,15 @@ export const defaultJobContextFieldFuncs: JobContextFieldFuncs<DefaultSerialized
         serialized: DefaultSerializedJobContext
     ): JobContext {
         const jobContextType = jobStorage.allJobContextTypes[serialized.jobContextType];
-        if (!jobContextType) throw new Error(`CODE00000251 jobContextType=${serialized.jobContextType} - not found!`);
+        if (!jobContextType) throw new Error(`CODE00000298 jobContextType=${serialized.jobContextType} - not found!`);
 
         const r = new JobContext<any, any, any, any, any, any>(
             jobContextType,
             jobStorage,
             serialized.input,
             serialized.id,
-            serialized.key
+            serialized.key,
+            serialized.newIssue
         );
 
         r.priority = serialized.priority;
@@ -164,6 +170,7 @@ export const defaultJobContextFieldFuncs: JobContextFieldFuncs<DefaultSerialized
         r.timesSaved = serialized.timesSaved;
         r.state = serialized.state;
         r.stage = serialized.stage;
+        r.newIssue = serialized.newIssue;
         r.jobsById = {} as any;
         let locJobsById = JSON.parse((serialized as any).jobsById);
         for (let jobId in locJobsById) {
@@ -237,6 +244,7 @@ export class JobContextStatus {
     @observable deleted: number | undefined=0;
     @observable state: JobState="" as any;
     @observable stage: string="" as any;
+    @observable newIssue: number=0;
 };
 */
 
@@ -263,7 +271,7 @@ export const defaultJobFieldFuncs: JobFieldFuncs<DefaultSerializedJob, DefaultJo
             prevError: j.prevError,
             retryIntervalIndex: j.retryIntervalIndex,
             nextRunTs: j.nextRunTs ? j.nextRunTs.format() : undefined,
-            input: JSON.stringify(j.input),
+            input: "{}",
             paused: j.paused ? 1 : 0,
             state: j.state,
             parent: j.parent,
@@ -284,7 +292,7 @@ export const defaultJobFieldFuncs: JobFieldFuncs<DefaultSerializedJob, DefaultJo
             prevError: j.prevError,
             retryIntervalIndex: j.retryIntervalIndex,
             nextRunTs: j.nextRunTs ? j.nextRunTs.format() : undefined,
-            input: JSON.stringify(j.input),
+            input: "{}",
             paused: j.paused ? 1 : 0,
             state: j.state,
             parent: j.parent,
@@ -312,7 +320,7 @@ export const defaultJobFieldFuncs: JobFieldFuncs<DefaultSerializedJob, DefaultJo
     rowToSerialized: function rowToSerialized(row: any): DefaultSerializedJob {
         for (let k in row) if (row[k] === null) delete row[k];
         const serialized: DefaultSerializedJob = row;
-        serialized.input = serialized.input ? JSON.parse(serialized.input) : {};
+        serialized.input = {};
 
         return serialized;
     },
@@ -417,6 +425,7 @@ export interface DefaultJobContextStatus {
     deleted: number | undefined;
     state: JobState;
     stage: string;
+    newIssue: number;
 }
 
 export interface DefaultSerializedJobContext {
@@ -435,6 +444,7 @@ export interface DefaultSerializedJobContext {
     updatedTs: string;
     state: JobState;
     stage: string;
+    newIssue: number;
 }
 
 export interface DefaultSerializedJobContextMem {
@@ -452,6 +462,7 @@ export interface DefaultSerializedJobContextMem {
     updatedTs: string;
     state: JobState;
     stage: string;
+    newIssue: number;
 }
 
 /*

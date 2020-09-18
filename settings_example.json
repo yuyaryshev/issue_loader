@@ -82,5 +82,6 @@
         "filename": "jiraStub.js",
         "forwardMode": true
     },
-    "write_into_log_tables": false
+    "write_into_log_tables": false,
+    "generate_issues_on": false
 }

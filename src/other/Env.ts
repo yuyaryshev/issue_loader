@@ -27,6 +27,12 @@ import {
     dbdDLabelInputLog,
     dbdDLinkItemInput,
     dbdDLinkItemInputLog,
+    dbdDIssueErrorParentInput,
+    dbdDTaskTemplateInput,
+    dbdDFieldConfigurationInput,
+    dbdDIssueLayoutMapInput,
+    dbdDIssueChildsInput,
+    dbdDFieldsInheritanceInput,
     dbdDLinkTypeInput,
     dbdDUserInput,
     dbdDWorklogItemInput,
@@ -42,12 +48,18 @@ import {
     DLabel,
     DLinkItem,
     DLinkType,
+    DIssueErrorParentItem,
     DUser,
     DWorklogItem,
     LoadStream,
     prepareDbDomain,
     PreperedDbDomain,
     readDJiraFieldMarkedMeta,
+    DTaskTemplateItem,
+    DFieldConfigurationItem,
+    DIssueLayoutMapItem,
+    DIssueChildsItem,
+    DFieldsInheritanceItem,
 } from "dbDomains";
 import { JiraRequest, JiraRequestHandler, JiraStubInterface, JiraStubOptions, JiraWrapper, makeJiraStub } from "Yjira";
 import { ymutex } from "../Ystd/ymutex";
@@ -65,11 +77,12 @@ import { OracleConnection0 } from "Yoracle";
 import { makeOracleBatchWriter, OracleBatchWriter } from "./oracleBatchWriter";
 import moment from "moment";
 import { issuesToJobs } from "../entry_scripts";
+import { IssueSniffer } from "./IssueSniffer";
 //import set = Reflect.set;
 
 const debug = debugMsgFactory("startup");
 
-export type StartMode = "init" | "deploy" | "run" | "reload" | "drop_all" | "test" | "debugfm";
+export type StartMode = "init" | "deploy" | "run" | "reload" | "drop_all" | "test" | "debugfm" | "run_into_cash";
 
 export interface globalMessagesObj {
     oracle: string;
@@ -156,6 +169,7 @@ export interface EnvSettings {
     instanceName: string;
     jiraStub?: JiraStubOptions;
     write_into_log_tables?: boolean;
+    generate_issues_on?: boolean;
 }
 
 export interface TablesSettings {
@@ -197,14 +211,17 @@ export class OracleScheduler {
             }
         };
         this.oracleProcedure = async () => {
-            await dbProvider(async function(db: OracleConnection0) {
-                const r = await db.execute(
-                    `begin
+            let do_proc: boolean = false; // пока отключаем dspj
+            if (do_proc) {
+                await dbProvider(async function (db: OracleConnection0) {
+                    const r = await db.execute(
+                        `begin
                       ${schema}.issue_loader_done();
                     end;`,
-                    [] // bind value for :id
-                );
-            });
+                        [] // bind value for :id
+                    );
+                });
+            }
         };
     }
 }
@@ -217,7 +234,7 @@ export class SequenceTS {
 
     constructor() {
         this.currNumber = -1;
-        this.nextValue = function() {
+        this.nextValue = function () {
             this.currNumber++;
             // 9-значный формат
             if (this.currNumber > 999999999) this.currNumber = 0;
@@ -300,6 +317,7 @@ export interface Env {
     importExportCurrent: number;
     importExportTotal: number;
     terminating: boolean;
+    password: string;
     onTerminateCallbacks: (() => void)[];
     versionStr: string;
     args: any;
@@ -318,6 +336,12 @@ export interface Env {
     dbdDUser: PreperedDbDomain<DUser>;
     dbdDWorklogItem: PreperedDbDomain<DWorklogItem>;
     dbdDLinkType: PreperedDbDomain<DLinkType>;
+    dbdDIssueErrorParentItem: PreperedDbDomain<DIssueErrorParentItem>;
+    dbdDTaskTemplateItem: PreperedDbDomain<DTaskTemplateItem>;
+    dbdDFieldConfigurationItem: PreperedDbDomain<DFieldConfigurationItem>;
+    dbdDIssueLayoutMapItem: PreperedDbDomain<DIssueLayoutMapItem>;
+    dbdDIssueChildsItem: PreperedDbDomain<DIssueChildsItem>;
+    dbdDFieldsInheritanceItem: PreperedDbDomain<DFieldsInheritanceItem>;
 
     status: IssueLoaderStatus;
     jobLog: SqliteLog<JobLogItem>;
@@ -339,6 +363,7 @@ export interface Env {
     oracleScheduler: OracleScheduler;
     sequenceTS: SequenceTS;
     intIdManagerForSqlite: IntIdManagerForSqlite;
+    issueSniffer: IssueSniffer;
 }
 
 export interface EnvWithDbdJiraIssue extends Env {
@@ -358,8 +383,30 @@ export const startEnv = async (startMode: StartMode, startOptions: StartOptions 
         importExportTotal: 0,
         onTerminateCallbacks: [],
         terminating: false,
+        password: "6541",
         timers: new Set(),
         terminate: async function terminate(disable_error: boolean = false) {
+            {
+                let unloadPromises = new Set<Promise<any>>();
+                try {
+                    // prepare context at this time
+                    let localContextById = new Set(Array.from(jobStorage.jobContextById.keys()));
+
+                    // Unload succeded contexts
+                    for (let i of localContextById) {
+                        let jobContext = jobStorage.jobContextById.get(i);
+                        if (jobContext) {
+                            if (jobContext.succeded) {
+                                unloadPromises.add(jobStorage.unload(jobContext));
+                                localContextById.delete(i);
+                            }
+                        }
+                    }
+                } finally {
+                    await Promise.all([...unloadPromises]);
+                    return;
+                }
+            }
             if (!pthis.terminating) {
                 if (!disable_error) {
                     if (!pthis.terminating) {
@@ -430,18 +477,32 @@ export const startEnv = async (startMode: StartMode, startOptions: StartOptions 
     const dbdLoadStream = prepareDbDomain(settings, dbdLoadStreamInput);
     const dbdDUser = prepareDbDomain(settings, dbdDUserInput);
     const dbdDLinkType = prepareDbDomain(settings, dbdDLinkTypeInput);
+
     // may be _LOG tables
     let dbdDCommentItem = undefined;
     let dbdDChangelogItem = undefined;
     let dbdDLabel = undefined;
     let dbdDWorklogItem = undefined;
     let dbdDLinkItem = undefined;
+    let dbdDIssueErrorParentItem = undefined;
+    let dbdDTaskTemplateItem = undefined;
+    let dbdDFieldConfigurationItem = undefined;
+    let dbdDIssueLayoutMapItem = undefined;
+    let dbdDIssueChildsItem = undefined;
+    let dbdDFieldsInheritanceItem = undefined;
+
     if (settings.write_into_log_tables) {
         dbdDCommentItem = prepareDbDomain(settings, dbdDCommentItemInputLog);
         dbdDChangelogItem = prepareDbDomain(settings, dbdDChangeLogItemInputLog);
         dbdDLabel = prepareDbDomain(settings, dbdDLabelInputLog);
         dbdDWorklogItem = prepareDbDomain(settings, dbdDWorklogItemInputLog);
         dbdDLinkItem = prepareDbDomain(settings, dbdDLinkItemInputLog);
+        dbdDIssueErrorParentItem = prepareDbDomain(settings, dbdDIssueErrorParentInput);
+        dbdDTaskTemplateItem = prepareDbDomain(settings, dbdDTaskTemplateInput);
+        dbdDFieldConfigurationItem = prepareDbDomain(settings, dbdDFieldConfigurationInput);
+        dbdDIssueLayoutMapItem = prepareDbDomain(settings, dbdDIssueLayoutMapInput);
+        dbdDIssueChildsItem = prepareDbDomain(settings, dbdDIssueChildsInput);
+        dbdDFieldsInheritanceItem = prepareDbDomain(settings, dbdDFieldsInheritanceInput);
 
         settings.tables.WORKLOG_T = dbdDWorklogItem.name;
         settings.tables.LINK_T = dbdDLinkItem.name;
@@ -451,6 +512,12 @@ export const startEnv = async (startMode: StartMode, startOptions: StartOptions 
         dbdDLabel = prepareDbDomain(settings, dbdDLabelInput);
         dbdDWorklogItem = prepareDbDomain(settings, dbdDWorklogItemInput);
         dbdDLinkItem = prepareDbDomain(settings, dbdDLinkItemInput);
+        dbdDIssueErrorParentItem = prepareDbDomain(settings, dbdDIssueErrorParentInput);
+        dbdDTaskTemplateItem = prepareDbDomain(settings, dbdDTaskTemplateInput);
+        dbdDFieldConfigurationItem = prepareDbDomain(settings, dbdDFieldConfigurationInput);
+        dbdDIssueLayoutMapItem = prepareDbDomain(settings, dbdDIssueLayoutMapInput);
+        dbdDIssueChildsItem = prepareDbDomain(settings, dbdDIssueChildsInput);
+        dbdDFieldsInheritanceItem = prepareDbDomain(settings, dbdDFieldsInheritanceInput);
     }
 
     debug(`CODE00000308`, `dbdDJiraField - OK`);
@@ -494,8 +561,8 @@ export const startEnv = async (startMode: StartMode, startOptions: StartOptions 
     }
 
     const dbMutex = ymutex();
-    const dbProvider = async function<T>(callback: DbProviderCallback<T>) {
-        return dbMutex.lock(async function() {
+    const dbProvider = async function <T>(callback: DbProviderCallback<T>) {
+        return dbMutex.lock(async function () {
             oracledb.outFormat = oracledb.OUT_FORMAT_OBJECT;
             const db = ((await oracledb.getConnection(settings.oracle)) as any) as OracleConnection0;
             await db.execute(`alter session set NLS_DATE_FORMAT='YYYY-MM-DD'`);
@@ -513,7 +580,7 @@ export const startEnv = async (startMode: StartMode, startOptions: StartOptions 
 
     if (!noDbTest) {
         yconsole.log(`CODE00000110`, `Testing Oracle connection '${settings.oracle.connectString}'...`);
-        const oracleVersion = await dbProvider(async function(db: OracleConnection0) {
+        const oracleVersion = await dbProvider(async function (db: OracleConnection0) {
             const r = await db.execute(
                 `SELECT * from v$version`,
                 [] // bind value for :id
@@ -585,7 +652,7 @@ export const startEnv = async (startMode: StartMode, startOptions: StartOptions 
             manageableTimer(pthis, 4 * 60 * 60 * 1000, "CODE00000100", "deleteOldLogs", deleteOldLogs).setTimeout();
         }
     };
-    if (startMode === "run") deleteOldLogs();
+    if (startMode === "run" || startMode === "run_into_cash") deleteOldLogs();
 
     (global as any).logger = (m: YConsoleMsg) => {
         genericLog.add(Object.assign({}, m, { data: m.data && m.data.length ? JSON.stringify(m.data) : "" }));
@@ -606,23 +673,32 @@ export const startEnv = async (startMode: StartMode, startOptions: StartOptions 
 
     debug(`CODE00000101`, `startEnv - finished`);
 
+    let sqlPrepareMaxId = jobStorage.db.prepare(`select max(id) id from (select max(id) id from jobContexts union
+     select max(id) id from jobs )`);
+    let previusMaxId = sqlPrepareMaxId.all()[0] ? sqlPrepareMaxId.all()[0].id + 1 : 1;
+
     let intIdManagerForSqlite: IntIdManagerForSqlite = new IntIdManagerForSqlite(
         jobStorage.db,
         "bufferIds",
-        { a: 1, b: 100000000 }, // тут добавить max из таблиц +1
+        { a: previusMaxId, b: 100000000 },
         undefined,
         10
     );
 
     //nextTimeCallFunction: moment.Moment, oracleProcedure: ()=>{}
-    let oracleSchedulerL = new OracleScheduler(
-        dbProvider,
-        ((await oracledb.getConnection(settings.oracle)) as any) as OracleConnection0,
-        settings.oracle.schema
-    );
+
+    let oracleSchedulerL =
+        startMode === "run_into_cash"
+            ? undefined
+            : new OracleScheduler(
+                  dbProvider,
+                  ((await oracledb.getConnection(settings.oracle)) as any) as OracleConnection0,
+                  settings.oracle.schema
+              );
 
     let SequenceTSL = new SequenceTS();
 
+    let issueSniffer = new IssueSniffer();
     return Object.assign(pthis, {
         terminating: false,
         better_sqlite3_db,
@@ -641,6 +717,12 @@ export const startEnv = async (startMode: StartMode, startOptions: StartOptions 
         dbdDWorklogItem,
         dbdDLinkItem,
         dbdDLinkType,
+        dbdDIssueErrorParentItem,
+        dbdDTaskTemplateItem,
+        dbdDFieldConfigurationItem,
+        dbdDIssueLayoutMapItem,
+        dbdDIssueChildsItem,
+        dbdDFieldsInheritanceItem,
         status,
         jobLog,
         genericLog,
@@ -652,6 +734,7 @@ export const startEnv = async (startMode: StartMode, startOptions: StartOptions 
         oracleScheduler: oracleSchedulerL,
         sequenceTS: SequenceTSL,
         intIdManagerForSqlite,
+        issueSniffer,
     } as Env);
 };
 
@@ -660,7 +743,7 @@ export async function loadDbdIssueFields(env: Env, current: boolean = true): Pro
     yconsole.log(`CODE00000114`, `Loading fields meta from '${table}'...`);
 
     let markedFields: DJiraFieldMarkedMeta[] = [];
-    const dbdJiraIssue = await env.dbProvider(async function(db: OracleConnection0) {
+    const dbdJiraIssue = await env.dbProvider(async function (db: OracleConnection0) {
         markedFields = await readDJiraFieldMarkedMeta(db, table, false);
         if (env.settings.write_into_log_tables) {
             let preparedDomain: any = prepareDbDomain(env.settings, dbdJiraIssueInputLog(markedFields));

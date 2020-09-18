@@ -18,11 +18,11 @@ require("moment-countdown");
 
 export const jobContextFieldFuncs: JobContextFieldFuncs<SerializedJobContext, JobContextStatus> = {
     jobContextColumnStr:
-        "id, key, priority, predecessorsDone, jobContextType, succeded, prevError, retryIntervalIndex, nextRunTs, input, paused, timesSaved, state, stage, project, issueKey, updated",
-    jobContextColumnPlaceholderStr: "?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?",
+        "id, key, priority, predecessorsDone, jobContextType, succeded, prevError, retryIntervalIndex, nextRunTs, input, paused, timesSaved, state, stage, newIssue, project, issueKey, updated",
+    jobContextColumnPlaceholderStr: "?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?",
     jobContextMemColumnStr:
-        "id, key, priority, predecessorsDone, jobContextType, succeded, prevError, retryIntervalIndex, nextRunTs, paused, timesSaved, updatedTs, state, stage, project, issueKey, updated",
-    jobContextMemColumnPlaceholderStr: "?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?",
+        "id, key, priority, predecessorsDone, jobContextType, succeded, prevError, retryIntervalIndex, nextRunTs, paused, timesSaved, updatedTs, state, stage, newIssue, project, issueKey, updated",
+    jobContextMemColumnPlaceholderStr: "?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?",
 
     serializeStatus: function serializeStatus(j: JobContext): JobContextStatus {
         const { issueKey, ...input } = j.input as any;
@@ -48,6 +48,7 @@ export const jobContextFieldFuncs: JobContextFieldFuncs<SerializedJobContext, Jo
             timesSaved: j.timesSaved,
             state: j.state,
             stage: j.stage,
+            newIssue: j.newIssue,
             project: (j as any).project,
             issueKey: issueKey,
             updated: (j as any).updated,
@@ -76,6 +77,7 @@ export const jobContextFieldFuncs: JobContextFieldFuncs<SerializedJobContext, Jo
             timesSaved: j.timesSaved,
             state: j.state,
             stage: j.stage,
+            newIssue: j.newIssue,
             project: (j as any).project,
             issueKey: issueKey,
             updated: (j as any).updated,
@@ -99,6 +101,7 @@ export const jobContextFieldFuncs: JobContextFieldFuncs<SerializedJobContext, Jo
             timesSaved: j.timesSaved,
             state: j.state,
             stage: j.stage,
+            newIssue: j.newIssue,
             project: (j as any).project,
             issueKey: issueKey,
             updated: (j as any).updated,
@@ -120,6 +123,7 @@ export const jobContextFieldFuncs: JobContextFieldFuncs<SerializedJobContext, Jo
             o.timesSaved,
             o.state,
             o.stage,
+            o.newIssue,
             o.project,
             o.issueKey,
             o.updated,
@@ -142,6 +146,7 @@ export const jobContextFieldFuncs: JobContextFieldFuncs<SerializedJobContext, Jo
             o.updatedTs,
             o.state,
             o.stage,
+            o.newIssue,
             o.project,
             o.issueKey,
             o.updated,
@@ -162,14 +167,15 @@ export const jobContextFieldFuncs: JobContextFieldFuncs<SerializedJobContext, Jo
         serialized: SerializedJobContext
     ): JobContext {
         const jobContextType = jobStorage.allJobContextTypes[serialized.jobContextType];
-        if (!jobContextType) throw new Error(`CODE00000321 jobContextType=${serialized.jobContextType} - not found!`);
+        if (!jobContextType) throw new Error(`CODE00000175 jobContextType=${serialized.jobContextType} - not found!`);
 
         const r = new JobContext<any, any, any, any, any, any>(
             jobContextType,
             jobStorage,
             serialized.input,
             serialized.id,
-            serialized.key
+            serialized.key,
+            serialized.newIssue
         );
 
         r.priority = serialized.priority;
@@ -182,6 +188,7 @@ export const jobContextFieldFuncs: JobContextFieldFuncs<SerializedJobContext, Jo
         r.timesSaved = serialized.timesSaved;
         r.state = serialized.state;
         r.stage = serialized.stage;
+        r.newIssue = serialized.newIssue;
         (r as any).project = serialized.project;
         (r as any).issueKey = serialized.issueKey;
         (r as any).updated = serialized.updated;
@@ -258,6 +265,7 @@ export class JobContextStatus {
     @observable deleted: number | undefined=0;
     @observable state: JobState="" as any;
     @observable stage: string="" as any;
+    @observable newIssue: number=0;
     @observable project: string | undefined="" as any;
     @observable issueKey: string | undefined="" as any;
     @observable updated: string | undefined="" as any;
@@ -287,7 +295,7 @@ export const jobFieldFuncs: JobFieldFuncs<SerializedJob, JobStatus> = {
             prevError: j.prevError,
             retryIntervalIndex: j.retryIntervalIndex,
             nextRunTs: j.nextRunTs ? j.nextRunTs.format() : undefined,
-            input: JSON.stringify(j.input),
+            input: "{}",
             paused: j.paused ? 1 : 0,
             state: j.state,
             parent: j.parent,
@@ -308,7 +316,7 @@ export const jobFieldFuncs: JobFieldFuncs<SerializedJob, JobStatus> = {
             prevError: j.prevError,
             retryIntervalIndex: j.retryIntervalIndex,
             nextRunTs: j.nextRunTs ? j.nextRunTs.format() : undefined,
-            input: JSON.stringify(j.input),
+            input: "{}",
             paused: j.paused ? 1 : 0,
             state: j.state,
             parent: j.parent,
@@ -336,7 +344,7 @@ export const jobFieldFuncs: JobFieldFuncs<SerializedJob, JobStatus> = {
     rowToSerialized: function rowToSerialized(row: any): SerializedJob {
         for (let k in row) if (row[k] === null) delete row[k];
         const serialized: SerializedJob = row;
-        serialized.input = serialized.input ? JSON.parse(serialized.input) : {};
+        serialized.input = {};
 
         return serialized;
     },
@@ -374,7 +382,7 @@ export const jobResultFieldFuncs: JobResultFieldFuncs<any, any> = {
         serialized: any,
         job: Job
     ): Job {
-        job.result = JSON.parse(serialized.result);
+        job.result = serialized.result;
         return job;
     },
 };
@@ -441,6 +449,7 @@ export interface JobContextStatus extends DefaultJobContextStatus {
     deleted: number | undefined;
     state: JobState;
     stage: string;
+    newIssue: number;
     project: string | undefined;
     issueKey: string | undefined;
     updated: string | undefined;
@@ -462,6 +471,7 @@ export interface SerializedJobContext extends DefaultSerializedJobContext {
     updatedTs: string;
     state: JobState;
     stage: string;
+    newIssue: number;
     project: string | undefined;
     issueKey: string | undefined;
     updated: string | undefined;
@@ -482,6 +492,7 @@ export interface SerializedJobContextMem extends DefaultSerializedJobContextMem 
     updatedTs: string;
     state: JobState;
     stage: string;
+    newIssue: number;
     project: string | undefined;
     issueKey: string | undefined;
     updated: string | undefined;

@@ -71,7 +71,7 @@ export class SqliteLog<T extends SqliteLogItem> {
         this.lastItems = [];
         this.additionalDeleteOldCond = "1=0";
 
-        const columns = columnsStr.split(",").filter(f => !["id", "ts", "cpl", "message", "severity"].includes(f));
+        const columns = columnsStr.split(",").filter((f) => !["id", "ts", "cpl", "message", "severity"].includes(f));
         const dropSql = `drop table if exists ${this.tableName}`;
         const createSql = `create table if not exists ${
             this.tableName
@@ -104,7 +104,7 @@ export class SqliteLog<T extends SqliteLogItem> {
         this.lastId = this.stats.lastId;
 
         const insertSql = `insert into ${this.tableName}(id, ts, cpl, message, severity, ${columns.join(",")}) 
-        values (:id, :ts, :cpl, :message, :severity, ${columns.map(c => ":" + c).join(",")})`;
+        values (:id, :ts, :cpl, :message, :severity, ${columns.map((c) => ":" + c).join(",")})`;
 
         let insertStmt: Statement<any[]>;
         try {
@@ -118,7 +118,7 @@ export class SqliteLog<T extends SqliteLogItem> {
             insertStmt = db.prepare(insertSql);
         }
 
-        this.add = function(data: any) {
+        this.add = function (data: any) {
             data.id = ++pthis.lastId;
             if (!data.ts) data.ts = moment().format();
             if ((pthis.settings.itemsToKeepInRAM || 0) > 0) {
@@ -172,7 +172,7 @@ export class SqliteLog<T extends SqliteLogItem> {
 
         const deleteOldStmt = db.prepare(deleteSql);
 
-        this.deleteOld = function() {
+        this.deleteOld = function () {
             if (settings.countLimit) {
                 const dualMode = pthis.stats.maxId - pthis.stats.minId > middlePoint * 1.1 ? 1 : 0;
                 const params = {
@@ -183,11 +183,7 @@ export class SqliteLog<T extends SqliteLogItem> {
                             ? pthis.stats.mmaxId - settings.countLimit
                             : pthis.stats.maxId - settings.countLimit
                         : undefined,
-                    limitingTs: settings.durationLimit
-                        ? moment()
-                              .subtract(settings.durationLimit)
-                              .format()
-                        : undefined,
+                    limitingTs: settings.durationLimit ? moment().subtract(settings.durationLimit).format() : undefined,
                     lastId: pthis.stats.lastId,
                     currentTs: moment().format(),
                 };

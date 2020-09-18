@@ -1,6 +1,7 @@
 import { JiraWorklogItem } from "Yjira";
 import { DbDomainInput, DbDomFieldInput } from "./dbDomain";
 import { Env } from "other";
+import { OracleConnection0 } from "Yoracle";
 
 export interface DWorklogItem {
     ISSUEKEY: string;
@@ -21,8 +22,8 @@ export function dworklogLogItemFromJira(issueKey: string, a: JiraWorklogItem, TS
         return {
             ISSUEKEY: issueKey,
             ID: a.id,
-            AUTHOR: a.author.key,
-            UPDATEAUTHOR: a.updateAuthor.key,
+            AUTHOR: a.author.name,
+            UPDATEAUTHOR: a.updateAuthor.name,
             TEXT: a.comment,
             CREATED: a.created,
             UPDATED: a.updated,
@@ -35,8 +36,8 @@ export function dworklogLogItemFromJira(issueKey: string, a: JiraWorklogItem, TS
         return {
             ISSUEKEY: issueKey,
             ID: a.id,
-            AUTHOR: a.author.key,
-            UPDATEAUTHOR: a.updateAuthor.key,
+            AUTHOR: a.author.name,
+            UPDATEAUTHOR: a.updateAuthor.name,
             TEXT: a.comment,
             CREATED: a.created,
             UPDATED: a.updated,
@@ -56,9 +57,9 @@ export const dbdDWorklogItemInput: DbDomainInput<DWorklogItem, JiraWorklogItem> 
         { name: "AUTHOR", type: "string100", nullable: false, pk: false, insert: true } as DbDomFieldInput,
         { name: "UPDATEAUTHOR", type: "string100", nullable: false, pk: false, insert: true } as DbDomFieldInput,
         { name: "TEXT", type: "string2000", nullable: true, pk: false, insert: true } as DbDomFieldInput,
-        { name: "CREATED", type: "datetime", nullable: true, pk: false, insert: true } as DbDomFieldInput,
-        { name: "UPDATED", type: "datetime", nullable: true, pk: false, insert: true } as DbDomFieldInput,
-        { name: "STARTED", type: "datetime", nullable: true, pk: false, insert: true } as DbDomFieldInput,
+        { name: "CREATED", type: "string100", nullable: true, pk: false, insert: true } as DbDomFieldInput,
+        { name: "UPDATED", type: "string100", nullable: true, pk: false, insert: true } as DbDomFieldInput,
+        { name: "STARTED", type: "string100", nullable: true, pk: false, insert: true } as DbDomFieldInput,
         { name: "SECONDSSPENT", type: "number", nullable: true, pk: false, insert: true } as DbDomFieldInput,
     ] as DbDomFieldInput[],
 };
@@ -73,11 +74,45 @@ export const dbdDWorklogItemInputLog: DbDomainInput<DWorklogItem, JiraWorklogIte
         { name: "AUTHOR", type: "string100", nullable: false, pk: false, insert: true } as DbDomFieldInput,
         { name: "UPDATEAUTHOR", type: "string100", nullable: false, pk: false, insert: true } as DbDomFieldInput,
         { name: "TEXT", type: "string2000", nullable: true, pk: false, insert: true } as DbDomFieldInput,
-        { name: "CREATED", type: "datetime", nullable: true, pk: false, insert: true } as DbDomFieldInput,
-        { name: "UPDATED", type: "datetime", nullable: true, pk: false, insert: true } as DbDomFieldInput,
-        { name: "STARTED", type: "datetime", nullable: true, pk: false, insert: true } as DbDomFieldInput,
+        { name: "CREATED", type: "string100", nullable: true, pk: false, insert: true } as DbDomFieldInput,
+        { name: "UPDATED", type: "string100", nullable: true, pk: false, insert: true } as DbDomFieldInput,
+        { name: "STARTED", type: "string100", nullable: true, pk: false, insert: true } as DbDomFieldInput,
         { name: "SECONDSSPENT", type: "number", nullable: true, pk: false, insert: true } as DbDomFieldInput,
         { name: "TS", type: "string40", nullable: true, pk: false, insert: true } as DbDomFieldInput,
         { name: "DELETED_FLAG", type: "dwh_flag", nullable: false, pk: false, insert: true } as DbDomFieldInput,
     ] as DbDomFieldInput[],
 };
+
+export async function dgetWorklogsFromOracle(issueKey: string, worklogs: DWorklogItem[], TSJ: string, env: Env) {
+    //DWorklogItem
+
+    let r;
+    await env.dbProvider(async function (db: OracleConnection0) {
+        r = await db.execute(
+            `select * from WORKLOG_T where DELETED_FLAG='N' and VTO=300000000000000 and issuekey='${issueKey}'`,
+            []
+        );
+        if (r.rows) {
+            outer_loop: for (let row of r.rows as any) {
+                for (let worklog of worklogs as any) {
+                    if (worklog.ID == row.ID) {
+                        continue outer_loop;
+                    }
+                }
+                worklogs.push({
+                    ISSUEKEY: issueKey,
+                    ID: row.ID,
+                    AUTHOR: row.AUTHOR,
+                    UPDATEAUTHOR: row.UPDATEAUTHOR,
+                    TEXT: row.TEXT,
+                    CREATED: row.CREATED,
+                    UPDATED: row.UPDATED,
+                    STARTED: row.STARTED,
+                    SECONDSSPENT: row.SECONDSSPENT,
+                    TS: TSJ + env.sequenceTS.nextValue(),
+                    DELETED_FLAG: "Y",
+                });
+            }
+        }
+    });
+}

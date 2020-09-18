@@ -16,7 +16,7 @@ export const utMarkedFields1: DJiraFieldMarkedMeta[] = [
         ORACLE_TYPE_OVERRIDE: undefined,
         LOAD: true,
         LOAD_ALG: "primitive",
-        ISSUE_LOADER_TYPE: "datetime",
+        ISSUE_LOADER_TYPE: "string40",
     },
     {
         ID: "aggregatetimeoriginalestimate",
@@ -128,7 +128,7 @@ export const utMarkedFields1: DJiraFieldMarkedMeta[] = [
         ORACLE_TYPE_OVERRIDE: undefined,
         LOAD: true,
         LOAD_ALG: "primitive",
-        ISSUE_LOADER_TYPE: "date",
+        ISSUE_LOADER_TYPE: "string40",
     },
     {
         ID: "reporter",
@@ -176,7 +176,7 @@ export const utMarkedFields1: DJiraFieldMarkedMeta[] = [
         ORACLE_TYPE_OVERRIDE: undefined,
         LOAD: true,
         LOAD_ALG: "primitive",
-        ISSUE_LOADER_TYPE: "datetime",
+        ISSUE_LOADER_TYPE: "string40",
     },
     {
         ID: "timeoriginalestimate",
@@ -256,7 +256,7 @@ export const utMarkedFields1: DJiraFieldMarkedMeta[] = [
         ORACLE_TYPE_OVERRIDE: undefined,
         LOAD: true,
         LOAD_ALG: "primitive",
-        ISSUE_LOADER_TYPE: "datetime",
+        ISSUE_LOADER_TYPE: "string40",
     },
     {
         ID: "summary",
@@ -320,7 +320,7 @@ export const utMarkedFields1: DJiraFieldMarkedMeta[] = [
         ORACLE_TYPE_OVERRIDE: undefined,
         LOAD: true,
         LOAD_ALG: "primitive",
-        ISSUE_LOADER_TYPE: "datetime",
+        ISSUE_LOADER_TYPE: "string40",
     },
     {
         ID: "aggregatetimeestimate",
@@ -400,10 +400,10 @@ export const utMarkedFields1: DJiraFieldMarkedMeta[] = [
         ORACLE_TYPE_OVERRIDE: undefined,
         LOAD: true,
         LOAD_ALG: "primitive",
-        ISSUE_LOADER_TYPE: "datetime",
+        ISSUE_LOADER_TYPE: "string40",
     },
 ];
 
-it(`global_tests_jira_fields.test.ts`, function() {
+it(`global_tests_jira_fields.test.ts`, function () {
     expect(1).to.equal(1);
 });

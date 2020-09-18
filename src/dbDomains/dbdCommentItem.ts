@@ -1,6 +1,8 @@
 import { DbDomainInput, DbDomFieldInput } from "./dbDomain";
 import { JiraComment } from "Yjira";
 import { Env } from "other";
+import { OracleConnection0 } from "Yoracle";
+import { DWorklogItem } from "./dbdWorklogItem";
 
 export interface DCommentItem {
     ISSUEKEY: string;
@@ -19,8 +21,8 @@ export function dcommentFromJira(issueKey: string, a: JiraComment, TSinput: stri
         return {
             ISSUEKEY: issueKey,
             ID: a.id,
-            AUTHOR: a.author.key,
-            UPDATEAUTHOR: a.updateAuthor.key,
+            AUTHOR: a.author.name,
+            UPDATEAUTHOR: a.updateAuthor.name,
             BODY: a.body, // "yya time spent 1",
             CREATED: a.created,
             UPDATED: a.updated,
@@ -31,8 +33,8 @@ export function dcommentFromJira(issueKey: string, a: JiraComment, TSinput: stri
         return {
             ISSUEKEY: issueKey,
             ID: a.id,
-            AUTHOR: a.author.key,
-            UPDATEAUTHOR: a.updateAuthor.key,
+            AUTHOR: a.author.name,
+            UPDATEAUTHOR: a.updateAuthor.name,
             BODY: a.body, // "yya time spent 1",
             CREATED: a.created,
             UPDATED: a.updated,
@@ -50,8 +52,8 @@ export const dbdDCommentItemInput: DbDomainInput<DCommentItem, JiraComment> = {
         { name: "AUTHOR", type: "string100", nullable: false, pk: false, insert: true } as DbDomFieldInput,
         { name: "UPDATEAUTHOR", type: "string100", nullable: false, pk: false, insert: true } as DbDomFieldInput,
         { name: "BODY", type: "string2000", nullable: false, pk: false, insert: true } as DbDomFieldInput,
-        { name: "CREATED", type: "datetime", nullable: false, pk: false, insert: true } as DbDomFieldInput,
-        { name: "UPDATED", type: "datetime", nullable: false, pk: false, insert: true } as DbDomFieldInput,
+        { name: "CREATED", type: "string100", nullable: false, pk: false, insert: true } as DbDomFieldInput,
+        { name: "UPDATED", type: "string100", nullable: false, pk: false, insert: true } as DbDomFieldInput,
     ] as DbDomFieldInput[],
 };
 
@@ -65,9 +67,39 @@ export const dbdDCommentItemInputLog: DbDomainInput<DCommentItem, JiraComment> =
         { name: "AUTHOR", type: "string100", nullable: false, pk: false, insert: true } as DbDomFieldInput,
         { name: "UPDATEAUTHOR", type: "string100", nullable: false, pk: false, insert: true } as DbDomFieldInput,
         { name: "BODY", type: "string2000", nullable: false, pk: false, insert: true } as DbDomFieldInput,
-        { name: "CREATED", type: "datetime", nullable: false, pk: false, insert: true } as DbDomFieldInput,
-        { name: "UPDATED", type: "datetime", nullable: false, pk: false, insert: true } as DbDomFieldInput,
+        { name: "CREATED", type: "string100", nullable: false, pk: false, insert: true } as DbDomFieldInput,
+        { name: "UPDATED", type: "string100", nullable: false, pk: false, insert: true } as DbDomFieldInput,
         { name: "TS", type: "string40", nullable: true, pk: false, insert: true } as DbDomFieldInput,
         { name: "DELETED_FLAG", type: "dwh_flag", nullable: false, pk: false, insert: true } as DbDomFieldInput,
     ] as DbDomFieldInput[],
 };
+
+export async function dgetCommentsFromOracle(issueKey: string, comments: DCommentItem[], TSJ: string, env: Env) {
+    let r;
+    await env.dbProvider(async function (db: OracleConnection0) {
+        r = await db.execute(
+            `select * from COMMENT_T where DELETED_FLAG='N' and VTO=300000000000000 and issuekey='${issueKey}'`,
+            []
+        );
+        if (r.rows) {
+            outer_loop: for (let row of r.rows as any) {
+                for (let comment of comments as any) {
+                    if (comment.ID == row.ID) {
+                        continue outer_loop;
+                    }
+                }
+                comments.push({
+                    ISSUEKEY: issueKey,
+                    ID: row.ID,
+                    AUTHOR: row.AUTHOR,
+                    UPDATEAUTHOR: row.UPDATEAUTHOR,
+                    BODY: row.BODY,
+                    CREATED: row.CREATED,
+                    UPDATED: row.UPDATED,
+                    TS: TSJ + env.sequenceTS.nextValue(),
+                    DELETED_FLAG: "Y",
+                });
+            }
+        }
+    });
+}

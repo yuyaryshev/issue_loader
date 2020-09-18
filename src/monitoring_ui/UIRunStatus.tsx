@@ -4,7 +4,7 @@ import { useObserver } from "mobx-react-lite";
 import { UIIssues } from "./UIIssues";
 import { UIJobs } from "./UIJobs";
 import { UILogs } from "./UILogs";
-import { UIIssueStats } from "./UIIssueStats";
+import { UIProjectStats } from "./UIProjectStats";
 import { UIJobStats } from "./UIJobStats";
 import { UIRunIssues } from "./UIRunIssues";
 import { UISQL } from "./UISQL";
@@ -157,9 +157,7 @@ export const UIRunStatus: React.FC<{ runStatus: RunStatus; globalUIState: Global
                                     <TableCell>
                                         {runStatus.jiraStatus.jiraRequestsPerSecond > 20 ? (
                                             <StatusIcon status="warn" />
-                                        ) : (
-                                            undefined
-                                        )}
+                                        ) : undefined}
                                     </TableCell>
                                 </TableRow>
                                 <TableRow>
@@ -170,9 +168,7 @@ export const UIRunStatus: React.FC<{ runStatus: RunStatus; globalUIState: Global
                                     <TableCell>
                                         {runStatus.jiraStatus.JiraResposeErrorsCount > 1 ? (
                                             <StatusIcon status="warn" />
-                                        ) : (
-                                            undefined
-                                        )}
+                                        ) : undefined}
                                     </TableCell>
                                 </TableRow>
                                 <TableRow>
@@ -183,9 +179,7 @@ export const UIRunStatus: React.FC<{ runStatus: RunStatus; globalUIState: Global
                                     <TableCell>
                                         {runStatus.jiraStatus.JiraResponseAverageTime > 1 ? (
                                             <StatusIcon status="warn" />
-                                        ) : (
-                                            undefined
-                                        )}
+                                        ) : undefined}
                                     </TableCell>
                                 </TableRow>
 
@@ -327,6 +321,40 @@ export const UIRunStatus: React.FC<{ runStatus: RunStatus; globalUIState: Global
                                 </TableRow>
                                 <TableRow>
                                     <TableCell component="th" scope="row">
+                                        Автогенерация задач
+                                    </TableCell>
+                                    <TableCell component="th" scope="row">
+                                        {runStatus.generateIssues ? "вкл" : "выкл"}
+                                    </TableCell>
+                                </TableRow>
+                                {globalUIState.statusTab === "Project Stats" ? (
+                                    <TableRow>
+                                        <TableCell component="th" scope="row">
+                                            Задач в очереди
+                                        </TableCell>
+                                        <TableCell component="th" scope="row">
+                                            {runStatus.contextsInQueue}
+                                        </TableCell>
+                                    </TableRow>
+                                ) : undefined}
+                                <TableRow></TableRow>
+                                <TableRow>
+                                    <TableCell component="th" scope="row">
+                                        <TextField
+                                            label="Для получения прав администратора"
+                                            type="password"
+                                            defaultValue={runStatus.pass}
+                                            onChange={globalUIState.setPass}
+                                            inputProps={{ maxLength: 18 }}
+                                        />
+                                    </TableCell>
+                                    <TableCell />
+                                    <TableCell>
+                                        <StatusIcon status={runStatus.admitted} />
+                                    </TableCell>
+                                </TableRow>
+                                <TableRow>
+                                    <TableCell component="th" scope="row">
                                         {runStatus.importExportMode === "" ? (
                                             <>
                                                 <Button onClick={globalUIState.import} color="primary">
@@ -360,17 +388,14 @@ export const UIRunStatus: React.FC<{ runStatus: RunStatus; globalUIState: Global
                                 <TableRow>
                                     <TableCell component="th" scope="row">
                                         Отключить сервер
-                                        <br />
-                                        <TextField
-                                            label="Pass"
-                                            type="password"
-                                            defaultValue={runStatus.pass}
-                                            onChange={globalUIState.setPass}
-                                        />
                                     </TableCell>
                                     <TableCell></TableCell>
                                     <TableCell>
-                                        <IconButton color="primary" onClick={globalUIState.shutdown}>
+                                        <IconButton
+                                            color="primary"
+                                            onClick={globalUIState.shutdown}
+                                            disabled={!runStatus.admitted}
+                                        >
                                             <PowerSettingsNewIcon />
                                         </IconButton>
                                     </TableCell>
@@ -393,11 +418,9 @@ export const UIRunStatus: React.FC<{ runStatus: RunStatus; globalUIState: Global
                                     label="Все поля Job'ов"
                                 />
                             </>
-                        ) : (
-                            undefined
-                        )}
+                        ) : undefined}
 
-                        {globalUIState.statusTab === "IssueStats" ? (
+                        {globalUIState.statusTab === "Project Stats" ? (
                             <>
                                 <RadioGroup
                                     defaultValue={globalUIState.issue_stats_checkProjects ? "projects" : "all"}
@@ -430,9 +453,7 @@ export const UIRunStatus: React.FC<{ runStatus: RunStatus; globalUIState: Global
                                     />
                                 </RadioGroup>
                             </>
-                        ) : (
-                            undefined
-                        )}
+                        ) : undefined}
 
                         {globalUIState.statusTab === "JobStats" ? (
                             <>
@@ -467,9 +488,7 @@ export const UIRunStatus: React.FC<{ runStatus: RunStatus; globalUIState: Global
                                     />
                                 </RadioGroup>
                             </>
-                        ) : (
-                            undefined
-                        )}
+                        ) : undefined}
 
                         <p>
                             <Typography className={classes.typographyStylesFooter} variant="caption">
@@ -495,71 +514,68 @@ export const UIRunStatus: React.FC<{ runStatus: RunStatus; globalUIState: Global
                             <Tab label="Issues" icon={<WorkOutlineIcon />} />
                             <Tab label="Jobs" icon={<WorkOutlineIcon />} />
                             <Tab label="Logs" icon={<SubjectIcon />} />
-                            <Tab label="IssueStats" icon={<AssessmentIcon />} />
+                            <Tab label="Project Stats" icon={<AssessmentIcon />} />
                             <Tab label="JobStats" icon={<AssessmentIcon />} />
-                            <Tab label="Run Issues" icon={<NextWeekIcon />} />
-                            <Tab label="SQL" icon={<VisibilityIcon />} />
+                            <Tab
+                                label="Run Issues"
+                                icon={<NextWeekIcon />}
+                                disabled={!runStatus.admitted}
+                                title="Только с правами администратора"
+                            />
+                            <Tab
+                                label="SQL"
+                                icon={<VisibilityIcon />}
+                                disabled={!runStatus.admitted}
+                                title="Только с правами администратора"
+                            />
                         </Tabs>
 
                         {!globalUIState.statusTab || globalUIState.statusTab === "Issues" ? (
                             <>
                                 <UIIssues issues={runStatus.issues} globalUIState={globalUIState} />
                             </>
-                        ) : (
-                            undefined
-                        )}
+                        ) : undefined}
 
                         {!globalUIState.statusTab || globalUIState.statusTab === "Jobs" ? (
                             <>
                                 <UIJobs jobs={runStatus.jobs} globalUIState={globalUIState} />
                             </>
-                        ) : (
-                            undefined
-                        )}
+                        ) : undefined}
 
                         {globalUIState.statusTab === "Logs" ? (
                             <>
                                 <UILogs logs={runStatus.logs} globalUIState={globalUIState} />
                             </>
-                        ) : (
-                            undefined
-                        )}
+                        ) : undefined}
 
-                        {globalUIState.statusTab === "IssueStats" ? (
+                        {globalUIState.statusTab === "Project Stats" ? (
                             <>
-                                <UIIssueStats
+                                <UIProjectStats
                                     graphData={runStatus.graph}
                                     projectStats={runStatus.projectStats}
                                     globalUIState={globalUIState}
+                                    runStatus={runStatus}
                                 />
                             </>
-                        ) : (
-                            undefined
-                        )}
+                        ) : undefined}
 
                         {globalUIState.statusTab === "JobStats" ? (
                             <>
                                 <UIJobStats jobStats={runStatus.jobStats} globalUIState={globalUIState} />
                             </>
-                        ) : (
-                            undefined
-                        )}
+                        ) : undefined}
 
                         {globalUIState.statusTab === "RunIssues" ? (
                             <>
                                 <UIRunIssues runStatus={runStatus} globalUIState={globalUIState} />
                             </>
-                        ) : (
-                            undefined
-                        )}
+                        ) : undefined}
 
                         {globalUIState.statusTab === "SQL" ? (
                             <>
                                 <UISQL runStatus={runStatus} globalUIState={globalUIState} />
                             </>
-                        ) : (
-                            undefined
-                        )}
+                        ) : undefined}
                     </Paper>
                 </Grid>
             </Grid>

@@ -14,8 +14,8 @@ function parseList(s: string): Set<string> {
     return new Set(
         s
             .split(/[\n\t\r, ]+/g)
-            .map(s => s.trim().toUpperCase())
-            .filter(s => s.length)
+            .map((s) => s.trim().toUpperCase())
+            .filter((s) => s.length)
     );
 }
 
@@ -24,9 +24,22 @@ export const runIssuesApi = async (env: EnvWithDbdJiraIssue, req: Request, res: 
     let ok: boolean = false;
     let error: string | undefined;
     try {
+        if (req.query?.pass != env.password) {
+            return res.send(JSON.stringify({ ok: false, error: "Incorrect password!" }));
+        }
         (req.query.allProjects as any) = req.query.allProjects === "true";
         const query = decoderRunIssuesRequest.runWithException(req.query);
         const { mode } = query;
+
+        let ip;
+        try {
+            ip = req.header("x-forwarded-for") || req.connection.remoteAddress;
+        } catch (e) {}
+
+        yconsole.log(
+            "CODE00000268",
+            `USER:(${ip}) Starting some actions (type: ${query.objType}, mode: ${query.mode})`
+        );
 
         if (query.objType == "issues") {
             if (query.objectsForStart && query.objectsForStart.length > 0 && mode) {
@@ -36,7 +49,10 @@ export const runIssuesApi = async (env: EnvWithDbdJiraIssue, req: Request, res: 
                     return res.send(JSON.stringify({ ok, error }));
                 }
                 const issueInputs = await issueKeysToInputs(env, issuesKeys, mode);
-                yconsole.log("CODE00000155", `Starting reload (${mode}) of issues: ${[...issuesKeys].join(",")}`);
+                yconsole.log(
+                    "CODE00000155",
+                    `USER:(${ip}) Starting reload (${mode}) of issues: ${[...issuesKeys].join(",")}`
+                );
                 await issuesToJobs(env, issueInputs);
                 ok = true;
             } else {
@@ -47,7 +63,7 @@ export const runIssuesApi = async (env: EnvWithDbdJiraIssue, req: Request, res: 
             if (mode) {
                 let projectKeys: Set<string> = new Set<string>();
                 if (query.allProjects) {
-                    await env.dbProvider(async function(db: OracleConnection0) {
+                    await env.dbProvider(async function (db: OracleConnection0) {
                         const r = await db.execute(
                             `select PROJECT from ${env.settings.tables.LOAD_STREAM_T} where enabled='Y'`,
                             []
@@ -61,19 +77,19 @@ export const runIssuesApi = async (env: EnvWithDbdJiraIssue, req: Request, res: 
                         return res.send(JSON.stringify({ ok, error }));
                     }
 
-                    await env.dbProvider(async function(db: OracleConnection0) {
+                    await env.dbProvider(async function (db: OracleConnection0) {
                         const r = await db.execute(
                             `select PROJECT from ${env.settings.tables.LOAD_STREAM_T} where PROJECT in (${[
                                 ...projectKeys0,
                             ]
-                                .map(s => `'${s}'`)
+                                .map((s) => `'${s}'`)
                                 .join(",")}) and enabled='Y'`,
                             []
                         );
                         if (r.rows) for (let row of r.rows as any) projectKeys.add(row.PROJECT);
                     });
 
-                    const missingProjects = [...projectKeys0].filter(p => !projectKeys.has(p));
+                    const missingProjects = [...projectKeys0].filter((p) => !projectKeys.has(p));
                     if (missingProjects.length) {
                         error = `Проекты ${missingProjects.join(",")} отсутствуют или отключены в LOAD_STREAM_T`;
                         return res.send(JSON.stringify({ ok, error }));
@@ -81,6 +97,7 @@ export const runIssuesApi = async (env: EnvWithDbdJiraIssue, req: Request, res: 
                 }
 
                 //////
+                yconsole.log("CODE00000269", `USER:(${ip}) Trying to start project: ${[...projectKeys].join(",")}`);
                 if (mode === "continue" || mode === "reload") {
                     const projectkeysA = [...projectKeys];
                     console.log(projectkeysA.join(","));
@@ -143,32 +160,35 @@ export const runIssuesApi = async (env: EnvWithDbdJiraIssue, req: Request, res: 
                     env.jobStorage.iterateJobs(undefined, function reloadProjectFromCache(job: Job) {
                         if (!job.running && ["transformIssue", "writeIssueToDb"].includes(job.jobType.type)) {
                             job.succeded = false;
+                            job.state = "readyToRun";
                             env.jobStorage.updateJobState(job);
                         }
                     });
 
                     env.jobStorage.nonSuccededAreFullyLoaded = false;
+
+                    //env.jobStorage.db.exec(`begin transaction`);
                     env.jobStorage.db.exec(`
-                    update jobs set succeded=0 where key in ('transformIssue','writeIssueToDb') and id in (select id 
+                    update jobs set succeded=0, state='readyToRun' where key in ('transformIssue','writeIssueToDb') and jobContextId in (select id 
                     from ${env.jobStorage.tableName} where 
                     stage!='01_jira' and
-                    project in (${[...projectKeys].map(s => `'${s}'`).join(",")}))`);
+                    project in (${[...projectKeys].map((s) => `'${s}'`).join(",")}))`);
                     env.jobStorage.db.exec(`
-                    update ${env.jobStorage.tableName} set succeded=0, stage='02_transform'
-                    where project in (${[...projectKeys].map(s => `'${s}'`).join(",")}) and stage!='01_jira'`);
-                    console.log(`DELETE_THIS CODE00000298`);
+                    update ${env.jobStorage.tableName} set succeded=0, stage='02_transform', state='readyToRun'
+                    where project in (${[...projectKeys].map((s) => `'${s}'`).join(",")}) and stage!='01_jira'`);
+                    //env.jobStorage.db.exec(`commit`);
                 }
                 //////
 
                 ok = true;
-                yconsole.log("CODE00000264", `Starting reload (${mode})  of projects: ${[...projectKeys].join(",")}`);
+                yconsole.log("CODE00000270", `Starting reload (${mode})  of projects: ${[...projectKeys].join(",")}`);
             }
         } else {
             error = "некорректный запрос (необходим тип загружаемого объекта)";
         }
     } catch (e) {
         error = e.message;
-        if (env.debugMode) debug(`CODE00000116 runIssuesApi - ERROR!`, e);
+        yconsole.log("CODE00000116", `Error running issues (${e.message})`);
     }
     return res.send(JSON.stringify({ ok, error }));
 };

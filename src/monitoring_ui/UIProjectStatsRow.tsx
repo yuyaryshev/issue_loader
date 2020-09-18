@@ -3,8 +3,11 @@ import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import TableCell from "@material-ui/core/TableCell";
 import TableRow from "@material-ui/core/TableRow";
+import { red } from "@material-ui/core/colors";
+import ReportProblemRounded from "@material-ui/icons/ReportProblemRounded";
+import { UIErrorLog } from "./UIErrorLog";
 import debugjs from "debug";
-import { GlobalUIState, ProjectItem } from "./RunStatus";
+import { GlobalUIState, ProjectItem, RunStatus } from "./RunStatus";
 import { MultiProgressBar, MultiProgressBarItem } from "./MultiProgressBar";
 import { stageColors } from "./IssueLoaderColors";
 import { sortObjects } from "Ystd";
@@ -26,11 +29,12 @@ const useStyles = makeStyles({
 
 const allFields = true;
 
-export const UIIssueStatsRow: React.FC<{ projectItem: ProjectItem; globalUIState: GlobalUIState }> = ({
-    projectItem,
-    globalUIState,
-}) => {
-    debugRender("UIIssueStatsRow");
+export const UIProjectStatsRow: React.FC<{
+    projectItem: ProjectItem;
+    globalUIState: GlobalUIState;
+    runStatus: RunStatus;
+}> = ({ projectItem, globalUIState, runStatus }) => {
+    debugRender("UIProjectStatsRow");
     // react-native-multicolor-progress-bar
     const classes = useStyles();
     return useObserver(() => {
@@ -53,6 +57,15 @@ export const UIIssueStatsRow: React.FC<{ projectItem: ProjectItem; globalUIState
         return (
             <TableRow className={classes.table}>
                 <TableCell>{projectItem.name}</TableCell>
+                {projectItem["99_zerror"] ||
+                (runStatus.errorLogConfig.openErrorLogValue &&
+                    runStatus.errorLogConfig.selectedProject == projectItem.name) ? (
+                    <TableCell>
+                        <UIErrorLog project={projectItem.name} globalUIState={globalUIState} runStatus={runStatus} />
+                    </TableCell>
+                ) : (
+                    <TableCell></TableCell>
+                )}
                 <TableCell>
                     <MultiProgressBar items={progressBarItems} />
                 </TableCell>

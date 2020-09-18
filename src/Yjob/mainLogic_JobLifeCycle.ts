@@ -13,7 +13,7 @@ if (false) console.log(throwUnload); // throwUnload shouldn't be removed because
 export async function runJob(job: Job) {
     if (!JobResourcesCheckAndAlloc(job.jobStorage.jobResourcesCurrent, job.jobType.resources)) return;
     let successful: boolean = false;
-    let successfulWithDeps: boolean = false;
+    //let successfulWithDeps: boolean = false;
     let hasError: false | string = "CODE00000001";
     let prevError;
     let newResult;
@@ -34,7 +34,7 @@ export async function runJob(job: Job) {
 
         for (let handler of job.jobStorage.onJobStartHandlers) handler(job, "CODE00000201");
         if (job.paused) {
-            await job.save(false);
+            await job.saveJobContextAndJobs(false);
             return;
         }
 
@@ -42,14 +42,14 @@ export async function runJob(job: Job) {
         sch_ClearNext(job);
         info_Starting(job);
 
-        await job.save(false);
-        hasError = "CODE00000257";
+        //if (!job.running) await job.saveJobContextAndJobs(false);
+        //hasError = "CODE00000257";
 
         //-------------------------------------
 
-        job.running = true;
+        //job.running = true;
         hasError = "CODE00000258";
-        job.jobStorage.updateJobState(job);
+        //job.jobStorage.updateJobState(job);
         try {
             hasError = "CODE00000259";
             newResult = await job.jobType.func(job.jobStorage.env, job, job.jobContext.input, job.input);
@@ -59,10 +59,8 @@ export async function runJob(job: Job) {
         }
         job.running = false;
 
-        checkPredecessors(job);
-
         successful = !hasError && newResult !== JobWaitingDepsSymbol;
-        successfulWithDeps = successful && !job.cancelled && job.predecessorsDone;
+        //successfulWithDeps = successful && !job.cancelled && job.predecessorsDone;
 
         if (successful) {
             job.setStep("CODE00000121", "Comparing job result with previous result", undefined);
@@ -70,7 +68,9 @@ export async function runJob(job: Job) {
                 job.result = job.jobStorage.loadResult(job.jobStorage.selectResultForJob.iterate(job.id));
                 job.needToLoad = false;
             }
-            const changed = !deepEqual(job.result, newResult);
+
+            // пока что мешается TS - надо будет убрать его из всех параметров сравнениваемых объектов
+            const changed = true; //!deepEqual(job.result, newResult);
 
             // debugger;
             // FUTURE_TEST Убедиться что сравнение не будет выявлять левые поля в итоге постоянно увеличивая и увеличивая историю
@@ -86,7 +86,9 @@ export async function runJob(job: Job) {
             sch_Success(job);
             info_Success(job);
 
-            if (!successfulWithDeps) state_Stale(job);
+            //job.jobStorage.updateJobState(job);
+            //await job.saveJobContextAndJobs(false);
+            //state_Stale(job);
             return;
         } else {
             if (prevError instanceof JobWaitingDepsException || newResult === JobWaitingDepsSymbol) {
@@ -100,7 +102,6 @@ export async function runJob(job: Job) {
                         jobContextId: job.jobContext.id,
                         jobType: job.jobType.type,
                         successful,
-                        successfulWithDeps,
                         hasError,
                         typeof_newResult: typeof newResult,
                         cancelled: !job.cancelled,
@@ -120,7 +121,6 @@ export async function runJob(job: Job) {
                         jobContextId: job.jobContext.id,
                         jobType: job.jobType.type,
                         successful,
-                        successfulWithDeps,
                         hasError,
                         typeof_newResult: typeof newResult,
                         cancelled: !job.cancelled,
@@ -170,10 +170,10 @@ export async function runJob(job: Job) {
         job.jobStorage.my_console.log(
             `CODE00000072`,
             `${JSON.stringify((job.jobContext as any).issueKey)}.${job.jobType.type} - stopped ${
-                successfulWithDeps ? "OK" : `ERROR ${job.prevError}`
+                !job.prevError ? "OK" : `ERROR ${job.prevError}`
             }!`
         );
-        if (successfulWithDeps) await job.save(true);
+        //await job.save(true);
         for (let handler of job.jobStorage.onJobStopHandlers) handler(job, "CODE00000206");
     }
 }
@@ -198,7 +198,8 @@ function state_Success(job: Job) {
     job.succeded = true;
     //job.paused;                   // Shouldn't be changed here
     // job.predecessors = new Map();        //  Shouldn't be changed here
-    notifySuccessors(job);
+    //notifySuccessors(job);            // for now
+    sch_ClearNext(job);
 }
 
 function state_Error(job: Job) {

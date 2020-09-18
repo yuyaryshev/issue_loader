@@ -11,10 +11,10 @@ import TableCell from "@material-ui/core/TableCell";
 import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import Typography from "@material-ui/core/Typography";
-import { UIIssueStatsRow } from "./UIIssueStatsRow";
+import { UIProjectStatsRow } from "./UIProjectStatsRow";
 import debugjs from "debug";
 import { GlobalUIState, ProjectItem, ProjectStats } from "./RunStatus";
-import { IssueStatsApiResponse } from "../monitoring_api/issueStatsApi.types";
+import { ProjectStatsApiResponse } from "../monitoring_api/projectStatsApi.types";
 import { objectIterator } from "Ystd";
 import moment from "moment";
 
@@ -44,7 +44,7 @@ export const UILineChart: React.FC<{ data: any; graph: string; globalUIState: Gl
 }) => {
     return useObserver(() => {
         const classes = useStyles();
-        debugRender("UIIssueStats");
+        debugRender("UIProjectStats");
         if (graph === "jobs") {
             return (
                 <LineChart

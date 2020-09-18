@@ -26,7 +26,7 @@ export interface DJiraIssue {
 export const makeFieldMapperSource = (markedFields: DJiraFieldMarkedMeta[]) => {
     const fieldMappers: string[] = ([
         ...markedFields
-            .map(f => {
+            .map((f) => {
                 if (f.CUSTOM_ID) return undefined;
 
                 switch (f.ID) {
@@ -55,7 +55,7 @@ export const makeFieldMapperSource = (markedFields: DJiraFieldMarkedMeta[]) => {
                     case "reporter":
                     case "assignee":
                         // user - strings
-                        return `${f.TARGET_NAME}:a.fields.${f.ID} && a.fields.${f.ID}.key`;
+                        return `${f.TARGET_NAME}:a.fields.${f.ID} && a.fields.${f.ID}.name`;
 
                     case "status":
                     case "issuetype":
@@ -77,10 +77,10 @@ export const makeFieldMapperSource = (markedFields: DJiraFieldMarkedMeta[]) => {
                         return undefined;
                 }
             })
-            .filter(v => v),
+            .filter((v) => v),
         "\n        // custom fields",
         ...markedFields
-            .map(f => {
+            .map((f) => {
                 if (f.CUSTOM_ID) {
                     switch (f.TYPE) {
                         case "string":
@@ -93,18 +93,18 @@ export const makeFieldMapperSource = (markedFields: DJiraFieldMarkedMeta[]) => {
                         case "option":
                             return `${f.TARGET_NAME}:typeof a.fields.${f.ID} === 'object'?(a.fields.${f.ID}.value?a.fields.${f.ID}.value:a.fields.${f.ID}.name):a.fields.${f.ID}`;
                         case "array":
-                            return `${f.TARGET_NAME}: a.fields.${f.ID}?(a.fields.${f.ID}.length?(a.fields.${f.ID}.map(a => {return a.name?a.name:a.value}).join(',')):undefined):undefined`;
+                            return `${f.TARGET_NAME}: a.fields.${f.ID}?(a.fields.${f.ID}.length?(a.fields.${f.ID}.map(a => {return a.name?a.name:(a.value?a.value:a)}).join(',')):undefined):undefined`;
                     }
                 }
                 return undefined;
             })
-            .filter(v => v),
+            .filter((v) => v),
     ] as any) as string[];
 
     const js = `(a) => ({
         ID:a.id,
 
-${fieldMappers.map(s => "        " + s).join(",\n")}
+${fieldMappers.map((s) => "        " + s).join(",\n")}
 })`;
 
     const fieldMapperSourceFile =
@@ -128,7 +128,7 @@ export const isDatetimeJiraType = (f: DJiraFieldMarkedMeta) =>
 export const makeDatetimeWalkerSource = (markedFields: DJiraFieldMarkedMeta[]) => {
     const jsBody = markedFields
         .filter(isDatetimeJiraType)
-        .map(f => `    a.fields.${f.ID} = callback(a.fields,'${f.ID}');\n`)
+        .map((f) => `    a.fields.${f.ID} = callback(a.fields,'${f.ID}');\n`)
         .join("");
 
     const js = `(callback,a) => {\n${jsBody}\n    return a;\n    }`;
@@ -149,6 +149,7 @@ export const compiledDatetimeWalker = (markedFields: DJiraFieldMarkedMeta[]) => 
     return evl;
 };
 
+// TODO delete this DEPRICATED mode (insert into _t tables)
 export const dbdJiraIssueInput = (fieldsMeta: DJiraFieldMarkedMeta[]): DbDomainInput<DJiraIssue, JiraIssue> => {
     return {
         name: "ISSUE_T",
@@ -173,7 +174,14 @@ export const dbdJiraIssueInput = (fieldsMeta: DJiraFieldMarkedMeta[]): DbDomainI
                 pk: false,
                 insert: true,
             } as DbDomFieldInput,
-            ...fieldsMeta.map(f => {
+            {
+                name: "PARENT_ISSUEKEY",
+                type: "string100",
+                nullable: true,
+                pk: false,
+                insert: true,
+            } as DbDomFieldInput,
+            ...fieldsMeta.map((f) => {
                 return {
                     name: f.TARGET_NAME,
                     type: f.ISSUE_LOADER_TYPE,
@@ -216,7 +224,14 @@ export const dbdJiraIssueInputLog = (fieldsMeta: DJiraFieldMarkedMeta[]): DbDoma
                 pk: false,
                 insert: true,
             } as DbDomFieldInput,
-            ...fieldsMeta.map(f => {
+            {
+                name: "PARENT_ISSUEKEY",
+                type: "string40",
+                nullable: true,
+                pk: false,
+                insert: true,
+            } as DbDomFieldInput,
+            ...fieldsMeta.map((f) => {
                 return {
                     name: f.TARGET_NAME,
                     type: f.ISSUE_LOADER_TYPE,
@@ -235,7 +250,7 @@ export async function writeDbFinalize(env: Env, ls_id: string | undefined, last_
     while (true)
         try {
             debugIssuesWriteToDbNormal(`CODE00000033`, `Connecting to db...`);
-            await env.dbProvider(async function(db: OracleConnection0) {
+            await env.dbProvider(async function (db: OracleConnection0) {
                 if (last_updated_ts) {
                     debugIssuesWriteToDbNormal(`CODE00000034`, `Saving LAST_UPDATED_TS...`);
                     await db.execute(

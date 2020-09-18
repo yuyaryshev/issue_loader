@@ -1,13 +1,13 @@
 import { Env } from "other";
 import moment from "moment";
 import { debugMsgFactory as debugjs, manageableTimer } from "Ystd";
-import { IssueLoaderStatItem, IssueStatsApiRequest, IssueStatsApiResponse } from "./issueStatsApi.types";
+import { IssueLoaderStatItem, ProjectStatsApiRequest, ProjectStatsApiResponse } from "./projectStatsApi.types";
 import { linearDataInterpolation } from "../Ystd/linearDataInterpolation";
 
-const debug = debugjs("issueStatsApi");
+const debug = debugjs("projectStatsApi");
 let started = false;
 
-let issueStats: IssueLoaderStatItem[] = [];
+let projectStats: IssueLoaderStatItem[] = [];
 
 // http://a123278.moscow.alfaintra.net:29364/api/stats
 
@@ -20,20 +20,20 @@ let showTestData = false;
 const testDataCounterMax = 200;
 let testDataCounter = 0;
 
-export async function issueStatsApi(env: Env, req: any, res: any) {
+export async function projectStatsApi(env: Env, req: any, res: any) {
     // @ts-ignore
     const pthis = this;
 
     const ts = moment().format();
-    const query: IssueStatsApiRequest = req.query;
+    const query: ProjectStatsApiRequest = req.query;
 
     if (!refreshTimer)
-        refreshTimer = manageableTimer(env, 300, `CODE00000125`, "issueStatsRefreshTimer", () => {
+        refreshTimer = manageableTimer(env, 300, `CODE00000125`, "projectStatsRefreshTimer", () => {
             ok = false;
             try {
                 if (showTestData) makeTestData();
                 else
-                    issueStats = env.jobStorage.db
+                    projectStats = env.jobStorage.db
                         .prepare(
                             `select project, stage, state, hasError, loaded, count(1) c 
                         from all_jobContexts                         
@@ -50,13 +50,23 @@ export async function issueStatsApi(env: Env, req: any, res: any) {
         });
     await refreshTimer.notSoonerThan();
 
+    let contextsInQueueM = 0;
+
+    for (let i of projectStats) {
+        if (!(i.state == "succeded" || i.state == "running")) {
+            contextsInQueueM += i.c;
+        }
+    }
+    let contextsInQueue = "" + contextsInQueueM;
+
     return res.send(
         JSON.stringify({
             ok,
             error,
             ts,
-            stats: issueStats,
-        } as IssueStatsApiResponse)
+            contextsInQueue,
+            stats: projectStats,
+        } as ProjectStatsApiResponse)
     );
 }
 
@@ -157,7 +167,7 @@ function makeTestData() {
         ]);
 
         for (let k in d) (d as any)[k] = Math.round((d as any)[k]);
-        issueStats = [
+        projectStats = [
             {
                 project: "TEST_DATA",
                 stage: "01_jira",

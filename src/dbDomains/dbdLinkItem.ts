@@ -1,6 +1,8 @@
 import { JiraLinkItem, JiraLinkType } from "Yjira";
 import { DbDomainInput, DbDomFieldInput } from "./dbDomain";
 import { Env } from "../other/Env";
+import { OracleConnection0 } from "Yoracle";
+import { DWorklogItem } from "./dbdWorklogItem";
 
 /*
  Тут лежат link и link_type
@@ -107,7 +109,7 @@ export const jiraGetAllLinkTypeMetas = async (env: Env) => {
 
     let allTypes: DLinkType[] = [];
 
-    allTypes0.issueLinkTypes.forEach(element => {
+    allTypes0.issueLinkTypes.forEach((element) => {
         allTypes.push({ ID: element.id, INWARD: element.inward, NAME: element.name, OUTWARD: element.outward });
     });
 
@@ -155,3 +157,31 @@ export const dbdDLinkTypeInput: DbDomainInput<DLinkItem, JiraLinkType> = {
         { name: "OUTWARD", type: "string100", nullable: true, pk: false, insert: true } as DbDomFieldInput,
     ] as DbDomFieldInput[],
 };
+
+export async function dgetLinksFromOracle(issueKey: string, links: DLinkItem[], TSJ: string, env: Env) {
+    let r;
+    await env.dbProvider(async function (db: OracleConnection0) {
+        r = await db.execute(
+            `select * from LINK_T where DELETED_FLAG='N' and VTO=300000000000000 and issuekey='${issueKey}'`,
+            []
+        );
+        if (r.rows) {
+            outer_loop: for (let row of r.rows as any) {
+                for (let link of links as any) {
+                    if (link.ID == row.ID) {
+                        continue outer_loop;
+                    }
+                }
+                links.push({
+                    ISSUEKEY: issueKey,
+                    ID: row.ID,
+                    INWARDISSUE: row.INWARDISSUE,
+                    OUTWARDISSUE: row.OUTWARDISSUE,
+                    TYPEID: row.TYPEID,
+                    TS: TSJ + env.sequenceTS.nextValue(),
+                    DELETED_FLAG: "Y",
+                });
+            }
+        }
+    });
+}

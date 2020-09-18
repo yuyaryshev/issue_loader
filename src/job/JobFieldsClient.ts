@@ -42,6 +42,7 @@ export class JobContextStatus {
     @observable deleted: number | undefined = 0;
     @observable state: JobState = "" as any;
     @observable stage: string = "" as any;
+    @observable newIssue: number = 0;
     @observable project: string | undefined = "" as any;
     @observable issueKey: string | undefined = "" as any;
     @observable updated: string | undefined = "" as any;

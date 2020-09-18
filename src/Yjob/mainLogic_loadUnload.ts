@@ -25,23 +25,59 @@ export async function loadUnload(jobStorage: JobStorage<any, any, any, any, any>
         // First we load ReadyToRun JOBCONTEXTS.
         // HINT: We don't care if we have too much JOBCONTEXTS here, because readyToRun JOBCONTEXTS should always take priority
         // if we looad too many here, than we will unload some OTHER tasks below
-        if (jobStorage.readyToRunJobContexts.length < LOW) {
-            jobStorage.loadJobContexts(
-                jobStorage.selectContextsReadyToRunByNextRunTs.iterate(tsStr, MID),
-                () => MID <= jobStorage.readyToRunJobContexts.length,
-                jobStorage.selectJobsForContext
-            );
+
+        if (jobStorage.env.startMode === "run_into_cash") {
+            // load 01_jira ONLY
+            if (jobStorage.loadedJobsCount() < LOW) {
+                jobStorage.loadJobContexts(
+                    jobStorage.selectContextsOnlyJiraStage.iterate(MID),
+                    () => jobStorage.loadedJobsCount() <= MID,
+                    jobStorage.selectJobsForContext
+                );
+            }
+        } else {
+            // standart load
+            if (jobStorage.readyToRunJobContexts.length < LOW) {
+                jobStorage.loadJobContexts(
+                    jobStorage.selectContextsReadyToRunByNextRunTs.iterate(tsStr, MID),
+                    () => MID <= jobStorage.readyToRunJobContexts.length,
+                    jobStorage.selectJobsForContext
+                );
+            }
+
+            if (jobStorage.loadedJobsCount() < LOW) {
+                jobStorage.loadJobContexts(
+                    jobStorage.selectContextsAllNotSucceded.iterate(MID),
+                    () => jobStorage.loadedJobsCount() <= MID,
+                    jobStorage.selectJobsForContext
+                );
+            }
         }
 
-        if (jobStorage.loadedJobsCount() < LOW) {
-            jobStorage.loadJobContexts(
-                jobStorage.selectContextsAllNotSucceded.iterate(MID),
-                () => jobStorage.loadedJobsCount() <= MID,
-                jobStorage.selectJobsForContext
-            );
-        }
+        if (jobStorage.loadedJobsCount() > LOW) jobStorage.nonSuccededAreFullyLoaded = true;
+    } else if (jobStorage.loadedJobsCount() <= LOW) jobStorage.nonSuccededAreFullyLoaded = false;
 
-        if (jobStorage.loadedJobsCount() < LOW) jobStorage.nonSuccededAreFullyLoaded = true;
+    // if we have currentContext<MAX we try to unload succeded jobContexts
+    if (jobStorage.loadedJobsCount() < MAX) {
+        let unloadPromises = new Set<Promise<any>>();
+        try {
+            // prepare context at this time
+            let localContextById = new Set(Array.from(jobStorage.jobContextById.keys()));
+
+            // Unload succeded contexts
+            for (let i of localContextById) {
+                let jobContext = jobStorage.jobContextById.get(i);
+                if (jobContext) {
+                    if (jobContext.succeded) {
+                        unloadPromises.add(jobStorage.unload(jobContext));
+                        localContextById.delete(i);
+                    }
+                }
+            }
+        } finally {
+            await Promise.all([...unloadPromises]);
+            return;
+        }
     }
 
     // We unload JOBCONTEXTS only if we reached MAX
@@ -82,6 +118,20 @@ export async function loadUnload(jobStorage: JobStorage<any, any, any, any, any>
                 // prepare context at this time
                 let localContextById = new Set(Array.from(jobStorage.jobContextById.keys()));
 
+                // if we have run_into_cash, we should unload nonJira Contexts Stage
+                if (jobStorage.env.startMode === "run_into_cash") {
+                    for (let i of localContextById) {
+                        let jobContext = jobStorage.jobContextById.get(i);
+                        if (jobContext) {
+                            if (jobContext.stage !== "01_jira") {
+                                unloadPromises.add(jobStorage.unload(jobContext));
+                                localContextById.delete(i);
+                                if (localContextById.size <= HIGH) continue outer;
+                            }
+                        }
+                    }
+                }
+
                 // First unload JOBCONTEXTS which are waiting for time and won't be needed for quire a long time
                 for (let i of localContextById) {
                     let jobContext = jobStorage.jobContextById.get(i);
@@ -109,7 +159,7 @@ export async function loadUnload(jobStorage: JobStorage<any, any, any, any, any>
                             !jobContext.disableUnload &&
                             !jobContext.jobStats.readyToRun &&
                             !jobContext.jobStats.running &&
-                            jobContext.jobStats.waitingDeps &&
+                            //jobContext.jobStats.waitingDeps &&
                             ts.diff(jobContext.touchTs) > jobStorage.maxAwaitBeforeUnload
                         ) {
                             unloadPromises.add(jobStorage.unload(jobContext));
@@ -130,7 +180,7 @@ export async function loadUnload(jobStorage: JobStorage<any, any, any, any, any>
                     }
                     const jobContextsByTouchTs = sortObjects(
                         locArrayContextJobsUnsorted.filter(
-                            j => !j.disableUnload && !j.jobStats.running && !j.jobStats.readyToRun
+                            (j) => !j.disableUnload && !j.jobStats.running && !j.jobStats.readyToRun
                         ),
                         ["touchTs"]
                     );

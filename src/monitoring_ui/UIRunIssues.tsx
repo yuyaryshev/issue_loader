@@ -159,9 +159,7 @@ export const UIRunIssues: React.FC<{ runStatus: any; globalUIState: GlobalUIStat
                     />
                     <br />
                 </>
-            ) : (
-                undefined
-            )}
+            ) : undefined}
 
             <TextField
                 className={classes.filterTextField}
@@ -176,7 +174,7 @@ export const UIRunIssues: React.FC<{ runStatus: any; globalUIState: GlobalUIStat
                     runStatus.runIssuesConfig.allProjects && runStatus.runIssuesConfig.startIssueType == "projects"
                 }
             />
-            <IconButton color={"primary"} onClick={globalUIState.sendAlertForProjects}>
+            <IconButton color={"primary"} onClick={globalUIState.sendAlertForProjects} disabled={!runStatus.admitted}>
                 <PlayArrowIcon />
             </IconButton>
 

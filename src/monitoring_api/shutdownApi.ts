@@ -14,9 +14,13 @@ export async function shutdownApi(env: EnvWithDbdJiraIssue, req: Request, res: R
     let ok: boolean = false;
     const { query } = req;
 
-    if (!checkPass(query)) {
+    if (query?.pass != env.password) {
         return res.send(JSON.stringify({ ok: false, error: "Incorrect password!" }));
     }
+    /*
+    if (!checkPass(query)) {
+        return res.send(JSON.stringify({ ok: false, error: "Incorrect password!" }));
+    }*/
 
     try {
         env.terminate(false);

@@ -1,6 +1,15 @@
 import { assertNever } from "assert-never/index";
 
-export type JobFieldType = "json" | "string" | "boolean" | "ts" | "link" | "number" | "JobDict" | "JobState";
+export type JobFieldType =
+    | "json"
+    | "string"
+    | "boolean"
+    | "ts"
+    | "link"
+    | "number"
+    | "JobDict"
+    | "JobState"
+    | "specialInput";
 export type JobFieldSerializedTsType = string;
 export type JobFieldRuntimeTsType = "any" | "string" | "boolean" | "number" | "moment.Moment" | "JobState";
 
@@ -55,6 +64,14 @@ export const makeFieldFromInput = (f: JobFieldInput) => {
     if (inputField || f.inputHost) vf = fname;
 
     switch (type) {
+        case "specialInput":
+            serializedTsType = "any";
+            runtimeTsType = "any";
+            clientDefaultValueInitializer = "undefined";
+            serializeValue = `"{}"`;
+            serializeToStatusValue = `(${serializeValue} || "(empty)").substr(0,80)`;
+            deserialize = `${baseField ? "r" : "(r as any)"}.${name} = serialized.${fname}`;
+            break;
         case "json":
             serializedTsType = "any";
             runtimeTsType = "any";

@@ -32,7 +32,7 @@ export function dchangeLogFromJira(
                     r.push({
                         ISSUEKEY: issueKey,
                         ID: history.id,
-                        AUTHOR: history.author.key,
+                        AUTHOR: history.author.name,
                         TS_CREATED: history.created,
                         FIELD: a.field,
                         FIELDTYPE: a.fieldtype,
@@ -51,7 +51,7 @@ export function dchangeLogFromJira(
                     r.push({
                         ISSUEKEY: issueKey,
                         ID: history.id,
-                        AUTHOR: history.author.key,
+                        AUTHOR: history.author.name,
                         TS_CREATED: history.created,
                         FIELD: a.field,
                         FIELDTYPE: a.fieldtype,
@@ -95,7 +95,7 @@ export const dbdDChangeLogItemInputLog: DbDomainInput<DChangelogItem, undefined>
         { name: "FIELD", type: "string100", nullable: false, pk: false, insert: true } as DbDomFieldInput,
         { name: "AUTHOR", type: "string100", nullable: false, pk: false, insert: true } as DbDomFieldInput,
         { name: "ID", type: "string100", nullable: false, pk: false, insert: true } as DbDomFieldInput,
-        { name: "TS_CREATED", type: "string40", nullable: false, pk: false, insert: true } as DbDomFieldInput,
+        { name: "TS_CREATED", type: "string100", nullable: false, pk: false, insert: true } as DbDomFieldInput,
 
         { name: "FIELDTYPE", type: "string255", nullable: true, pk: false, insert: true } as DbDomFieldInput,
         { name: "FROM_V", type: "string2000", nullable: true, pk: false, insert: true } as DbDomFieldInput,

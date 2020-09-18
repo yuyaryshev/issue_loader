@@ -292,21 +292,13 @@ export const UIJobStats: React.FC<{ jobStats: any; globalUIState: GlobalUIState 
                 </TableHead>
                 <TableBody>
                     {!jobStats.error ? (
-                        statsProgress
-                            .filter((currProject: any) => {
-                                return (
-                                    !globalUIState.logsFilter ||
-                                    !globalUIState.logsFilter.trim().length ||
-                                    currProject.jsonUpper.includes(globalUIState.logsFilter.trim().toUpperCase())
-                                );
-                            })
-                            .map((currData: any) => (
-                                <UIJobStatsRow
-                                    key={`${JSON.stringify(currData.Pprogress)}`}
-                                    data={currData}
-                                    globalUIState={globalUIState}
-                                />
-                            ))
+                        statsProgress.map((currData: any) => (
+                            <UIJobStatsRow
+                                key={`${JSON.stringify(currData.Pprogress)}`}
+                                data={currData}
+                                globalUIState={globalUIState}
+                            />
+                        ))
                     ) : (
                         <TableRow>
                             {globalUIState.job_stats_checkProjects && !globalUIState.job_stats_checkAll ? (

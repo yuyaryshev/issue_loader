@@ -85,7 +85,7 @@ module.exports = Object.assign(
         module: {
             rules: [
                 {
-                    test: modulePath0 => {
+                    test: (modulePath0) => {
                         let modulePath = modulePath0.split(path.sep);
                         for (let excludedModule of excludedModules)
                             if (modulePath.includes(excludedModule)) return true;

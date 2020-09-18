@@ -57,7 +57,7 @@ export const UISQL: React.FC<{ runStatus: any; globalUIState: GlobalUIState }> =
                 rowsMax="10"
                 variant="outlined"
             />
-            <IconButton color={"primary"} onClick={globalUIState.sendSelectForSQLite}>
+            <IconButton color={"primary"} onClick={globalUIState.sendSelectForSQLite} disabled={!runStatus.admitted}>
                 <PlayArrowIcon />
             </IconButton>
 
@@ -83,9 +83,7 @@ export const UISQL: React.FC<{ runStatus: any; globalUIState: GlobalUIState }> =
                                 Пусто
                             </Typography>
                         </>
-                    ) : (
-                        undefined
-                    )}
+                    ) : undefined}
                 </>
             ) : runStatus.sqlReturn.process ? (
                 <>
@@ -98,9 +96,7 @@ export const UISQL: React.FC<{ runStatus: any; globalUIState: GlobalUIState }> =
                         Error: {runStatus.sqlReturn.error}
                     </Typography>
                 </>
-            ) : (
-                undefined
-            )}
+            ) : undefined}
         </>
     ));
 };

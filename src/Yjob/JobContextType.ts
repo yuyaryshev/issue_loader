@@ -48,9 +48,7 @@ export class JobContextType<TEnv extends EnvWithTimers = any, TContext extends J
 
         let jobContext: JobContext<any> | undefined;
 
-        if (!jobContext) {
-            jobContext = jobStorage.findOrLoadJobContextByKey(jobContextKey);
-        }
+        jobContext = jobStorage.findOrLoadJobContextByKey(jobContextKey);
 
         if (!jobContext) {
             // @ts-ignore
@@ -60,7 +58,8 @@ export class JobContextType<TEnv extends EnvWithTimers = any, TContext extends J
                 jobStorage,
                 contextInput,
                 contextId,
-                jobContextKey
+                jobContextKey,
+                1
             );
             for (let handler of jobContext.jobStorage.onJobContextCreatedHandlers) handler(jobContext, "CODE00000305");
         }

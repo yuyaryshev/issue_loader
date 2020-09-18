@@ -41,6 +41,7 @@ export const statusApi = async (env: Env, req: any, res: any) => {
             jobResourcesDelays: env.jobStorage.jobResourcesLimits,
             importExportCurrent: env.importExportCurrent,
             importExportTotal: env.importExportTotal,
+            generatingIssues: env.settings.generate_issues_on,
         })
     );
 };

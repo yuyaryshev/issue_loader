@@ -31,7 +31,7 @@ export async function jobStatsApi(env: Env, req: any, res: any) {
 
     try {
         if (!refreshTimer)
-            refreshTimer = manageableTimer(env, 300, `CODE00000274`, "issueStatsRefreshTimer", () => {
+            refreshTimer = manageableTimer(env, 300, `CODE00000274`, "projectStatsRefreshTimer", () => {
                 let newStats = new Map<string, IssueLoaderStatItem>();
 
                 env.jobStorage.iterateJobContexts(undefined, (jobContext: JobContext) => {

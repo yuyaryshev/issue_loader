@@ -13,7 +13,7 @@ export const jobFieldInputs: JobFieldInput[] = [
     { baseField: true, fname: "prevError", type: "string", optional: true },
     { baseField: true, fname: "retryIntervalIndex", type: "number" },
     { baseField: true, fname: "nextRunTs", type: "ts", optional: true },
-    { baseField: true, fname: "input", type: "json", skipDeserialize: true },
+    { baseField: true, fname: "input", type: "specialInput", skipDeserialize: true },
     {
         baseField: true,
         fname: "result",
@@ -65,6 +65,7 @@ export const contextFieldInputs: JobFieldInput[] = [
     { baseField: true, fname: "deleted", type: "boolean", statusOnly: true, mem: false },
     { baseField: true, fname: "state", type: "JobState", mem: true },
     { baseField: true, fname: "stage", type: "string", mem: true },
+    { baseField: true, fname: "newIssue", type: "number", mem: true },
 ];
 
 type getSerializeMode = ["io", "status", "client"];
@@ -74,7 +75,7 @@ function genSerializedInterface(interfaceName: string, jobFields: JobFieldMeta[]
     const status = interfaceName.includes("Status");
     return `    
 export interface ${declStr} {
-    ${fjmap(jobFields, ",\n        ", f => (!f.statusOnly || status ? f.interfaceFieldStr : undefined))}        
+    ${fjmap(jobFields, ",\n        ", (f) => (!f.statusOnly || status ? f.interfaceFieldStr : undefined))}        
 }
 `;
 }
@@ -84,23 +85,23 @@ function genJobSerializedInterface(interfaceName: string, jobFields: JobFieldMet
     const status = interfaceName.includes("Status");
     return `    
 export interface ${declStr} {
-    ${fjmap(jobFields, ",\n        ", f => f.interfaceFieldStr)}        
+    ${fjmap(jobFields, ",\n        ", (f) => f.interfaceFieldStr)}        
 }
 `;
 }
 
 export function genSerializeFields(jobFields: JobFieldMeta[]) {
-    const hasInputFields = !!jobFields.filter(f => f.inputField).length;
+    const hasInputFields = !!jobFields.filter((f) => f.inputField).length;
 
     return {
         hasInputFields,
         serializeExplodeFieldStr: hasInputFields
-            ? `const { ${fjmap(jobFields, ", ", f => f.inputField)}, ...input} = (j.input as any);`
+            ? `const { ${fjmap(jobFields, ", ", (f) => f.inputField)}, ...input} = (j.input as any);`
             : "const input = j.input",
-        serializeFieldStr: fjmap(jobFields, ",\n        ", f => f.serialize),
-        serializeStatusFieldStr: fjmap(jobFields, ",\n        ", f => f.serializeToStatus),
-        deserializeRestoreInputStr: fjmap(jobFields, ";    ", f => f.deserializeRestoreInput),
-        deserializeFieldStr: fjmap(jobFields, ";\n        ", f => f.deserialize),
+        serializeFieldStr: fjmap(jobFields, ",\n        ", (f) => f.serialize),
+        serializeStatusFieldStr: fjmap(jobFields, ",\n        ", (f) => f.serializeToStatus),
+        deserializeRestoreInputStr: fjmap(jobFields, ";    ", (f) => f.deserializeRestoreInput),
+        deserializeFieldStr: fjmap(jobFields, ";\n        ", (f) => f.deserialize),
     };
 }
 
@@ -124,7 +125,7 @@ serialize${suffix}: function serialize${suffix}(j: Job): ${defaultStr}${
 
     return {        
     jobType: 'TEST',
-        ${fjmap(jobFields, ",\n        ", f => f.serialize)}
+        ${fjmap(jobFields, ",\n        ", (f) => f.serialize)}
     };
 }
 `;
@@ -149,7 +150,7 @@ serialize${suffix}: function serialize${suffix}(j: Job): ${defaultStr}${
     
 
     return {        
-        ${fjmap(jobFields, ",\n        ", f => f.serialize)}
+        ${fjmap(jobFields, ",\n        ", (f) => f.serialize)}
     };
 }
 `;
@@ -187,7 +188,7 @@ serialize${suffix}: function serialize${suffix}(j: JobContext): ${defaultStr}${
         ${status ? `deleted:0,        ` : ""}
         updatedTs:moment().format(),        
         jobContextType: j.jobContextType.type,
-        ${fjmap(contextFields, ",\n        ", f => f.serialize)}
+        ${fjmap(contextFields, ",\n        ", (f) => f.serialize)}
     };
 }
 `;
@@ -207,11 +208,11 @@ export function generateJobFieldsTs(options: JobFieldsGenOptions) {
     const { libMode, client } = options;
     const defaultStr = libMode ? "Default" : "";
     const contextFields: JobFieldMeta[] = options.contextFields.map(makeFieldFromInput);
-    const contextMemFields: JobFieldMeta[] = options.contextFields.map(makeFieldFromInput).filter(f => f.mem);
+    const contextMemFields: JobFieldMeta[] = options.contextFields.map(makeFieldFromInput).filter((f) => f.mem);
     const jobFields: JobFieldMeta[] = options.jobFields.map(makeFieldFromInput);
-    const jobMemFields: JobFieldMeta[] = options.jobFields.map(makeFieldFromInput).filter(f => f.mem);
+    const jobMemFields: JobFieldMeta[] = options.jobFields.map(makeFieldFromInput).filter((f) => f.mem);
     const jobResultFields: JobFieldMeta[] = options.jobResultFields.map(makeFieldFromInput);
-    const jobResultMemFields: JobFieldMeta[] = options.jobResultFields.map(makeFieldFromInput).filter(f => f.mem);
+    const jobResultMemFields: JobFieldMeta[] = options.jobResultFields.map(makeFieldFromInput).filter((f) => f.mem);
     const contextFieldAgg = genSerializeFields(contextFields);
     const jobFieldAgg = genSerializeFields(jobFields);
 
@@ -224,11 +225,11 @@ require("moment-countdown");
 import { JobState } from "Yjob/JobState";
 
 export class JobStatus {
-    ${fjmap(jobFields, "\n    ", f => f.clientClassFieldStr)}
+    ${fjmap(jobFields, "\n    ", (f) => f.clientClassFieldStr)}
 };
 
 export class JobContextStatus {
-    ${fjmap(contextFields, "\n    ", f => f.clientClassFieldStr)}
+    ${fjmap(contextFields, "\n    ", (f) => f.clientClassFieldStr)}
 };
 `);
 
@@ -266,12 +267,14 @@ require("moment-countdown");
 export const ${
         options.libMode ? "defaultJobContextFieldFuncs" : "jobContextFieldFuncs"
     }: JobContextFieldFuncs<${defaultStr}SerializedJobContext, ${defaultStr}JobContextStatus> = {
-    jobContextColumnStr : ${JSON.stringify(fjmap(contextFields, ", ", f => (isTableField(f) && f.fname) || undefined))},
-    jobContextColumnPlaceholderStr : ${JSON.stringify(
-        fjmap(contextFields, ", ", f => (isTableField(f) && "?") || undefined)
+    jobContextColumnStr : ${JSON.stringify(
+        fjmap(contextFields, ", ", (f) => (isTableField(f) && f.fname) || undefined)
     )},
-    jobContextMemColumnStr : ${JSON.stringify(fjmap(contextMemFields, ", ", f => f.fname))},
-    jobContextMemColumnPlaceholderStr : ${JSON.stringify(fjmap(contextMemFields, ", ", f => "?"))},
+    jobContextColumnPlaceholderStr : ${JSON.stringify(
+        fjmap(contextFields, ", ", (f) => (isTableField(f) && "?") || undefined)
+    )},
+    jobContextMemColumnStr : ${JSON.stringify(fjmap(contextMemFields, ", ", (f) => f.fname))},
+    jobContextMemColumnPlaceholderStr : ${JSON.stringify(fjmap(contextMemFields, ", ", (f) => "?"))},
     
     ${genSerializeJobContextFunction("Status", contextFields, jobFields, options.libMode)},    
     ${genSerializeJobContextFunction("", contextFields, jobFields, options.libMode)},
@@ -279,12 +282,12 @@ export const ${
     
     serializeToArray:function serializedToArray(o: ${defaultStr}SerializedJobContext) {
     return [
-        ${fjmap(contextFields, ",    ", f => (isTableField(f) && `o.${f.fname}`) || undefined)}
+        ${fjmap(contextFields, ",    ", (f) => (isTableField(f) && `o.${f.fname}`) || undefined)}
     ]},
             
     serializeMemToArray:function serializedMemToArray(o: ${defaultStr}SerializedJobContextMem) {
     return [
-        ${fjmap(contextMemFields, ",    ", f => `o.${f.fname}`)}
+        ${fjmap(contextMemFields, ",    ", (f) => `o.${f.fname}`)}
     ]},
                 
     rowToSerialized: function rowToSerialized(row: any): ${defaultStr}SerializedJobContext {
@@ -302,7 +305,7 @@ export const ${
         if (!jobContextType)
             throw new Error(\`CODE${"00000000"} jobContextType=\${serialized.jobContextType} - not found!\`);
 
-        const r = new JobContext<any,any,any,any,any,any>(jobContextType, jobStorage, serialized.input, serialized.id, serialized.key);
+        const r = new JobContext<any,any,any,any,any,any>(jobContextType, jobStorage, serialized.input, serialized.id, serialized.key, serialized.newIssue);
         
         ${contextFieldAgg.deserializeFieldStr}
         r.jobsById = {} as any;
@@ -344,11 +347,11 @@ export const ${
 
 /* Client class declaraion
 export class JobStatus {
-    ${fjmap(jobFields, "\n    ", f => f.clientClassFieldStr)}
+    ${fjmap(jobFields, "\n    ", (f) => f.clientClassFieldStr)}
 };
 
 export class JobContextStatus {
-    ${fjmap(contextFields, "\n    ", f => f.clientClassFieldStr)}
+    ${fjmap(contextFields, "\n    ", (f) => f.clientClassFieldStr)}
 };
 */
 
@@ -356,24 +359,24 @@ export class JobContextStatus {
 export const ${
         options.libMode ? "defaultJobFieldFuncs" : "jobFieldFuncs"
     }: JobFieldFuncs<${defaultStr}SerializedJob, ${defaultStr}JobStatus> = {
-    jobColumnStr : ${JSON.stringify(fjmap(jobFields, ", ", f => (isTableField(f) && f.fname) || undefined))},
-    jobColumnPlaceholderStr : ${JSON.stringify(fjmap(jobFields, ", ", f => (isTableField(f) && "?") || undefined))},
-    jobMemColumnStr : ${JSON.stringify(fjmap(jobMemFields, ", ", f => f.fname))},
-    jobMemColumnPlaceholderStr : ${JSON.stringify(fjmap(jobMemFields, ", ", f => "?"))},
+    jobColumnStr : ${JSON.stringify(fjmap(jobFields, ", ", (f) => (isTableField(f) && f.fname) || undefined))},
+    jobColumnPlaceholderStr : ${JSON.stringify(fjmap(jobFields, ", ", (f) => (isTableField(f) && "?") || undefined))},
+    jobMemColumnStr : ${JSON.stringify(fjmap(jobMemFields, ", ", (f) => f.fname))},
+    jobMemColumnPlaceholderStr : ${JSON.stringify(fjmap(jobMemFields, ", ", (f) => "?"))},
     
     ${genSerializeJobFunction("Status", jobFields, jobFields, options.libMode)},    
     ${genSerializeJobFunction("", jobFields, jobFields, options.libMode)},
     
     serializeToArray:function serializedToArray(o: ${defaultStr}SerializedJob) {
     return [
-        ${fjmap(jobFields, ",    ", f => (isTableField(f) && `o.${f.fname}`) || undefined)}
+        ${fjmap(jobFields, ",    ", (f) => (isTableField(f) && `o.${f.fname}`) || undefined)}
     ]},
             
                 
     rowToSerialized: function rowToSerialized(row: any): ${defaultStr}SerializedJob {
         for (let k in row) if (row[k] === null) delete row[k];
         const serialized: ${defaultStr}SerializedJob = row;
-        serialized.input = serialized.input ? JSON.parse(serialized.input) : {};
+        serialized.input = {};
         
         ${jobFieldAgg.deserializeRestoreInputStr}
         return serialized;
@@ -395,13 +398,13 @@ export const ${
         options.libMode ? "defaultJobResultFieldFuncs" : "jobResultFieldFuncs"
     }: JobResultFieldFuncs<any, any> = {
     jobResultColumnStr : ${JSON.stringify(
-        fjmap(jobResultFields, ", ", f => (isTableField(f) && f.fname) || undefined)
+        fjmap(jobResultFields, ", ", (f) => (isTableField(f) && f.fname) || undefined)
     )},
     jobResultColumnPlaceholderStr : ${JSON.stringify(
-        fjmap(jobResultFields, ", ", f => (isTableField(f) && "?") || undefined)
+        fjmap(jobResultFields, ", ", (f) => (isTableField(f) && "?") || undefined)
     )},
-    jobResultMemColumnStr : ${JSON.stringify(fjmap(jobResultMemFields, ", ", f => f.fname))},
-    jobResultMemColumnPlaceholderStr : ${JSON.stringify(fjmap(jobResultMemFields, ", ", f => "?"))},
+    jobResultMemColumnStr : ${JSON.stringify(fjmap(jobResultMemFields, ", ", (f) => f.fname))},
+    jobResultMemColumnPlaceholderStr : ${JSON.stringify(fjmap(jobResultMemFields, ", ", (f) => "?"))},
     
     serialize: function serialize(j: Job): any {
         const input = j.input;
@@ -422,12 +425,12 @@ export const ${
 
 ${genSerializedInterface(
     `JobStatus`,
-    jobFields.filter(field => field.name !== "result"),
+    jobFields.filter((field) => field.name !== "result"),
     libMode
 )}
 ${genSerializedInterface(
     `SerializedJob`,
-    jobFields.filter(field => field.name !== "result"),
+    jobFields.filter((field) => field.name !== "result"),
     libMode
 )}
 
@@ -441,29 +444,29 @@ export interface ${defaultStr}JobsStatus {
 
 ${genSerializedInterface(
     `JobContextStatus`,
-    contextFields.filter(field => field.name !== "jobsById"),
+    contextFields.filter((field) => field.name !== "jobsById"),
     libMode
 )}
 ${genSerializedInterface(
     `SerializedJobContext`,
-    contextFields.filter(field => field.name !== "jobsById"),
+    contextFields.filter((field) => field.name !== "jobsById"),
     libMode
 )}
 ${genSerializedInterface(
     `SerializedJobContextMem`,
-    contextMemFields.filter(field => field.name !== "jobsById"),
+    contextMemFields.filter((field) => field.name !== "jobsById"),
     libMode
 )}
 
 /*
 ${genSerializedInterface(
     `JobStatus`,
-    jobFields.filter(field => field.name !== "result"),
+    jobFields.filter((field) => field.name !== "result"),
     libMode
 )}
 ${genSerializedInterface(
     `SerializedJob`,
-    jobFields.filter(field => field.name !== "result"),
+    jobFields.filter((field) => field.name !== "result"),
     libMode
 )}
 */

@@ -10,7 +10,11 @@ import Typography from "@material-ui/core/Typography";
 import TextField from "@material-ui/core/TextField";
 import { UILogRow } from "./UILogRow";
 import debugjs from "debug";
-import { GlobalUIState } from "./RunStatus";
+import { globalUIState, GlobalUIState, runStatus } from "./RunStatus";
+import IconButton from "@material-ui/core/IconButton";
+import ReplayIcon from "@material-ui/icons/Replay";
+import FormControlLabel from "@material-ui/core/FormControlLabel";
+import Checkbox from "@material-ui/core/Checkbox";
 
 const debugRender = debugjs("render");
 
@@ -29,6 +33,9 @@ const useStyles = makeStyles({
     stepColumn: {
         width: "200px",
     },
+    leftMargin16px: {
+        marginLeft: "16px",
+    },
 });
 
 const allFields = true;
@@ -38,40 +45,56 @@ export const UILogs: React.FC<{ logs: any; globalUIState: GlobalUIState }> = ({ 
     debugRender("UILogs");
     return useObserver(() => (
         <>
-            <TextField
-                className={classes.filterTextField}
-                label="Filter"
-                defaultValue={globalUIState.logsFilter}
-                onChange={globalUIState.setLogsFilter}
-            />
-            <Table className={classes.table} size="small">
-                <TableHead>
-                    <TableRow>
-                        <TableCell>ts</TableCell>
-                        <TableCell>cpl</TableCell>
-                        <TableCell>severity</TableCell>
-                        <TableCell>prefix</TableCell>
-                        <TableCell>message</TableCell>
-                        <TableCell>data</TableCell>
-                    </TableRow>
-                </TableHead>
-                <TableBody>
-                    {logs
-                        .filter((log: any) => {
-                            return (
-                                !globalUIState.logsFilter ||
-                                !globalUIState.logsFilter.trim().length ||
-                                log.jsonUpper.includes(globalUIState.logsFilter.trim().toUpperCase())
-                            );
-                        })
-                        .map((log: any) => (
+            <TableRow>
+                <IconButton color="primary" onClick={globalUIState.requestRefreshLogs}>
+                    <ReplayIcon />
+                </IconButton>
+                <FormControlLabel
+                    control={
+                        <Checkbox
+                            className={classes.leftMargin16px}
+                            checked={globalUIState.fullLogs}
+                            onChange={globalUIState.toggleFullLogs}
+                            value="checkedB"
+                            color="primary"
+                        />
+                    }
+                    label="Расширенный доступ к логам"
+                />
+            </TableRow>
+            <TableRow>
+                {globalUIState.fullLogs ? (
+                    <>
+                        <TextField
+                            className={classes.filterTextField}
+                            label="Добавьте фильтр вашему запросу"
+                            defaultValue={runStatus.logsFilter}
+                            onChange={globalUIState.setLogsFilter}
+                        />
+                    </>
+                ) : undefined}
+
+                <Table className={classes.table} size="small">
+                    <TableHead>
+                        <TableRow>
+                            <TableCell>ts</TableCell>
+                            <TableCell>cpl</TableCell>
+                            <TableCell>severity</TableCell>
+                            <TableCell>prefix</TableCell>
+                            <TableCell>message</TableCell>
+                            <TableCell>data</TableCell>
+                        </TableRow>
+                    </TableHead>
+                    <TableBody>
+                        {logs.map((log: any) => (
                             <UILogRow key={log.id} log={log} globalUIState={globalUIState} />
                         ))}
-                </TableBody>
-            </Table>
-            <Typography variant="caption" className={classes.typographyStylesFooter}>
-                Загружено: в последний запуск / за 10 минут / за сегодня
-            </Typography>
+                    </TableBody>
+                </Table>
+                <Typography variant="caption" className={classes.typographyStylesFooter}>
+                    Загружено: в последний запуск / за 10 минут / за сегодня
+                </Typography>
+            </TableRow>
         </>
     ));
 };

@@ -42,4 +42,5 @@ export class JobContextStatus {
     @observable deleted: number | undefined = 0;
     @observable state: JobState = "" as any;
     @observable stage: string = "" as any;
+    @observable newIssue: number = 0;
 }

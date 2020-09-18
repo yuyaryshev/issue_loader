@@ -279,9 +279,9 @@ export class JobType<
             job.nextRunTs = undefined;
             job.prevError = undefined;
             job.succeded = true;
-            job.result = result;
+            job.result = JSON.parse(result);
             job.jobStorage.updateJobState(job);
-            await job.save(true);
+            await job.saveJobContextAndJobs(true);
         }
     }
 
@@ -349,6 +349,22 @@ export class JobType<
                 if (disableUnload) job.jobContext.disableUnload--;
             }
         })();
+    }
+
+    getResult(jobParent: Job, type: string): any {
+        let result: any = undefined;
+        for (let jobKey of Object.keys(jobParent.jobContext.jobsById)) {
+            let job = jobParent.jobContext.jobsById[jobKey];
+            if (job.jobType.type === type) {
+                if (!job.result) {
+                    job.result = job.jobStorage.loadResult(job.jobStorage.selectResultForJob.iterate(job.id));
+                }
+                result = job.result;
+                break;
+            }
+        }
+
+        return result;
     }
 }
 

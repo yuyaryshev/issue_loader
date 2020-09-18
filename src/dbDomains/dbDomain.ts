@@ -23,8 +23,8 @@ export const oracleTypes = {
     dwh_flag: { name: "varchar2(1)", bindType: { type: oracledb.STRING, maxSize: 1 } },
     integer: { name: "number", bindType: { type: oracledb.NUMBER } },
     number: { name: "number", bindType: { type: oracledb.NUMBER } },
-    date: { name: "date", bindType: { type: oracledb.STRING, maxSize: 70 } },
-    datetime: { name: "timestamp(6) with time zone", bindType: { type: oracledb.STRING, maxSize: 70 } },
+    //date: { name: "date", bindType: { type: oracledb.STRING, maxSize: 70 } },
+    //datetime: { name: "timestamp(6) with time zone", bindType: { type: oracledb.STRING, maxSize: 70 } },
     json: { name: "clob", bindType: { type: oracledb.CLOB } },
 };
 
@@ -36,8 +36,8 @@ export type DomainFieldType =
     | "string4000"
     | "integer"
     | "number"
-    | "date"
-    | "datetime"
+    //| "date"
+    //| "datetime"
     | "dwh_flag"
     | "json";
 
@@ -49,8 +49,8 @@ export const decoderDomainFieldType: Decoder<DomainFieldType> = oneOf(
     constant("string4000"),
     constant("integer"),
     constant("number"),
-    constant("date"),
-    constant("datetime"),
+    //constant("date"),
+    //constant("datetime"),
     constant("dwh_flag"),
     constant("json")
 );
@@ -150,17 +150,17 @@ export const prepareDbDomain = <FT extends DbDomFieldInput, DT extends DbDomainI
 
     const insertSql = `insert into ${targetTable} (
         ${d.fields
-            .filter(f => f.insert)
-            .map(f => f.name)
+            .filter((f) => f.insert)
+            .map((f) => f.name)
             .join(",\n")}
     ) values(${d.fields
-        .filter(f => f.insert)
+        .filter((f) => f.insert)
         .map((f, i) => f.insert && ":" + (i + 1))
         .join(",")})`;
 
     const insertBindDefs = d.fields
-        .filter(f => f.insert)
-        .map(f => {
+        .filter((f) => f.insert)
+        .map((f) => {
             if (!oracleTypes[f.type]) debugger;
 
             return Object.assign({}, oracleTypes[f.type].bindType);
@@ -168,7 +168,7 @@ export const prepareDbDomain = <FT extends DbDomFieldInput, DT extends DbDomainI
 
     const columnsInCreateTable = d.fields
         .map(
-            f =>
+            (f) =>
                 `    ${f.name} ${f.oracleType || oracleTypes[f.type].name} ${
                     f.defaultValue ? "default " + f.defaultValue : ""
                 } ${f.nullable ? "" : "not null"}`
@@ -176,8 +176,8 @@ export const prepareDbDomain = <FT extends DbDomFieldInput, DT extends DbDomainI
         .join(",\n");
 
     const pkColumnsStr = d.fields
-        .filter(f => f.pk)
-        .map(f => f.name)
+        .filter((f) => f.pk)
+        .map((f) => f.name)
         .join(", ");
 
     const pkStr = pkColumnsStr.length ? `, PRIMARY KEY (${pkColumnsStr})` : "";
@@ -186,7 +186,7 @@ export const prepareDbDomain = <FT extends DbDomFieldInput, DT extends DbDomainI
         d.indexOrganized ? "ORGANIZATION INDEX PCTTHRESHOLD 10" : ""
     }`;
 
-    const dropObjects = async function(db: OracleConnection0, keepPermanent: boolean = false) {
+    const dropObjects = async function (db: OracleConnection0, keepPermanent: boolean = false) {
         if (!keepPermanent)
             try {
                 await db.execute(`drop table ${table}`);
@@ -200,8 +200,8 @@ export const prepareDbDomain = <FT extends DbDomFieldInput, DT extends DbDomainI
     };
 
     const objectToArrayStr = `f => [${d.fields
-        .filter(f => f.insert)
-        .map(f => {
+        .filter((f) => f.insert)
+        .map((f) => {
             const rr = "f." + f.name;
             if (f.name == "TS" && settings.write_into_log_tables) return `${rr}`;
             if (f.type.startsWith("string")) return `utf8trim(${rr}, ${f.type.split("string")[1]})`;
@@ -210,7 +210,7 @@ export const prepareDbDomain = <FT extends DbDomFieldInput, DT extends DbDomainI
         .join(",")}]`;
     const objectToArray = eval(objectToArrayStr) as any;
 
-    const insertMany = async function(db: OracleConnection0, values: any[]) {
+    const insertMany = async function (db: OracleConnection0, values: any[]) {
         debugSql(`CODE00000039`, insertSql);
         const mappedValues = values.map(objectToArray) as any[];
         const bindingDefs = {
@@ -278,8 +278,8 @@ export const prepareDbDomain = <FT extends DbDomFieldInput, DT extends DbDomainI
         const mergeDef: MergeMeta = {
             targetTableName: table,
             sourceTableName: changesTable,
-            conditionColumns: d.fields.filter(f => f.pk).map(f => f.name),
-            dataColumns: d.fields.filter(f => !f.pk && f.insert).map(f => f.name),
+            conditionColumns: d.fields.filter((f) => f.pk).map((f) => f.name),
+            dataColumns: d.fields.filter((f) => !f.pk && f.insert).map((f) => f.name),
         };
 
         const deleteByIssueKeySql = `delete from ${table} where issuekey in (select issuekey from ${settings.tables.ISSUE_T_CHANGES})`;
@@ -291,15 +291,15 @@ export const prepareDbDomain = <FT extends DbDomFieldInput, DT extends DbDomainI
         const executeMergeSql =
             settings.use_stored_procedures && handlerStoredProc ? `BEGIN\n${handlerStoredProc};\nEND;` : mergeSql;
 
-        const executeMerge = async function(db: OracleConnection0) {
+        const executeMerge = async function (db: OracleConnection0) {
             debugSql(`CODE00000043`, executeMergeSql);
             if (d.deleteByIssueKeyBeforeMerge) await db.execute(deleteByIssueKeySql);
             await db.execute(executeMergeSql);
         };
 
         const extractKeyJs = `(o)=>\`${d.fields
-            .filter(f => (settings.write_into_log_tables ? f.name == "TS" : f.pk))
-            .map(f => "${o." + f.name + "}")
+            .filter((f) => (settings.write_into_log_tables ? f.name == "TS" : f.pk))
+            .map((f) => "${o." + f.name + "}")
             .join("|")}\``;
         const extractKey = eval(extractKeyJs);
 
@@ -341,8 +341,8 @@ export const prepareDbDomain = <FT extends DbDomFieldInput, DT extends DbDomainI
         });
     } else {
         const extractKeyJs = `(o)=>\`${d.fields
-            .filter(f => (settings.write_into_log_tables ? f.name == "TS" : f.pk))
-            .map(f => "${o." + f.name + "}")
+            .filter((f) => (settings.write_into_log_tables ? f.name == "TS" : f.pk))
+            .map((f) => "${o." + f.name + "}")
             .join("|")}\``;
         const extractKey = eval(extractKeyJs);
         return Object.assign(d, {

@@ -5,6 +5,7 @@ import { run } from "./entry_scripts/run";
 import { runReload } from "./entry_scripts/reload";
 import { debugfm } from "./entry_scripts/debugfm";
 import { drop_all } from "./entry_scripts/drop_all";
+import { run_into_cash } from "./entry_scripts/run_into_cash";
 import { globalHandler } from "Ystd";
 
 const program = new commander.Command();
@@ -14,7 +15,7 @@ program
     .command("init")
     .description("Creates an example settings file")
     .action(
-        globalHandler(function(args?: any) {
+        globalHandler(function (args?: any) {
             // TODO_NEXT init - not implemented
             throw new Error(`init - not implemented`);
         })
@@ -25,8 +26,25 @@ program
     .option("-dr, --devredeploy", "Development only. Redeploy some tables.")
     .description("Drops and recreates some tables.")
     .action(
-        globalHandler(async function(args?: any) {
+        globalHandler(async function (args?: any) {
             await deploy(args);
+        })
+    );
+
+program
+    .command("run_into_cash")
+    .option("--cleanStart", "Deletes stg and log sqlite databases on start")
+    .option("-debug, --debugMode", "Debug mode: will pause all jobs and disable some background activity")
+    .option("--disableRefresh", "Disables periodic refresh based on load_streams_t table")
+    .option("--noDbTest=true", "Disable db ")
+    .option(
+        "--dbgReloadProjects <items>",
+        "Reloads specified project once on start, ignoring load_stream. Specify projects like this: '--dbgReloadProjects=PROJECT1,PROJECT2'"
+    )
+    .description("Starting load jobs from jira.")
+    .action(
+        globalHandler(async function (args?: any) {
+            await run_into_cash(args);
         })
     );
 
@@ -36,7 +54,7 @@ program
         "WITHOUT ANY CONFIRMATION: Drops all tables, stored procedures and other objects created by issue_loader. WARNING: permanently destroys all data and settings."
     )
     .action(
-        globalHandler(async function(args?: any) {
+        globalHandler(async function (args?: any) {
             await drop_all();
         })
     );
@@ -52,7 +70,7 @@ program
     )
     .description("Replicates issues from Jira to OracleDB.")
     .action(
-        globalHandler(async function(args?: any) {
+        globalHandler(async function (args?: any) {
             await run(args);
         })
     );
@@ -62,7 +80,7 @@ program
     .option("-p, --projects", "Comma separated list of projects to be reloaded. Default = all projects.")
     .description("Reloads all issues FROM CACHE. Useful for changing fields being loaded from Jira")
     .action(
-        globalHandler(async function(args?: any) {
+        globalHandler(async function (args?: any) {
             await runReload(args);
         })
     );
@@ -72,15 +90,15 @@ program
     .option("-f, --flush", "Deletes all cache files.")
     .description("DEVELOPER MODE - used for debugging function which converts Jira-JSON into ISSUE_TS Oracle row.")
     .action(
-        globalHandler(async function(args?: any) {
+        globalHandler(async function (args?: any) {
             await debugfm(args.f);
         })
     );
 
-program.on("command:*", function(command: string) {
+program.on("command:*", function (command: string) {
     const firstCommand = command[0];
     // @ts-ignore
-    if (!this.commands.find(c => c._name == firstCommand)) {
+    if (!this.commands.find((c) => c._name == firstCommand)) {
         console.error("Invalid command: %s\nSee --help for a list of available commands.", program.args.join(" "));
         process.exit(1);
     }

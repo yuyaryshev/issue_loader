@@ -1,7 +1,7 @@
 import { Job_jiraComments, Job_jiraIssue, Job_jiraWorklog } from "./Job_jiraIssue";
 import { Env, EnvWithDbdJiraIssue } from "other";
 import { EmptyJobTInput, Job, JobContext, JobType, throwUnload } from "Yjob";
-import { JiraUser } from "Yjira";
+import { JiraUser, JiraWorklogItem } from "Yjira";
 import {
     dchangeLogFromJira,
     DChangelogItem,
@@ -15,6 +15,9 @@ import {
     duserFromJira,
     DWorklogItem,
     dworklogLogItemFromJira,
+    dgetWorklogsFromOracle,
+    dgetCommentsFromOracle,
+    dgetLinksFromOracle,
 } from "dbDomains";
 import { issueContext, IssueContextInput } from "./IssueContext";
 import { JobContextStatus, JobStatus, SerializedJob, SerializedJobContext } from "./JobFieldsServer";
@@ -28,6 +31,12 @@ export interface AllJiraDataTransformed {
     labels: DLabel[];
     users: DUser[];
     links: DLinkItem[];
+    parentAndChields: {
+        issueKey: string | undefined;
+        TS: string;
+        parentIssueKey: string | undefined;
+        chieldIssueKeys: string[];
+    };
 }
 
 export const Job_transformIssue = new JobType<
@@ -58,10 +67,10 @@ export const Job_transformIssue = new JobType<
         contextInput: IssueContextInput,
         jobInput: EmptyJobTInput
     ): Promise<AllJiraDataTransformed> => {
-        // chagelog
-        const issuePromise = Job_jiraIssue.runWait(env.jobStorage, job, contextInput);
-        const worklogPromise = Job_jiraWorklog.runWait(env.jobStorage, job, contextInput);
-        const commentPromise = Job_jiraComments.runWait(env.jobStorage, job, contextInput);
+        // chagelog 1
+        const issuePromise = Job_jiraIssue.getResult(job, "jiraIssue");
+        const worklogPromise = Job_jiraWorklog.getResult(job, "jiraWorklog");
+        const commentPromise = Job_jiraComments.getResult(job, "jiraComments");
 
         const inputIssue = await throwUnload(issuePromise);
         const inputWorklog = await throwUnload(worklogPromise);
@@ -71,9 +80,12 @@ export const Job_transformIssue = new JobType<
             try {
                 if (!x) job.jobStorage.my_console.error(`CODE00000105`, "x is undefined!");
 
-                const s = x ? x.TS : "";
+                let s = x ? x.TS : "";
 
-                if (typeof s === "string") return s;
+                if (typeof s === "string") {
+                    s = moment(s).format("YYYY-MM-DD HH:mm:ss");
+                    return s;
+                }
                 if (!s) {
                     job.jobStorage.my_console.error(`CODE00000187`, "x.TS is undefined!");
                     return "";
@@ -118,7 +130,6 @@ export const Job_transformIssue = new JobType<
         issue.TS = TSJiraIssue + env.sequenceTS.nextValue();
 
         issue.DELETED_FLAG = issue.status ? (issue.status == "Удалена" ? "Y" : "N") : "N";
-        const issues = [issue];
 
         // TODO раньше, когда тут была массовая ошибка. Система работала Yjob криво - часть job не переходила в transform
 
@@ -126,12 +137,12 @@ export const Job_transformIssue = new JobType<
         const changelogs = dchangeLogFromJira(inputIssue.key, inputIssue.changelog, TSJiraIssue, env);
 
         job.setStep("CODE00000227", "Transforming jira -> db format, comments", undefined);
-        const comments = inputComments.comments.map(jiraComment => {
+        const comments = inputComments.comments.map((jiraComment: any) => {
             return dcommentFromJira(inputIssue.key, jiraComment, TSJiraComments, env);
         });
 
         job.setStep("CODE00000228", "Transforming jira -> db format, worklogs", undefined);
-        const worklogs = inputWorklog.worklogs.map(jiraWorklog => {
+        const worklogs = inputWorklog.worklogs.map((jiraWorklog: any) => {
             return dworklogLogItemFromJira(inputIssue.key, jiraWorklog, TSJiraWorklog, env);
         });
 
@@ -139,13 +150,13 @@ export const Job_transformIssue = new JobType<
         const jiraUsers: JiraUser[] = [];
 
         job.setStep("CODE00000235", "Transforming jira -> db format, users", undefined);
-        const users = jiraUsers.map(jiraUser => {
+        const users = jiraUsers.map((jiraUser) => {
             return duserFromJira(jiraUser);
         });
 
         job.setStep("CODE00000220", "Transforming jira -> db format, links", undefined);
         // собираем массив линков
-        const links = inputIssue.fields.issuelinks.map(currLink => {
+        const links = inputIssue.fields.issuelinks.map((currLink: any) => {
             return dlinkItemFromJira(inputIssue.key, currLink, TSJiraIssue, env);
         });
 
@@ -157,7 +168,7 @@ export const Job_transformIssue = new JobType<
                 links.push({
                     ISSUEKEY: inputIssue.key,
                     ID: "task-epic-" + inputIssue.id,
-                    OUTWARDISSUE: inputIssue.fields.customfield_10376,
+                    INWARDISSUE: inputIssue.fields.customfield_10376,
                     TYPEID: "task-epic",
                     TS: TSJiraIssue + env.sequenceTS.nextValue(),
                     DELETED_FLAG: "N",
@@ -166,15 +177,48 @@ export const Job_transformIssue = new JobType<
                 links.push({
                     ISSUEKEY: inputIssue.key,
                     ID: "task-epic-" + inputIssue.id,
-                    OUTWARDISSUE: inputIssue.fields.customfield_10376,
+                    INWARDISSUE: inputIssue.fields.customfield_10376,
                     TYPEID: "task-epic",
                 }); /// try to task-epic
+            }
+        }
+
+        // собираем связи (о родителях и о дочерних задачах)
+        let parentIssueKey;
+        let chieldIssueKeys = [];
+
+        // типы линков, определяющих родительские/дочерние отношения между задачами
+        let issueLinksRelationTypes = ["task-epic", "10470", "10370"];
+        for (let i of links) {
+            if (issueLinksRelationTypes.indexOf(i.TYPEID) != -1) {
+                if (i.OUTWARDISSUE) {
+                    chieldIssueKeys.push(i.OUTWARDISSUE);
+                } else if (i.INWARDISSUE) {
+                    if (parentIssueKey) {
+                        // add error
+                        parentIssueKey = "ERROR_WE_HAVE_TWO_OR_MORE_PARENTS";
+                        issue.PARENT_ISSUEKEY = undefined;
+                        //job.jobContext.
+                    } else {
+                        parentIssueKey = i.INWARDISSUE;
+                        issue.PARENT_ISSUEKEY = i.INWARDISSUE;
+                    }
+                }
             }
         }
 
         // TODO scan for labels in issue, worklog, changes, etc... add them here
         const labels: DLabel[] = [];
 
+        // добавляем "псевдо-строки" с deleted_flag=Y, которых нет в пачке с Issue, но которые есть в Oracle
+
+        await dgetWorklogsFromOracle(inputIssue.key, worklogs, TSJiraIssue, env);
+        await dgetCommentsFromOracle(inputIssue.key, comments, TSJiraIssue, env);
+        await dgetLinksFromOracle(inputIssue.key, links, TSJiraIssue, env);
+        // users -- не нужно???
+        // labels -- пока извлечение labels не реализовано в IssueLoader'е
+
+        const issues = [issue];
         return {
             issues,
             worklogs,
@@ -183,6 +227,7 @@ export const Job_transformIssue = new JobType<
             users,
             labels,
             links,
+            parentAndChields: { issueKey: inputIssue.key as any, TS: issue.TS, parentIssueKey, chieldIssueKeys },
         };
     },
 });

@@ -126,7 +126,7 @@ export class Job<TEnv extends EnvWithTimers = any, TContext = any, TIn = any, TO
         this.jobStorage.onJobStep(this, jobStep);
     }
 
-    save(saveHistory: boolean): Promise<void> {
+    saveJobContextAndJobs(saveHistory: boolean): Promise<void> {
         return this.jobStorage.saveJobContext(this.jobContext, saveHistory);
     }
 
@@ -147,7 +147,7 @@ export class Job<TEnv extends EnvWithTimers = any, TContext = any, TIn = any, TO
         if (this.running) this.cancelled = true;
         this.succeded = false;
         if (!this.running) {
-            this.save(false);
+            this.saveJobContextAndJobs(false);
             this.jobStorage.updateJobState(this);
         }
     }

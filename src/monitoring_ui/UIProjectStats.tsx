@@ -8,10 +8,10 @@ import TableCell from "@material-ui/core/TableCell";
 import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import Typography from "@material-ui/core/Typography";
-import { UIIssueStatsRow } from "./UIIssueStatsRow";
+import { UIProjectStatsRow } from "./UIProjectStatsRow";
 import debugjs from "debug";
-import { GlobalUIState, ProjectItem, ProjectStats } from "./RunStatus";
-import { IssueStatsApiResponse } from "../monitoring_api/issueStatsApi.types";
+import { GlobalUIState, ProjectItem, ProjectStats, RunStatus } from "./RunStatus";
+import { ProjectStatsApiResponse } from "../monitoring_api/projectStatsApi.types";
 import { objectIterator } from "Ystd";
 import moment from "moment";
 import { UILineChart } from "./UILineChart";
@@ -34,129 +34,6 @@ const useStyles = makeStyles({
         width: "1000px",
     },
 });
-
-// const parseStatsToProjectArray = (stats: any) => {
-//     if (!stats) {
-//         return [];
-//     }
-//
-//     if (stats.length == 0) {
-//         return [];
-//     }
-//     let result = [];
-//
-//     let projects = [];
-//
-//     outerLoop: for (let i of stats) {
-//         //проверяем, есть ли такой проект
-//         for (let currPrName of projects) {
-//             if (i.project == currPrName) {
-//                 // изменяем progress
-//                 // return food;
-//                 for (let currProject of result) {
-//                     if (currProject.project === i.project) {
-//                         let jiraCount = i.stage == "01_jira" ? i.issueCount : 0;
-//                         let transformCount = i.stage == "02_transform" ? i.issueCount : 0;
-//                         let dbCount = i.stage == "03_db" ? i.issueCount : 0;
-//                         let succededCount = i.stage == "99_succeded" ? i.issueCount : 0;
-//
-//                         for (let progressLine of currProject.Pprogress) {
-//                             if (i.stage === progressLine.stage) {
-//                                 progressLine.progress += i.issueCount;
-//                                 break;
-//                             }
-//                         }
-//
-//                         currProject.onJira += jiraCount;
-//                         currProject.onTransform += transformCount;
-//                         currProject.onDB += dbCount;
-//                         currProject.succeded += succededCount;
-//
-//                         currProject.total += i.issueCount;
-//
-//                         continue outerLoop;
-//                     }
-//                 }
-//             }
-//         }
-//
-//         // не нашли проекта, создаем его!
-//         projects.push(i.project);
-//         let jiraCount = i.stage == "01_jira" ? i.issueCount : 0;
-//         let transformCount = i.stage == "02_transform" ? i.issueCount : 0;
-//         let dbCount = i.stage == "03_db" ? i.issueCount : 0;
-//         let succededCount = i.stage == "99_succeded" ? i.issueCount : 0;
-//
-//         let localResult = {
-//             project: i.project,
-//             Pprogress: [
-//                 { progress: jiraCount, color: colors.blue, stage: "01_jira" },
-//                 { progress: transformCount, color: colors.pink, stage: "02_transform" },
-//                 { progress: dbCount, color: colors.yellow, stage: "03_db" },
-//                 { progress: succededCount, color: colors.green, stage: "99_succeded" },
-//             ],
-//             onJira: jiraCount,
-//             onTransform: transformCount,
-//             onDB: dbCount,
-//             succeded: succededCount,
-//             total: i.issueCount, /// DONT FORGET
-//         };
-//         result.push(localResult);
-//     }
-//
-//     return result;
-// };
-//
-// const parseStatsToAllStatsArray = (stats: any) => {
-//     if (!stats) {
-//         return [];
-//     }
-//
-//     if (stats.length == 0) {
-//         return [];
-//     }
-//
-//     let result = [];
-//
-//     let localResult = {
-//         project: "all",
-//         Pprogress: [
-//             { progress: 0, color: colors.blue, stage: "01_jira" },
-//             { progress: 0, color: colors.pink, stage: "02_transform" },
-//             { progress: 0, color: colors.yellow, stage: "03_db" },
-//             { progress: 0, color: colors.green, stage: "99_succeded" },
-//         ],
-//         onJira: 0,
-//         onTransform: 0,
-//         onDB: 0,
-//         succeded: 0,
-//         total: 0, /// DONT FORGET
-//     };
-//
-//     for (let i of stats) {
-//         // ALL
-//         let jiraCount = i.stage == "01_jira" ? i.issueCount : 0;
-//         let transformCount = i.stage == "02_transform" ? i.issueCount : 0;
-//         let dbCount = i.stage == "03_db" ? i.issueCount : 0;
-//         let succeded = i.stage == "99_succeded" ? i.issueCount : 0;
-//
-//         //добавляем изменения
-//         localResult.Pprogress[0].progress += jiraCount;
-//         localResult.Pprogress[1].progress += transformCount;
-//         localResult.Pprogress[2].progress += dbCount;
-//         localResult.Pprogress[3].progress += succeded;
-//
-//         localResult.onJira += jiraCount;
-//         localResult.onTransform += transformCount;
-//         localResult.onDB += dbCount;
-//         localResult.succeded += succeded;
-//
-//         localResult.total += i.issueCount;
-//     }
-//     result.push(localResult);
-//
-//     return result;
-// };
 
 const data1 = [
     {
@@ -344,14 +221,15 @@ const data2 = [
     },
 ];
 
-export const UIIssueStats: React.FC<{ graphData: any; projectStats: ProjectStats; globalUIState: GlobalUIState }> = ({
-    graphData,
-    projectStats,
-    globalUIState,
-}) => {
+export const UIProjectStats: React.FC<{
+    graphData: any;
+    projectStats: ProjectStats;
+    globalUIState: GlobalUIState;
+    runStatus: RunStatus;
+}> = ({ graphData, projectStats, globalUIState, runStatus }) => {
     return useObserver(() => {
         const classes = useStyles();
-        debugRender("UIIssueStats");
+        debugRender("UIProjectStats");
         return (
             <>
                 <UILineChart data={graphData.jobsData} graph={"jobs"} globalUIState={globalUIState} />
@@ -365,6 +243,7 @@ export const UIIssueStats: React.FC<{ graphData: any; projectStats: ProjectStats
                         <TableHead>
                             <TableRow>
                                 <TableCell>project</TableCell>
+                                <TableCell>error log</TableCell>
                                 <TableCell style={{ minWidth: 200 }}>progress</TableCell>
                                 <TableCell>error</TableCell>
                                 <TableCell>running</TableCell>
@@ -377,10 +256,11 @@ export const UIIssueStats: React.FC<{ graphData: any; projectStats: ProjectStats
                         </TableHead>
                         <TableBody>
                             {Object.values(projectStats.projects).map((projectItem: ProjectItem) => (
-                                <UIIssueStatsRow
+                                <UIProjectStatsRow
                                     key={projectItem.name}
                                     projectItem={projectItem}
                                     globalUIState={globalUIState}
+                                    runStatus={runStatus}
                                 />
                             ))}
                         </TableBody>

@@ -539,10 +539,17 @@ export class JiraWrapper {
                     e = ne;
                 }
                 if ((e?.code + "").trim() === "429") {
-                    e = new Error(`CODE00000297 Jira error 429 too many requests`);
+                    e = new Error(`CODE00000366 Jira error 429 too many requests`);
                     e.code = 429;
                     e.statusCode = 429;
                 }
+                /*
+                if ((e?.code + "").trim() === "404") {
+                    e = new Error(`CODE00000367 Jira error ISSUE DOES NOT EXIST`);
+                    e.code = 404;
+                    e.statusCode = 404;
+                }
+                 */
 
                 this.addResponseLog(tsStart, jiraApiPath, e.message);
                 throw e;

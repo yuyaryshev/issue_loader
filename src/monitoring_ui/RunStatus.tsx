@@ -6,10 +6,10 @@ import { addToField, containerDelete, deleteKeys, Severity } from "Ystd";
 import React from "react";
 import Cookie from "js-cookie";
 import {
-    emptyIssueStatsApiResponse,
+    emptyProjectStatsApiResponse,
     IssueLoaderStatItem,
-    IssueStatsApiResponse,
-} from "../monitoring_api/issueStatsApi.types";
+    ProjectStatsApiResponse,
+} from "../monitoring_api/projectStatsApi.types";
 import { run } from "../entry_scripts/run";
 
 const MAX_LOG_ITEMS = 300;
@@ -79,10 +79,12 @@ export class RunStatus {
     @observable jiraTime = "";
     @observable streams = [];
     @observable issues: any[] = [];
+    @observable contextsInQueue: string = "";
     @observable graph: any = {};
     @observable jobs: any[] = [];
     @observable logs: any[] = [];
     @observable projectStats: ProjectStats = new ProjectStats();
+    errorLogConfig: any = { openErrorLogValue: false, selectedProject: undefined, loadedErrors: [], loadedFlag: false };
     @observable jobStats: any = {};
     @observable knownErrors: any[] = [];
     @observable lastRefresh = "";
@@ -98,6 +100,8 @@ export class RunStatus {
     @observable resourcesLimits: any = {};
     @observable projectsAnalysis: any[] = [];
     @observable pass: string = "";
+    @observable passwordHasChanged: boolean = true;
+    @observable admitted: boolean = false;
 
     @observable importExportMode: string = "";
     @observable importExportCurrent: number = 0;
@@ -111,7 +115,9 @@ export class RunStatus {
     };
     @observable sqlReturn: sqlResultFromApi = { querySql: [], columns: [], process: false, error: "" };
     @observable sql: string = "";
+    @observable logsFilter: string = "";
     @observable maxResult: number = 20;
+    @observable generateIssues: number = 0;
 
     // @computed
     // get computedExample() {
@@ -145,18 +151,18 @@ export function getFieldsForColumnsFormat(obj: object) {
     return columns;
 }
 
-export type TabName = "Issues" | "Jobs" | "Logs" | "IssueStats" | "JobStats" | "RunIssues" | "SQL";
-export const tabNames: TabName[] = ["Issues", "Jobs", "Logs", "IssueStats", "JobStats", "RunIssues", "SQL"];
+export type TabName = "Issues" | "Jobs" | "Logs" | "Project Stats" | "JobStats" | "RunIssues" | "SQL";
+export const tabNames: TabName[] = ["Issues", "Jobs", "Logs", "Project Stats", "JobStats", "RunIssues", "SQL"];
 
 export class GlobalUIState {
     @observable jobDetailsInGrid: boolean = false;
+    @observable fullLogs: boolean = false;
     @observable issue_stats_checkProjects: boolean = true;
     @observable issue_stats_checkAll: boolean = false;
     @observable job_stats_checkProjects: boolean = true;
     @observable job_stats_checkAll: boolean = false;
     @observable jobsFilter: string | undefined;
-    @observable logsFilter: string | undefined;
-    @observable statusTab: TabName = "IssueStats"; //Issues
+    @observable statusTab: TabName = "Project Stats"; //Issues
     @observable issuesForStart: string | undefined;
     @observable issuesForStartA: string[] | undefined;
 
@@ -168,7 +174,9 @@ export class GlobalUIState {
     showResponse!: (response: any, ui_success_message?: string) => void;
 
     toggleJobDetailsInGrid: () => void;
+    toggleFullLogs: () => void;
     requestFullRefresh: () => Promise<void>;
+    requestRefreshLogs: () => Promise<void>;
     setJobsFilter: (event: any) => void;
     setLogsFilter: (event: any) => void;
     statusTabChanged: (event: any, newValue: number) => void;
@@ -179,6 +187,8 @@ export class GlobalUIState {
     setPass: (event: any) => void;
 
     sendAlertForProjects: () => Promise<void>;
+    openErrorLog: (project: string) => Promise<void>;
+    closeErrorLog: () => Promise<void>;
 
     openIssueProjectAlert: () => Promise<void>;
     closeIssueProjectAlert: () => Promise<void>;
@@ -195,18 +205,27 @@ export class GlobalUIState {
             pthis.jobDetailsInGrid = !pthis.jobDetailsInGrid;
         };
 
+        this.toggleFullLogs = () => {
+            pthis.fullLogs = !pthis.fullLogs;
+        };
+
         this.requestFullRefresh = async () => {
             shouldRequestFullRefresh = true;
             waitingForFullRefresh = true;
             console.log(`Requested full refresh!`);
         };
+        this.requestRefreshLogs = async () => {
+            shouldRefreshLogs = true;
+            runStatus.logs = [];
+            console.log("Refresh logs");
+        };
 
-        this.setJobsFilter = event => {
+        this.setJobsFilter = (event) => {
             pthis.jobsFilter = event.target.value;
         };
 
-        this.setLogsFilter = event => {
-            pthis.logsFilter = event.target.value;
+        this.setLogsFilter = (event) => {
+            runStatus.logsFilter = event.target.value;
         };
 
         this.statusTabChanged = (event, newValue) => {
@@ -214,7 +233,7 @@ export class GlobalUIState {
             pthis.statusTab = tabNames[newValue]; //newValue
         };
 
-        this.setIssuesForStart = event => {
+        this.setIssuesForStart = (event) => {
             pthis.issuesForStart = event.target.value;
         };
 
@@ -224,6 +243,18 @@ export class GlobalUIState {
             } else if (runStatus.runIssuesConfig.startIssueType === "issues") {
                 this.sendIssuesForStart();
             }
+        };
+
+        this.openErrorLog = async (project: string) => {
+            runStatus.errorLogConfig.selectedProject = project;
+            runStatus.errorLogConfig.openErrorLogValue = true;
+        };
+
+        this.closeErrorLog = async () => {
+            runStatus.errorLogConfig.selectedProject = undefined;
+            runStatus.errorLogConfig.openErrorLogValue = false;
+            runStatus.errorLogConfig.loadedErrors = [];
+            runStatus.errorLogConfig.loadedFlag = false;
         };
 
         this.openIssueProjectAlert = async () => {
@@ -255,6 +286,7 @@ export class GlobalUIState {
                         mode: runStatus.runIssuesConfig.startIssueMode,
                         objectsForStart: globalUIState.issuesForStart,
                         allProjects: runStatus.runIssuesConfig.allProjects,
+                        pass: runStatus.pass,
                     },
                 });
             }
@@ -311,6 +343,7 @@ export class GlobalUIState {
                     params: {
                         sql: runStatus.sql,
                         limit_rows: runStatus.maxResult, // TODO куда нибудь вынести
+                        pass: runStatus.pass,
                     },
                 });
                 runStatus.sqlReturn.process = false;
@@ -327,25 +360,29 @@ export class GlobalUIState {
             }
         };
 
-        this.setSQLtext = event => {
+        this.setSQLtext = (event) => {
             runStatus.sql = event.target.value;
         };
 
-        this.setPass = event => {
+        this.setPass = (event) => {
             runStatus.pass = event.target.value;
             Cookie.set("pass", runStatus.pass);
+            runStatus.passwordHasChanged = true;
+            // пуск апи -> проверка пароля
+            // password was chanjed! => changeFlag => call Api => on resul we give permiss or
         };
 
         const savedPass = Cookie.get("pass");
         if (savedPass && savedPass.length) runStatus.pass = savedPass;
 
-        this.setMaxRowsresult = event => {
+        this.setMaxRowsresult = (event) => {
             runStatus.maxResult = event.target.value;
         };
     }
 }
 
 let shouldRequestFullRefresh = true;
+let shouldRefreshLogs = false;
 let waitingForFullRefresh = true;
 
 export class AnalysisItem {
@@ -484,6 +521,20 @@ async function reloadData() {
             // runStatus.contextsLoaded = data.contextsLoaded;
             // runStatus.maxContextsInMem = data.maxContextsInMem;
             // runStatus.contextsReadyToRun = data.maxContextsInMem;
+            runStatus.generateIssues = data.generatingIssues;
+        }
+
+        //check password
+        if (runStatus.passwordHasChanged) {
+            {
+                runStatus.passwordHasChanged = false;
+                const { data } = await axios.get(urlBase + "api/authorization", {
+                    params: {
+                        pass: runStatus.pass,
+                    },
+                });
+                runStatus.admitted = data.admitted;
+            }
         }
 
         if (globalUIState.statusTab === "Issues") {
@@ -494,6 +545,7 @@ async function reloadData() {
                 allProjects: false,
             };
             runStatus.sql = "";
+            runStatus.logsFilter = "";
             runStatus.sqlReturn = { querySql: [], columns: [], process: false, error: "" };
 
             const { data } = await axios.get(urlBase + "api/issues", {
@@ -557,6 +609,8 @@ async function reloadData() {
             runStatus.issues = data.issues;
             runStatus.jobs = [];
             runStatus.logs = [];
+            shouldRefreshLogs = true;
+            globalUIState.fullLogs = false;
             runStatus.projectStats.clear();
             runStatus.jobStats = {};
 
@@ -571,6 +625,7 @@ async function reloadData() {
                 allProjects: false,
             };
             runStatus.sql = "";
+            runStatus.logsFilter = "";
             runStatus.sqlReturn = { querySql: [], columns: [], process: false, error: "" };
 
             const { data } = await axios.get(urlBase + "api/jobs", {
@@ -635,6 +690,8 @@ async function reloadData() {
             runStatus.graph = {};
             runStatus.jobs = data.jobs;
             runStatus.logs = [];
+            shouldRefreshLogs = true;
+            globalUIState.fullLogs = false;
             runStatus.projectStats.clear();
             runStatus.jobStats = {};
 
@@ -648,32 +705,38 @@ async function reloadData() {
                 startIssueProjectAlert: false,
                 allProjects: false,
             };
-            runStatus.sql = "";
-            runStatus.sqlReturn = { querySql: [], columns: [], process: false, error: "" };
-            const { data } = await axios.get(urlBase + "api/logs", {
-                params: {},
-            });
+            if (shouldRefreshLogs) {
+                runStatus.sql = "";
+                runStatus.sqlReturn = { querySql: [], columns: [], process: false, error: "" };
+                const { data } = await axios.get(urlBase + "api/logs", {
+                    params: {
+                        fullLogs: globalUIState.fullLogs,
+                        filter: runStatus.logsFilter,
+                    },
+                });
 
-            shouldRequestFullRefresh = false;
-            lastReloadTs = moment(data.ts);
+                shouldRequestFullRefresh = false;
+                lastReloadTs = moment(data.ts);
 
-            for (let log of data.logs) {
-                reformatDate(log, "ts");
-                log.severity = severityLongStr(log.severity);
+                for (let log of data.logs) {
+                    reformatDate(log, "ts");
+                    log.severity = severityLongStr(log.severity);
+                }
+
+                copyPrimitiveFields(runStatus, data);
+
+                for (let log of data.logs) {
+                    const clientLog = new LogItem();
+                    copyPrimitiveFields(clientLog, log);
+                    runStatus.logs.push(clientLog);
+                }
+
+                runStatus.logs = data.logs;
+                shouldRefreshLogs = false;
+
+                if (runStatus.logs.length > MAX_LOG_ITEMS)
+                    runStatus.logs.splice(0, runStatus.logs.length - MAX_LOG_ITEMS);
             }
-
-            copyPrimitiveFields(runStatus, data);
-
-            for (let log of data.logs) {
-                const clientLog = new LogItem();
-                copyPrimitiveFields(clientLog, log);
-                runStatus.logs.push(clientLog);
-            }
-
-            runStatus.logs = data.logs;
-
-            if (runStatus.logs.length > MAX_LOG_ITEMS) runStatus.logs.splice(0, runStatus.logs.length - MAX_LOG_ITEMS);
-
             runStatus.issues = [];
             runStatus.graph = {};
             runStatus.jobs = [];
@@ -683,7 +746,7 @@ async function reloadData() {
             document.title = "issue_loader: " + runStatus.instanceName;
 
             /// если выбрана таблица stats
-        } else if (globalUIState.statusTab === "IssueStats") {
+        } else if (globalUIState.statusTab === "Project Stats") {
             runStatus.runIssuesConfig = {
                 startIssueMode: undefined,
                 startIssueType: undefined,
@@ -691,33 +754,54 @@ async function reloadData() {
                 allProjects: false,
             };
             runStatus.sql = "";
+            runStatus.logsFilter = "";
             runStatus.sqlReturn = { querySql: [], columns: [], process: false, error: "" };
             try {
                 runStatus.projectStats.loading = moment();
 
                 //graphChart
-                if (1 == 1) {
+                if (
+                    runStatus.graph &&
+                    (!runStatus.graph.lastUpdate || moment().diff(runStatus.graph.lastUpdate) > 30000)
+                ) {
                     // если давно не запрашивали, то запрашиваем
                     {
-                        runStatus.graph = { jobsData: [], resourcesData: [], storageData: [] };
                         const { data } = (await axios.get(urlBase + "api/graphChart", {
                             params: {
                                 ts: runStatus.projectStats.loading,
                                 period: "per2hours",
                             },
                         })) as any;
+                        //runStatus.graph = { jobsData: [], resourcesData: [], storageData: [] };
                         runStatus.graph.jobsData = data.graph.jobsData;
                         runStatus.graph.resourcesData = data.graph.resourcesData;
                         runStatus.graph.storageData = data.graph.storageData;
+                        runStatus.graph.lastUpdate = moment();
                     }
                 }
 
-                //issueStats
-                const { data } = (await axios.get(urlBase + "api/issueStats", {
+                //ErrorLog
+                if (!runStatus.errorLogConfig.loadedFlag && runStatus.errorLogConfig.openErrorLogValue) {
+                    {
+                        const { data } = await axios.get(urlBase + "api/errorLogApi", {
+                            params: {
+                                project: runStatus.errorLogConfig.selectedProject,
+                                fullLoad: 1,
+                            },
+                        });
+                        runStatus.errorLogConfig.loadedErrors = data.loadedErrors;
+                        runStatus.errorLogConfig.loadedFlag = true;
+                    }
+                }
+
+                //Project Stats
+                const { data } = (await axios.get(urlBase + "api/ProjectStats", {
                     params: {
                         ts: (!shouldRequestFullRefresh && lastReloadTs && lastReloadTs.format()) || undefined,
                     },
-                })) as { data: IssueStatsApiResponse };
+                })) as { data: ProjectStatsApiResponse };
+
+                runStatus.contextsInQueue = data.contextsInQueue;
 
                 for (let projectAnalysis of data.stats) {
                     reformatDate(projectAnalysis, "minTs");
@@ -751,6 +835,8 @@ async function reloadData() {
                 runStatus.projectStats.loading = undefined;
                 runStatus.jobStats = {};
                 runStatus.logs = [];
+                shouldRefreshLogs = true;
+                globalUIState.fullLogs = false;
                 runStatus.jobs = [];
             }
             /////////////////////////////////////////////////////// drop else
@@ -758,6 +844,7 @@ async function reloadData() {
             //runStatus.projectsAnalysis = [];
             runStatus.sqlReturn = { querySql: [], columns: [], process: false, error: "" };
             runStatus.sql = "";
+            runStatus.logsFilter = "";
             runStatus.runIssuesConfig = {
                 startIssueMode: undefined,
                 startIssueType: undefined,
@@ -780,17 +867,22 @@ async function reloadData() {
             runStatus.jobStats = { stats: data.stats, error: data.error };
             runStatus.projectStats.clear();
             runStatus.logs = [];
+            shouldRefreshLogs = true;
+            globalUIState.fullLogs = false;
             runStatus.jobs = [];
 
             /////////////////////////////////////////////////////// drop else
         } else if (globalUIState.statusTab === "RunIssues") {
             runStatus.sql = "";
+            runStatus.logsFilter = "";
             runStatus.sqlReturn = { querySql: [], columns: [], process: false, error: "" };
             runStatus.issues = [];
             runStatus.graph = {};
             runStatus.jobStats = {};
             runStatus.projectStats.clear();
             runStatus.logs = [];
+            shouldRefreshLogs = true;
+            globalUIState.fullLogs = false;
             runStatus.jobs = [];
         } else if (globalUIState.statusTab === "SQL") {
             runStatus.runIssuesConfig = {
@@ -800,25 +892,31 @@ async function reloadData() {
                 allProjects: false,
             };
             runStatus.issues = [];
+            runStatus.logsFilter = "";
             runStatus.graph = {};
             runStatus.jobStats = {};
             runStatus.projectStats.clear();
             runStatus.logs = [];
+            shouldRefreshLogs = true;
+            globalUIState.fullLogs = false;
             runStatus.jobs = [];
         }
         debugReload(`Finished reloadData - OK`);
     } catch (e) {
         // runStatus.streams = [];
         runStatus.issues = [];
-        runStatus.graph = {};
+        //runStatus.graph = {};
         runStatus.jobs = [];
         runStatus.logs = [];
+        shouldRefreshLogs = true;
+        globalUIState.fullLogs = false;
         runStatus.projectsAnalysis = [];
         runStatus.jiraTime = "";
+        runStatus.logsFilter = "";
         delete runStatus.lastRefresh;
         console.error(`Finished reloadData - ERROR`, e);
     }
-    setTimeout(reloadData, 300);
+    setTimeout(reloadData, 500);
 }
 
 reloadData();

@@ -23,7 +23,7 @@ export async function issueKeysToInputs0(env: EnvWithDbdJiraIssue, issueKeys: Se
     let rows = env.jobStorage.db
         .prepare(
             `select project, issueKey, updated from ${env.jobStorage.tableName} where issueKey in (${[...issueKeys]
-                .map(issueKey => `'${issueKey}'`)
+                .map((issueKey) => `'${issueKey}'`)
                 .join(",")})`
         )
         .all();
@@ -175,7 +175,7 @@ export async function scanForChangedIssueKeys(
                 }
             } else
                 try {
-                    for (let loadStream of Object.values(loadStreams).filter(ls => ls.ENABLED)) {
+                    for (let loadStream of Object.values(loadStreams).filter((ls) => ls.ENABLED)) {
                         if (loadStream.LAST_UPDATED_TS && recentTs <= moment(loadStream.LAST_UPDATED_TS))
                             recentLoadStreams.push(loadStream);
                         else longLoadStreams.push(loadStream);
@@ -190,7 +190,7 @@ export async function scanForChangedIssueKeys(
                     for (let loadStream of recentLoadStreams)
                         if (minUpdatedTs > loadStream.LAST_UPDATED_TS!) minUpdatedTs = loadStream.LAST_UPDATED_TS!;
                     const jql = `project in (${recentLoadStreams
-                        .map(loadStream => loadStream.PROJECT)
+                        .map((loadStream) => loadStream.PROJECT)
                         .join(",")}) and updated >= "${moment(minUpdatedTs).format("YYYY-MM-DD HH:mm")}"`;
 
                     const issueContextInputs = await env.jira.jqlGetIssueKeys(jql);

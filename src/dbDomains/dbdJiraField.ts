@@ -183,13 +183,13 @@ export const selectFieldType = (f: DJiraFieldMarkedMeta): DomainFieldType => {
             return "number";
 
         case "datetime":
-            return "datetime";
+            return "string100";
 
         case "date":
-            return "date";
+            return "string100";
 
         case "issuetype":
-            return "string100";
+            return "string255";
 
         case "issuekey":
         case "priority":
@@ -262,7 +262,7 @@ export const enrichAndValidateDJiraFieldMarked = (r: any): DJiraFieldMarkedMeta 
     return r;
 };
 
-export const readDJiraFieldMarkedMeta = async function(
+export const readDJiraFieldMarkedMeta = async function (
     db: OracleConnection0,
     tableName: string,
     allow_update: boolean,
